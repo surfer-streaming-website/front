@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { LogingedContext } from "../../App";
+import { LogingedContext } from "../../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 

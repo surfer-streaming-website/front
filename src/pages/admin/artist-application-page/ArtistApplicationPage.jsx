@@ -1,11 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import Pagination from "react-js-pagination";
-
-import {
-  logInByRefreshToken,
-  authExceptionHandler,
-} from "../../../components/auth/AuthUtil";
+import {logInByRefreshToken, authExceptionHandler} from "../../../components/auth/AuthUtil";
 
 const ArtistApplicationPage = () => {
   const [artistApplications, setArtistApplications] = useState([]);
