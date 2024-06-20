@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import "../style.css"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LogingedContext } from "../App";
 
 const Navigtion = () => {
 
   let logingedCon = useContext(LogingedContext);
+  const [click, setClick] = useState(false);
+
+  const onClick = ()=>{
+    setClick(!click);
+  }
 
     return (
       <div className="Navigtion">
@@ -19,7 +24,8 @@ const Navigtion = () => {
           {
             logingedCon.isLoggedIn ? 
             <div className="memberBox">
-              <p className="nickname">님 로그인</p>
+              <p className="nickname">{localStorage.getItem("nickname")}님 로그인</p>
+              <button className="setting" onClick={onClick}>⚙️</button>
             </div>
             :
             <button className="button2">
@@ -28,8 +34,24 @@ const Navigtion = () => {
           }
         </div>
 
-        <div className="navButton1">
-          <p className="text-4">비밀번호 찾기/회원가입/이용권 구매</p>
+        <div>
+          {
+            logingedCon.isLoggedIn ? (
+              click ? 
+            <div className="memberButton">
+              <button className="myPage">마이페이지</button>
+              <button>내 이용권</button>
+              <button>계정설정</button>
+              <button>로그아웃</button>
+            </div>
+            :
+            null
+            )
+            :
+            <div className="navButton1">
+              <p className="text-4">비밀번호 찾기/회원가입/이용권 구매</p>
+            </div>
+          }
         </div>
 
         <button className="navButton1">

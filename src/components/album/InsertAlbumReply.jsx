@@ -2,13 +2,22 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { Form, Link } from "react-router-dom";
 import { LogingedContext } from "../../App";
-
+import { authExceptionHandler, logInByRefreshToken } from "../auth/AuthUtil";
 const InsertAlbumReply = (props)=>{
 
     let logingedCon = useContext(LogingedContext);
     const [comment, setComment] = useState('');
     const onChange = event => setComment(event.target.value);
     const id = props.id ? props.id : null ;
+
+    const fetchData = ()=>{
+        if (
+            !localStorage.getItem("accessToken") &&
+            localStorage.getItem("refreshToken")
+          ) {
+            logInByRefreshToken();
+          }
+    }
 
     const submitReply = (e)=>{
         e.preventDefault();
@@ -28,7 +37,12 @@ const InsertAlbumReply = (props)=>{
         }
         )
         .catch((err)=>{
-            alert(err.response);
+            // alert(err.response);
+            if(err.response.status == 401 || err.response.status == 403){
+                authExceptionHandler(err, fetchData);
+            }else{
+                console.log(err);
+            }
         })
     }
 
