@@ -3,13 +3,15 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Login from "./pages/login/Login";
+import Login from "./pages/auth/login/Login";
 import Home from "./pages/Home/Home";
-import Register from "./pages/register/Register";
+import Register from "./pages/auth/register/Register";
 import ArtistApplicationsPage from "./pages/admin/artist-application-page/ArtistApplicationPage";
 import Navigtion from "./components/Navigation";
 import SongBoard from "./pages/song/SongBoard";
 import AlbumBoard from "./pages/album/AlbumBoard";
+import ArtistApplicationDetail from "./pages/admin/artist-application-detail/ArtistApplicationDetail"
+
 export const LogingedContext = createContext();
 
 function App() {
@@ -40,11 +42,16 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
-            path="/artist-applications"
+            path="/admin/artist-application"
             element={<ArtistApplicationsPage />}
           />
+          <Route path="/admin/artist-application/:id" element={<ArtistApplicationDetail/>}/>
           <Route path="/song/detail/:id" element={<SongBoard/>}/>
           <Route path="/album/detail/:id" element={<AlbumBoard/>}/>
+
+
+
+          <Route path="/*" element={<div><h1>404 error</h1></div>}/>
         </Routes>
         </div>
         <Footer />
