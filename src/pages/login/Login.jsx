@@ -36,7 +36,6 @@ const Login = () => {
       }
     })
       .then((res) => {
-        console.log("res = ", res);
         const [, payloadBase64] = res.data.data.accessToken.split('.');
         const decodedPayload = JSON.parse(atob(payloadBase64));
         //인증된 사용자의 정보를 저장

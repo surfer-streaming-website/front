@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import Login from "./pages/login/Login";
 import Home from "./pages/Home/Home";
 import Register from "./pages/register/Register";
-
+import ArtistApplicationsPage from "./pages/admin/artist-application-page/ArtistApplicationPage";
 export const LogingedContext = createContext();
 
 function App() {
@@ -29,13 +29,17 @@ function App() {
       value={{ isLoggedIn: isLoggedIn, onLoggedChange: handleLoggedChange }}
     >
       <div>
-          <Header />
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/" element={<Home />} />
-          </Routes>
-          <Footer />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/artist-applications"
+            element={<ArtistApplicationsPage />}
+          />
+        </Routes>
+        <Footer />
       </div>
     </LogingedContext.Provider>
   );
