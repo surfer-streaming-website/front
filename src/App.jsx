@@ -7,7 +7,10 @@ import Login from "./pages/login/Login";
 import Home from "./pages/Home/Home";
 import Register from "./pages/register/Register";
 import ArtistApplicationsPage from "./pages/admin/artist-application-page/ArtistApplicationPage";
-import ArtistApplicationDetail from "./pages/admin/"
+import Navigtion from "./components/Navigation";
+import SongBoard from "./pages/song/SongBoard";
+import AlbumBoard from "./pages/album/AlbumBoard";
+
 
 export const LogingedContext = createContext();
 
@@ -30,8 +33,10 @@ function App() {
     <LogingedContext.Provider
       value={{ isLoggedIn: isLoggedIn, onLoggedChange: handleLoggedChange }}
     >
-      <div>
-        <Header />
+      <div className="main-container">
+        {/* <Header /> */}
+        <Navigtion className="navigator"/>
+        <div className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -41,7 +46,10 @@ function App() {
             element={<ArtistApplicationsPage />}
           />
           <Route />
+          <Route path="/song/detail/:id" element={<SongBoard/>}/>
+          <Route path="/album/detail/:id" element={<AlbumBoard/>}/>
         </Routes>
+        </div>
         <Footer />
       </div>
     </LogingedContext.Provider>
