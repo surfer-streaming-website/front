@@ -1,0 +1,125 @@
+.Search {
+  color: white;
+  background-color: black;
+  padding: 50px;
+}
+/* 음악 */
+.Song {
+  display: flex;
+  flex-direction: column;
+}
+
+.song-results {
+  display: flex;
+}
+
+.song-result-section {
+  flex: 1;
+  padding: 10px;
+}
+
+.song-result-section:nth-child(1) {
+  flex: 1; /* 첫 번째 결과 영역을 더 크게 설정 */
+}
+
+.song-result-section:nth-child(2) {
+  flex: 1; /* 두 번째 결과 영역을 더 작게 설정 */
+}
+
+.song-list-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.song-list {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.song-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.song-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.song-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.song-singer {
+  color: gray;
+}
+
+/* 앨범 */
+
+.album-list {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.album-info {
+  display: flex;
+  flex-direction: column;
+  /* margin-left: 20px; */
+}
+
+.album-title {
+  font-weight: bold;
+}
+
+.album-singer {
+  color: gray;
+}
+
+.album-results {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Add some space between the albums */
+}
+
+.album-image {
+  width: 150px;
+  height: 150px;
+  margin-right: 10px;
+}
+
+/* 플레이리스트 */
+.playlist-results {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Add some space between the albums */
+}
+
+.playlist-image {
+  width: 150px;
+  height: 150px;
+  margin-right: 10px;
+}
+
+/* 가사 */
+.album-list {
+  margin-bottom: 10px;
+}
+
+.album-title {
+  margin-bottom: 10px;
+}
+
+.lyrics-result {
+  margin-bottom: 40px;
+}
+
+.lyrics-image {
+  width: 70px;
+  height: 70px;
+  margin-right: 10px;
+}

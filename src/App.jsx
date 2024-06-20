@@ -10,7 +10,8 @@ import ArtistApplicationsPage from "./pages/admin/artist-application-page/Artist
 import Navigtion from "./components/Navigation";
 import SongBoard from "./pages/song/SongBoard";
 import AlbumBoard from "./pages/album/AlbumBoard";
-import ArtistApplicationDetail from "./pages/admin/artist-application-detail/ArtistApplicationDetail"
+import ArtistApplicationDetail from "./pages/admin/artist-application-detail/ArtistApplicationDetail";
+import Search from "./pages/search/Search";
 
 export const LogingedContext = createContext();
 
@@ -35,27 +36,37 @@ function App() {
     >
       <div className="main-container">
         {/* <Header /> */}
-        <Navigtion className="navigator"/>
+        <Navigtion className="navigator" />
         <div className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/admin/artist-application"
-            element={<ArtistApplicationsPage />}
-          />
-          <Route path="/admin/artist-application/:id" element={<ArtistApplicationDetail/>}/>
-          <Route path="/song/detail/:id" element={<SongBoard/>}/>
-          <Route path="/album/detail/:id" element={<AlbumBoard/>}/>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/admin/artist-application"
+              element={<ArtistApplicationsPage />}
+            />
+            <Route
+              path="/admin/artist-application/:id"
+              element={<ArtistApplicationDetail />}
+            />
+            <Route path="/song/detail/:id" element={<SongBoard />} />
+            <Route path="/album/detail/:id" element={<AlbumBoard />} />
 
+            <Route path="/search/:keyword" element={<Search />} />
 
-
-          <Route path="/*" element={<div><h1>404 error</h1></div>}/>
-        </Routes>
+            <Route
+              path="/*"
+              element={
+                <div>
+                  <h1>404 error</h1>
+                </div>
+              }
+            />
+          </Routes>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </LogingedContext.Provider>
   );
 }

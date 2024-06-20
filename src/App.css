@@ -1,14 +1,15 @@
 .main-container {
-    display: flex;
-    flex-direction: row; 
-    /* 가로 방향으로 배치 */
-    /* background-color: black; */
+  display: flex;
+  flex-direction: row;
+  /* 가로 방향으로 배치 */
+  background-color: black;
 }
 
-.main-content{
-    flex: 1;
+.main-content {
+  flex: 1;
+  background-color: black;
 }
 
-.navigator{
-    flex: 0 0 auto;
+.navigator {
+  flex: 0 0 auto;
 }
