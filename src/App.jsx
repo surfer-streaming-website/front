@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -15,22 +15,26 @@ import ArtistApplicationDetail from "./pages/auth/artist-application-detail/Arti
 import ArtistApplicationPage from "./pages/auth/artist-application-page/ArtistApplicationPage";
 import CreateArtistApplication from "./pages/auth/create-artist-application/CreateArtistApplication";
 import UpdateArtistApplication from "./pages/auth/update-artist-application/UpdateArtistApplication";
+import MyPage from "./pages/user/mypage/MyPage";
 
 export const LogingedContext = createContext();
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    localStorage.getItem("nickname") != null
-      ? setIsLoggedIn(true)
-      : setIsLoggedIn(false);
-
-    console.log("App useEffect isLoggeedIn = ", isLoggedIn);
-  });
+    // Check if nickname exists in localStorage to determine if user is logged in
+    setIsLoggedIn(localStorage.getItem("nickname") !== null);
+  }, []);
 
   const handleLoggedChange = (isLoggedIn) => {
     setIsLoggedIn(isLoggedIn);
+  };
+
+  // Function to determine if Navigation should be hidden based on current route
+  const shouldHideNavigation = () => {
+    return location.pathname === "/login" || location.pathname === "/register";
   };
 
   return (
@@ -39,7 +43,7 @@ function App() {
     >
       <div className="main-container">
         {/* <Header /> */}
-        <Navigtion className="navigator" />
+        {shouldHideNavigation() ? null : <Navigtion className="navigator" />}
         <div className="main-content">
           <Routes>
             {/* common */}
@@ -64,13 +68,20 @@ function App() {
               path="/auth/artist-application/:id"
               element={<ArtistApplicationDetail />}
             />
-            <Route path="/auth/artist-application/create" element={<CreateArtistApplication />}/>
-            <Route path="/auth/artist-application/:id/update" element={<UpdateArtistApplication />}/>
+            <Route
+              path="/auth/artist-application/create"
+              element={<CreateArtistApplication />}
+            />
+            <Route
+              path="/auth/artist-application/:id/update"
+              element={<UpdateArtistApplication />}
+            />
+            {/* user */}
+            <Route path="/user/mypage" element={<MyPage />} />
             {/* song */}
             <Route path="/song/detail/:id" element={<SongBoard />} />
             {/* album */}
             <Route path="/album/detail/:id" element={<AlbumBoard />} />
-
 
             {/* error */}
             <Route
@@ -84,7 +95,7 @@ function App() {
           </Routes>
         </div>
       </div>
-      <Footer />
+      {shouldHideNavigation() ? null : <Footer />}
     </LogingedContext.Provider>
   );
 }
