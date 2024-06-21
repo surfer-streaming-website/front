@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import { Link, useLocation } from "react-router-dom";
-import SongReplyItem from "./SongReplyItem";
+import SongReplyItem from "./SongReplyItem.jsx";
 import InsertSongreply from "./InsertSongReply";
 
 const SongInfo = (props)=>{
