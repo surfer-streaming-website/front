@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Form, Link } from "react-router-dom";
 import { LogingedContext } from "../../App";
 import { authExceptionHandler, logInByRefreshToken } from "../auth/AuthUtil";
+import './InsertAlbumReply.css';
 const InsertAlbumReply = (props)=>{
 
     let logingedCon = useContext(LogingedContext);

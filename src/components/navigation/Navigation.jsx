@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import "../style.css"
+import "./Navigation.css"
 import { useContext, useState } from "react";
-import { LogingedContext } from "../App";
+import { LogingedContext } from "../../App";
 
 const Navigtion = () => {
 

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SongInfo from "../../components/song/SongInfo";
+import './SongBoard.css';
 
 const SongBoard = ()=>{
     //파라미터를 받는다.
