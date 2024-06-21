@@ -1,20 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
-import "../style.css"
+import { Link } from "react-router-dom";
+import "./Navigation.css"
 import { useContext, useState } from "react";
-import { LogingedContext } from "../App";
+import { LogingedContext } from "../../App";
 
 const Navigtion = () => {
-  const navigate = useNavigate();
 
   let logingedCon = useContext(LogingedContext);
   const [click, setClick] = useState(false);
 
   const onClick = ()=>{
     setClick(!click);
-  }
-
-  const myPageClick = () => {
-    navigate('/user/mypage');
   }
 
     return (
@@ -44,7 +39,7 @@ const Navigtion = () => {
             logingedCon.isLoggedIn ? (
               click ? 
             <div className="memberButton">
-              <button className="myPage" onClick={myPageClick}>마이페이지</button>
+              <button className="myPage">마이페이지</button>
               <button>내 이용권</button>
               <button>계정설정</button>
               <button>로그아웃</button>

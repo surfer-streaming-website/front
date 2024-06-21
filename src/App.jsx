@@ -7,7 +7,7 @@ import Login from "./pages/auth/login/Login";
 import Home from "./pages/Home/Home";
 import Register from "./pages/auth/register/Register";
 import AdminArtistApplicationsPage from "./pages/admin/artist-application-page/ArtistApplicationPage";
-import Navigtion from "./components/Navigation";
+import Navigtion from "./components/navigation/Navigation";
 import SongBoard from "./pages/song/SongBoard";
 import AlbumBoard from "./pages/album/AlbumBoard";
 import AdminArtistApplicationDetail from "./pages/admin/artist-application-detail/ArtistApplicationDetail";
@@ -17,6 +17,7 @@ import CreateArtistApplication from "./pages/auth/create-artist-application/Crea
 import UpdateArtistApplication from "./pages/auth/update-artist-application/UpdateArtistApplication";
 import MyPage from "./pages/user/mypage/MyPage";
 import Search from "./pages/search/Search";
+import AudioPlayer from "./components/audio/AudioPlayer";
 
 export const LogingedContext = createContext();
 

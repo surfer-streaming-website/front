@@ -1,0 +1,177 @@
+.songItem{
+    /* 수록곡1 */
+    
+    width: 1090px;
+    height: 70px;
+    padding-top: 40px;
+    }
+    .songItem .songNumber{
+    /* 1 */
+    
+    position: relative;
+    width: 14px;
+    height: 48px;
+    left: 45px;
+    /* top: 15px; */
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 32px;
+    line-height: 150%;
+    /* identical to box height, or 48px */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
+    color: #FFFFFF;
+    }
+    .songItem .songTitle{
+    /* Song name */
+    
+    position: relative;
+    width: 167px;
+    height: 48px;
+    left: 103px;
+    top: -45px;
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 32px;
+    line-height: 150%;
+    /* identical to box height, or 48px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    
+    text-decoration: none;
+    }
+    .songItem .songLike{
+    /* 🤍 10 */
+    
+    position: relative;
+    width: 60px;
+    height: 30px;
+    left: 741px;
+    top: -85px;
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    }
+    .songItem .listen{
+    /* 듣기 */
+    
+    position: relative;
+    width: 40px;
+    height: 30px;
+    left: 833px;
+    top: -115px;
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    }
+    .songItem .playlist{
+    /* 담기 */
+    
+    position: relative;
+    width: 40px;
+    height: 30px;
+    left: 900px;
+    top: -145px;
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    }
+    .songItem .download{
+    /* 다운로드 */
+    
+    position: relative;
+    width: 80px;
+    height: 30px;
+    left: 970px;
+    top: -175px;
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    }
+    
+    .albumInfoBox .songList{
+    width: 1090px;
+    top: 450px;
+    
+     display: flex;
+     flex-direction: column; /* 세로 방향으로 정렬 */
+     gap: 10px; /* 각 SongItem 사이의 간격을 설정 */
+    
+     position: relative;
+     align-items: stretch; 
+     /*자식 요소들이 세로로 꽉 차도록 설정 */
+    
+    }
+    .songList > * {
+    flex: 1; /* 각 자식 요소가 동일하게 늘어납니다. */
+    }
+    .songs-container {
+    display: flex;
+    flex-direction: column; /* 요소들을 위에서 아래로 배치 */
+    
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    
+    /* 내용에 따라 자동으로 높이 조정 */
+    align-items: stretch; /* 모든 자식 요소가 세로 방향으로 늘어남 */
+    
+    padding-bottom: 15px;
+    }

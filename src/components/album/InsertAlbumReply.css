@@ -1,0 +1,123 @@
+.albumInfoBox .replyWriteBox {
+    /* 댓글 작성란 */
+  
+      position: relative;
+      width: 1090px;
+      height: 106px;
+      left: 20px;
+      top: 500px;
+  
+      align-items: center;
+  }
+  
+  .replyWriteBox .rectangle {
+    /* Rectangle 7 */
+  
+    position: absolute;
+    width: 1050px;
+    height: 104px;
+    left: 3px;
+    top: 2px;
+  
+    background: rgba(217, 217, 217, 0.16);
+    border-radius: 10px;
+  
+    text-align: center;
+  }
+  .replyWriteBox .text{
+  /* 댓글을 작성하려면 로그인 해주세요. */
+  
+    position: absolute;
+    width: 1000px;
+    height: 36px;
+    left: 47px;
+    top: 10px;
+  
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 150%;
+    /* identical to box height, or 36px */
+    display: flex;
+    align-items: center;
+  
+    color: #FFFFFF;
+  }
+  .replyWriteBox .text .login{
+  text-decoration: none;
+  color: #00FFFF;
+  }
+  
+  .albumInfoBox .replyWriteBox2 {
+  /* 로그인 시 댓글 작성란 */
+  
+  box-sizing: border-box;
+  
+  position: relative;
+  width: 1050px;
+  height: 104px;
+  left: 3px;
+  /* top: 2px; */
+  
+  border: 1px solid rgba(153, 153, 153, 0.51);
+  border-radius: 10px;
+  }
+  
+  .replyWriteBox2 .replyText{
+    background-color: transparent;
+    color:#FFFFFF;
+    font-family: 'Inter';
+    font-size: 20px;
+    font-style: normal;
+    width: 930px;
+    height: 95px;
+    white-space: pre-wrap;
+  }
+  
+  .replyWriteBox2 .replyButton{
+  /* Button */
+  
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 24px;
+  gap: 8px;
+  
+  position: relative;
+  width: 100px;
+  height: 90px;
+  left: 940px;
+  top: -95px;
+  
+  background: rgba(153, 153, 153, 0.6);
+  /* Button Shadow */
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  }
+  
+  .replyWriteBox2 .insertReply{
+  /* 등록 */
+  
+  width: 50px;
+  height: 36px;
+  
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 150%;
+  /* identical to box height, or 36px */
+  display: flex;
+  align-items: center;
+  
+  color: #FFFFFF;
+  
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  }

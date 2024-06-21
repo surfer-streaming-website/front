@@ -5,6 +5,9 @@ import { useLocation } from "react-router-dom";
 import AlbumReplyItem from "./AlbumReplyItem";
 import InsertAlbumReply from './InsertAlbumReply';
 import SongItem from "../song/SongItem";
+import './AlbumInfo.css';
+import './SongList.css';
+import './AlbumReplyItem.css';
 
 const AlbumInfo = (props)=>{
     const [albumBoardInfo, setAlbumBoardInfo] = useState(props.albumInfo || {});
