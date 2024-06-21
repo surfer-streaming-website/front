@@ -15,6 +15,7 @@ const SongReplyItem = (props)=>{
     useEffect(()=>{
         likeData();
         fetchData();
+        console.log(reply);
     },[])
 
     const fetchData = ()=>{
@@ -70,6 +71,11 @@ const SongReplyItem = (props)=>{
                   }
             })
         }
+    }
+
+    const updateReply = (e)=>{
+        console.log(e.target.value)
+        setInput(e.target.value);
     }
 
     const submitReply = (e)=>{
@@ -142,6 +148,44 @@ const SongReplyItem = (props)=>{
         })
     }
 
+    console.log(reply.songReplyCorrect);
+
+    return(
+        <div className="songReply">
+            <p className="nickname">{reply.nickname}</p>
+            <p className="replyContent">
+                {input ? 
+                    <form className="replyUpdateBox" onSubmit={submitReply}> 
+                        <textarea className="updateContent" value={input} onChange={onChange}/>
+                        <button className="submitUpdate" type="submit">등록</button>
+                    </form> : reply.songReplyContent}
+            </p>
+            <div className="date">
+                {reply.songReplyCorrect ? reply.songReplyCordate+"(수정됨)" : reply.songReplyRegDate}
+            </div>
+
+            {   logingedCon.isLoggedIn &&
+                <div className="manageReply">
+                    <button className="updateReply" onClick={updateReply} value={reply.songReplyContent}>수정</button>
+                    <button className="deleteReply" value={reply.songReplySeq} onClick={deleteReply}>삭제</button>
+                </div>
+            }
+
+            { logingedCon.isLoggedIn ?
+                <div>{like ? 
+                    <div className>
+                        <button className="heartButton" onClick={deleteReplyLike}>🤍 {reply.songReplyLike}</button>
+                    </div> 
+                    : 
+                    <div>
+                        <button className="heartButton" onClick={insertReplyLike}>♡ {reply.songReplyLike}</button>
+                    </div>
+                }</div>  
+                :
+                <div className="songReplyLikeCount">♡ {reply.songReplyLike}</div>
+            }
+        </div>
+    )
     
 }
 

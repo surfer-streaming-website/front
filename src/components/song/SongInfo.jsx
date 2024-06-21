@@ -145,7 +145,7 @@ const SongInfo = (props)=>{
                             <div className="paginationBox">
                                 <Pagination
                                     activePage={replies.pageable.pageNumber+1}
-                                    itemsCountPerPage={10} //한 페이지에 출력할 댓글 수
+                                    itemsCountPerPage={5} //한 페이지에 출력할 댓글 수
                                     totalItemsCount={replies.totalElements} //총 댓글 수
                                     prevPageText={"<"}
                                     nextPageText={">"}
