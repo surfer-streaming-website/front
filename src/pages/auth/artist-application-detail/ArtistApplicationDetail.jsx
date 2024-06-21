@@ -81,6 +81,8 @@ const ArtistApplicationDetail = () => {
 
   return (
     <div className="container">
+      <div className="contents"/>
+      <div className="contents"/>
       <div className="contents">
         <div>
           <div>Application ID: </div> 
