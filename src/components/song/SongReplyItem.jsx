@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { LogingedContext } from "../../App";
 import axios from "axios";
+import { authExceptionHandler, logInByRefreshToken } from "../auth/AuthUtil";
 
 const SongReplyItem = (props)=>{
 
@@ -13,7 +14,17 @@ const SongReplyItem = (props)=>{
 
     useEffect(()=>{
         likeData();
+        fetchData();
     },[])
+
+    const fetchData = ()=>{
+        if (
+            !localStorage.getItem("accessToken") &&
+            localStorage.getItem("refreshToken")
+          ){
+            logInByRefreshToken();
+          }
+    }
 
     const likeData = ()=>{
         if(logingedCon.isLoggedIn){
@@ -26,6 +37,13 @@ const SongReplyItem = (props)=>{
             })
             .then((res)=>{
                 setLike(res.data.data);
+            })
+            .catch((err)=>{
+                if (err.response.status === 401 || err.response.status === 403) {
+                    authExceptionHandler(err, fetchData);
+                  } else {
+                    console.log(err);
+                  }
             })
         }
     }
@@ -44,13 +62,20 @@ const SongReplyItem = (props)=>{
             .then((res)=>{
                 props.fetchData();
             })
+            .catch((err)=>{
+                if (err.response.status === 401 || err.response.status === 403) {
+                    authExceptionHandler(err, fetchData);
+                  } else {
+                    console.log(err);
+                  }
+            })
         }
     }
 
     const submitReply = (e)=>{
         e.preventDefault();
 
-        console.log("여기까지");
+        //console.log("여기까지");
 
         axios({
             method:"PUT",
@@ -63,6 +88,13 @@ const SongReplyItem = (props)=>{
         .then((res)=>{
             props.fetchData();
             setInput('');
+        })
+        .catch((err)=>{
+            if (err.response.status === 401 || err.response.status === 403) {
+                authExceptionHandler(err, fetchData);
+              } else {
+                console.log(err);
+              }
         })
     }
 
@@ -79,6 +111,13 @@ const SongReplyItem = (props)=>{
             props.fetchData();
             likeData();
         })
+        .catch((err)=>{
+            if (err.response.status === 401 || err.response.status === 403) {
+                authExceptionHandler(err, fetchData);
+              } else {
+                console.log(err);
+              }
+        })
     }
 
     const deleteReplyLike = ()=>{
@@ -93,6 +132,13 @@ const SongReplyItem = (props)=>{
             setLike(!like);
             props.fetchData();
             likeData();
+        })
+        .catch((err)=>{
+            if (err.response.status === 401 || err.response.status === 403) {
+                authExceptionHandler(err, fetchData);
+              } else {
+                console.log(err);
+              }
         })
     }
 

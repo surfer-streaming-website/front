@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { LogingedContext } from '../../App';
+import { authExceptionHandler, logInByRefreshToken } from "../auth/AuthUtil";
 
 const AlbumReplyItem = (props)=>{
 
@@ -13,7 +14,17 @@ const AlbumReplyItem = (props)=>{
 
     useEffect(()=>{
         likeData();
+        fetchData();
     },[])
+
+    const fetchData = ()=>{
+        if (
+            !localStorage.getItem("accessToken") &&
+            localStorage.getItem("refreshToken")
+          ){
+            logInByRefreshToken();
+          }
+    }
 
     const likeData = ()=>{
         if(logingedCon.isLoggedIn){
@@ -26,6 +37,13 @@ const AlbumReplyItem = (props)=>{
             })
             .then((res)=>{
                 setLike(res.data.data);
+            })
+            .catch((err)=>{
+                if (err.response.status === 401 || err.response.status === 403) {
+                    authExceptionHandler(err, fetchData);
+                  } else {
+                    console.log(err);
+                  }
             })
         }
     }
@@ -45,6 +63,13 @@ const AlbumReplyItem = (props)=>{
                 props.fetchData();
                 likeData();
             })
+            .catch((err)=>{
+                if (err.response.status === 401 || err.response.status === 403) {
+                    authExceptionHandler(err, fetchData);
+                  } else {
+                    console.log(err);
+                  }
+            })
         }
     }
 
@@ -55,11 +80,6 @@ const AlbumReplyItem = (props)=>{
 
     const submitReply = (e)=>{
         e.preventDefault();
-
-        console.log("여기까지");
-        console.log(`${input}`);
-        console.log(albumSeq);
-        console.log(reply.albumReplySeq);
 
         axios({
             method:"PUT",
@@ -75,7 +95,11 @@ const AlbumReplyItem = (props)=>{
             setInput('');
         })
         .catch((err)=>{
-            console(err);
+            if (err.response.status === 401 || err.response.status === 403) {
+                authExceptionHandler(err, fetchData);
+              } else {
+                console.log(err);
+              }
         })
     }
 
@@ -92,6 +116,13 @@ const AlbumReplyItem = (props)=>{
             props.fetchData();
             likeData();
         })
+        .catch((err)=>{
+            if (err.response.status === 401 || err.response.status === 403) {
+                authExceptionHandler(err, fetchData);
+              } else {
+                console.log(err);
+              }
+        })
     }
 
     const deleteReplyLike = ()=>{
@@ -106,6 +137,13 @@ const AlbumReplyItem = (props)=>{
             setLike(!like);
             props.fetchData();
             likeData();
+        })
+        .catch((err)=>{
+            if (err.response.status === 401 || err.response.status === 403) {
+                authExceptionHandler(err, fetchData);
+              } else {
+                console.log(err);
+              }
         })
     }
 

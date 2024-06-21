@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form, Link } from "react-router-dom";
 import { LogingedContext } from "../../App";
 import { authExceptionHandler, logInByRefreshToken } from "../auth/AuthUtil";
@@ -9,6 +9,10 @@ const InsertAlbumReply = (props)=>{
     const [comment, setComment] = useState('');
     const onChange = event => setComment(event.target.value);
     const id = props.id ? props.id : null ;
+
+    useEffect(()=>{
+        fetchData();
+    },[]);
 
     const fetchData = ()=>{
         if (

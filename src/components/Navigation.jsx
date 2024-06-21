@@ -14,7 +14,7 @@ const Navigtion = () => {
 
     return (
       <div className="Navigtion">
-        <p className="text-1">SURFER</p>
+        <Link className="text-1" to={"/"}>SURFER</Link>
         
         <button className="button">
           <p className="text-2">🔎 검색</p>
