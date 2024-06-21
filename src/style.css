@@ -235,7 +235,7 @@
 
 
 .songInfoBox {
-   height: 2000px;
+   height: 2200px;
 
    align-items: stretch;
    display: flex;
@@ -956,13 +956,13 @@ order: 0;
 flex-grow: 0;
 }
 .albumBoard{
-height: 3100px;
+height: 2100px;
 background-color: #000000;
 left: 200px;
 }
 .albumInfoBox {
 
-  height: 3000px;
+  height: 2000px;
    width: 1090px;
    background-color: #000000;
 
@@ -1635,8 +1635,11 @@ position: absolute;
 width: 1090px;
 height: 48px;
 left: 7px;
-top: 1500px;
-
+top: 800px;
+}
+.songReplyList .paginationBox{
+  position: relative;
+  top: 100px;
 }
 .pagination{
 display: flex;
@@ -1881,12 +1884,11 @@ position: absolute;
 font-size: 20px;
 }
 .songBoard{
-  /* height: 2100px; */
   left: 200px;
   background-color: #000000;
   /* align-items: stretch;
   display: flex; */
-  height: 3100px;
+  height: 2400px;
 }
 
 .songReply{
