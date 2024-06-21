@@ -10,16 +10,12 @@ import AdminArtistApplicationsPage from "./pages/admin/artist-application-page/A
 import Navigtion from "./components/Navigation";
 import SongBoard from "./pages/song/SongBoard";
 import AlbumBoard from "./pages/album/AlbumBoard";
-<<<<<<< HEAD
-import ArtistApplicationDetail from "./pages/admin/artist-application-detail/ArtistApplicationDetail";
-import Search from "./pages/search/Search";
-=======
 import AdminArtistApplicationDetail from "./pages/admin/artist-application-detail/ArtistApplicationDetail";
 import ArtistApplicationDetail from "./pages/auth/artist-application-detail/ArtistApplicationDetail";
 import ArtistApplicationPage from "./pages/auth/artist-application-page/ArtistApplicationPage";
 import CreateArtistApplication from "./pages/auth/create-artist-application/CreateArtistApplication";
 import UpdateArtistApplication from "./pages/auth/update-artist-application/UpdateArtistApplication";
->>>>>>> cb26e310599b1fd2e64417ab059c5bfa5851e6c6
+import Search from "./pages/search/Search";
 
 export const LogingedContext = createContext();
 
