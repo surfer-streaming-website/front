@@ -54,8 +54,8 @@ function App() {
           <Route path="/*" element={<div><h1>404 error</h1></div>}/>
         </Routes>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </LogingedContext.Provider>
   );
 }
