@@ -16,6 +16,7 @@ import ArtistApplicationPage from "./pages/auth/artist-application-page/ArtistAp
 import CreateArtistApplication from "./pages/auth/create-artist-application/CreateArtistApplication";
 import UpdateArtistApplication from "./pages/auth/update-artist-application/UpdateArtistApplication";
 import Search from "./pages/search/Search";
+import Album from "./pages/user/Album";
 
 export const LogingedContext = createContext();
 
@@ -71,8 +72,10 @@ function App() {
             <Route path="/song/detail/:id" element={<SongBoard />} />
             {/* album */}
             <Route path="/album/detail/:id" element={<AlbumBoard />} />
-
+            {/* search */}
             <Route path="/search/:keyword" element={<Search />} />
+            {/* user */}
+            <Route path="/myalbum" element={<Album/>} />
 
             {/* error */}
             <Route

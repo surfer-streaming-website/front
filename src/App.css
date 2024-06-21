@@ -3,6 +3,7 @@
   flex-direction: row;
   /* 가로 방향으로 배치 */
   background-color: black;
+  margin: -10px
 }
 
 .main-content {

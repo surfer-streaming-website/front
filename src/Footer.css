@@ -1,0 +1,23 @@
+
+/* src/Footer.css */
+.footer {
+    background-color: #171212;
+    color: white;
+    padding: 20px;
+    padding-left: 50px;
+    padding-bottom: 50px;
+    margin: -10px;
+  }
+  
+  .footer span {
+    padding: 10px;
+    margin-right: 30px;
+  }
+  
+  .footer a {
+    color: white;
+  }
+  
+  .footer-bottom {
+    padding-bottom: 15px;
+  }
