@@ -1,0 +1,14 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contents > div{
+  display: flex;
+  flex-direction: row;
+}
+.contents > div > div{ 
+  width: 200px;
+  height: 50px;
+
+}

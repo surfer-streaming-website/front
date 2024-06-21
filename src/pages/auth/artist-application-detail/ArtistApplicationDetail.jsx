@@ -5,7 +5,7 @@ import {
   authExceptionHandler,
 } from "../../../components/auth/AuthUtil";
 import axios from "axios";
-
+import "./ArtistApplicationDetail.css";
 const ArtistApplicationDetail = () => {
   const { id } = useParams();
   const [artistApplication, setArtistApplication] = useState({});
@@ -43,11 +43,11 @@ const ArtistApplicationDetail = () => {
   };
 
   const handleFormUpdate = () => {
-    navigate('./update');
+    navigate("./update");
   };
 
   const handleNavigateList = () => {
-    navigate('/auth/artist-application');
+    navigate("/auth/artist-application");
   };
 
   const handleFormDelete = async () => {
@@ -68,8 +68,8 @@ const ArtistApplicationDetail = () => {
           },
         }
       );
-      alert("삭제가 완료되었습니다.")
-      navigate('/auth/artist-application');
+      alert("삭제가 완료되었습니다.");
+      navigate("/auth/artist-application");
     } catch (error) {
       if (error.response.status === 401 || error.response.status === 403) {
         authExceptionHandler(error, fetchData);
@@ -80,18 +80,62 @@ const ArtistApplicationDetail = () => {
   };
 
   return (
-    <div>
-      <div>Application ID: {artistApplication.artistApplicationId}</div>
-      <div>가수 이름: (artistApplication.artistName)</div>
-      <div>앨범 이름: {artistApplication.albumName}</div>
-      <div>저자 이름: {artistApplication.authorName}</div>
-      <div>저작권자 이름: {artistApplication.copyrightName}</div>
-      <div>국내외 구분: {artistApplication.locationType}</div>
-      <div>장르: {artistApplication.sector}</div>
-      <button onClick={handleFormUpdate}>수정하기</button>
-      <button onClick={handleFormDelete}>삭제하기</button>
-      <button onClick={handleNavigateList}>목록으로</button>
-      <div>처리 상태: {artistApplication.status}</div>
+    <div className="container">
+      <div className="contents">
+        <div>
+          <div>Application ID: </div> 
+          <div>{artistApplication.artistApplicationId}</div>
+        </div>
+      </div>
+      <div className="contents">
+        <div>
+          <div>가수 이름: </div> 
+          <div>(artistApplication.artistName)</div>
+        </div>
+      </div>
+      <div className="contents">
+        <div>
+          <div>앨범 이름: </div> 
+          <div>{artistApplication.albumName}</div>
+          
+        </div>
+      </div>
+      <div className="contents">
+        <div>
+          <div>저자 이름: </div> 
+          <div>{artistApplication.authorName}</div>
+        </div>
+      </div>
+      <div className="contents">
+        <div>
+          <div>저작권자 이름: </div>
+          <div>{artistApplication.copyrightName}</div>
+        </div>
+      </div>
+      <div className="contents">
+        <div>
+          <div>국내외 구분: </div> 
+          <div>{artistApplication.locationType}</div>
+        </div>
+      </div>
+      <div className="contents">
+        <div>
+          <div>장르: </div>
+          <div>{artistApplication.sector}</div>
+        </div>
+      </div>
+      <div className="contents">
+        <div>
+          <div>처리 상태: </div> 
+          <div>{artistApplication.status}</div>
+        </div>
+      </div>
+      <div className="contents">
+        <div className="buttons"></div>
+        <button onClick={handleFormUpdate}>수정하기</button>
+        <button onClick={handleFormDelete}>삭제하기</button>
+        <button onClick={handleNavigateList}>목록으로</button>
+      </div>
     </div>
   );
 };
