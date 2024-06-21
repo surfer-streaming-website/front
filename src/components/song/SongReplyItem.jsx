@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { LogingedContext } from "../../App";
 import axios from "axios";
 import { authExceptionHandler, logInByRefreshToken } from "../auth/AuthUtil";
+import './SongReplyItem.css';
 
 const SongReplyItem = (props)=>{
 
@@ -15,7 +16,7 @@ const SongReplyItem = (props)=>{
     useEffect(()=>{
         likeData();
         fetchData();
-        console.log(reply);
+        //console.log(reply);
     },[])
 
     const fetchData = ()=>{
@@ -148,7 +149,7 @@ const SongReplyItem = (props)=>{
         })
     }
 
-    console.log(reply.songReplyCorrect);
+    //console.log(reply.songReplyCorrect);
 
     return(
         <div className="songReply">

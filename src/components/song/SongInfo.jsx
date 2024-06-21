@@ -4,6 +4,9 @@ import Pagination from "react-js-pagination";
 import { Link, useLocation } from "react-router-dom";
 import SongReplyItem from "./SongReplyItem.jsx";
 import InsertSongreply from "./InsertSongReply";
+import AudioPlayer from "../audio/AudioPlayer.jsx";
+import './SongInfoBox.css';
+import './Lyrics.css';
 
 const SongInfo = (props)=>{
 
@@ -16,10 +19,12 @@ const SongInfo = (props)=>{
     const arrangerList = songBoardInfo && songBoardInfo.producerDTO ? songBoardInfo.producerDTO.arrangerList : [];
     const albumImage = songBoardInfo ? songBoardInfo.albumImage : null;
     const location = useLocation();
+    const [playing, setPlaying] = useState(false); //현재 음악 진행 여부
 
     useEffect(()=>{
         if(props.songInfo){
           setSongBoardInfo(props.songInfo);
+          console.log(songBoardInfo);
         }
       }, [props.songInfo])
 
@@ -54,8 +59,16 @@ const SongInfo = (props)=>{
         }
       };
 
+      const playMusic = ()=>{
+        console.log(songBoardInfo.soundSourceUrl);
+        const audio = new Audio(songBoardInfo.soundSourceUrl)
+        audio.play(); //음악 재생
+        setPlaying(!playing);
+      }
+
       return(
-        <div className="songBoard">
+        <div>
+      <div className="songBoard">
           {songBoardInfo &&(
             <div className="songInfoBox">
   
@@ -97,7 +110,7 @@ const SongInfo = (props)=>{
                   </React.Fragment>
                   ))}</p>
   
-              <button className="button1">
+              <button className="button1" onClick={playMusic}>
                 <p className="text-13">재생</p>
               </button>
               <button className="button2">
@@ -165,6 +178,8 @@ const SongInfo = (props)=>{
   
         </div>
           )}
+        </div>
+        {playing && <AudioPlayer/>}
         </div>
       )
 }

@@ -1,0 +1,162 @@
+.albumInfoBox .albumReplyList{
+    width: 1090px;
+    top: 500px;
+    height: 500px;
+    
+     display: flex;
+     flex-direction: column; /* 세로 방향으로 정렬 */
+     gap: 10px; /* 각 SongItem 사이의 간격을 설정 */
+    
+     position: relative;
+     align-items: stretch; /* 자식 요소들이 세로로 꽉 차도록 설정 */
+    
+    }
+    .albumReply{
+    /* 댓글 보는 상자 */
+    
+    box-sizing: border-box;
+    
+    position: relative;
+    width: 1090px;
+    height: 143px;
+    left: 20px;
+    
+    border-bottom: 1px solid rgba(153, 153, 153, 0.36);
+    
+    }
+    .albumReply .nickname{
+    /* 닉네임 */
+    
+    position: absolute;
+    width: 56px;
+    height: 30px;
+    left: 23px;
+    top: 18px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    
+    color: #FFFFFF;
+    
+    }
+    .albumReply .date{
+    /* 댓글 작성 일자 or 댓글 수정 일자 (수정됨) */
+    
+    position: absolute;
+    width: 348px;
+    height: 30px;
+    left: 23px;
+    top: 50px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #999999;
+    
+    }
+    .albumReplyList .noReply{
+    color: #999999;
+    font-family: 'Inter';
+    font-style: normal;
+    
+    left: 400px;
+    position: absolute;
+    font-size: 20px;
+    }
+    .albumReplyList .paginationBox{
+    /* 페이지 */
+    
+    position: absolute;
+    width: 1090px;
+    height: 48px;
+    left: 7px;
+    top: 800px;
+    }
+
+    .replyContent{
+        /* 댓글 작성 내용~~ */
+      
+        position: absolute;
+        width: 1000px;
+        height: 30px;
+        left: 23px;
+        top: 82px;
+      
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 150%;
+        /* identical to box height, or 30px */
+        display: flex;
+        align-items: center;
+      
+        color: #FFFFFF;
+      
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .updateReply{
+        position: absolute;
+        left: 950px;
+        top: 15px;
+      }
+      .deleteReply{
+        position: absolute;
+        left: 1000px;
+        top: 15px;
+        font-style: normal;
+      }
+      .updateContent{
+        font-style: normal;
+        font-size: 20px;
+        color: white;
+        background-color: transparent;
+        margin-top: 15px;
+        width: 850px;
+      }
+      .submitUpdate{
+      
+        /* Button */
+        justify-content: center;
+        align-items: center;
+      
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 870px;
+        top: -5px;
+      
+        background: rgba(153, 153, 153, 0.6);
+        /* Button Shadow */
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+      
+        font-style: normal;
+        color: #ffffff;
+      }
+      .heartButton{
+        position: relative;
+        background-color: transparent;
+        border-color: transparent;
+        left: 950px;
+        top: 100px;
+        font-size: 20px;
+        color: #ffffff;
+        font: normal;
+      }
