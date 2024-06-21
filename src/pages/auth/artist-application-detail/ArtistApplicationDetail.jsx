@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   logInByRefreshToken,
   authExceptionHandler,
@@ -9,8 +9,7 @@ import axios from "axios";
 const ArtistApplicationDetail = () => {
   const { id } = useParams();
   const [artistApplication, setArtistApplication] = useState({});
-  const [selectedStatus, setSelectedStatus] = useState("처리중");
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchData();
   }, []);
@@ -25,7 +24,7 @@ const ArtistApplicationDetail = () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const response = await axios.get(
-        `http://localhost:8080/api/v1/admin/artist-application/${id}`,
+        `http://localhost:8080/api/v1/auth/artist-application/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -43,29 +42,37 @@ const ArtistApplicationDetail = () => {
     }
   };
 
-  const handleStatusChange = (e) => {
-    setSelectedStatus(e.target.value);
+  const handleFormUpdate = () => {
+    navigate('./update');
   };
 
-  const handleFormSubmit = async () => {
+  const handleNavigateList = () => {
+    navigate('/auth/artist-application');
+  };
+
+  const handleFormDelete = async () => {
+    if (
+      !localStorage.getItem("accessToken") &&
+      localStorage.getItem("refreshToken")
+    ) {
+      await logInByRefreshToken();
+    }
     try {
-      const response = await axios.put(
-        `http://localhost:8080/api/v1/admin/artist-application/${id}`,
-        {
-          status: selectedStatus,
-        },
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await axios.delete(
+        `http://localhost:8080/api/v1/auth/artist-application/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: localStorage.getItem("accessToken"),
+            Authorization: accessToken,
           },
         }
       );
-      alert("처리 성공");
-      window.location.reload();
+      alert("삭제가 완료되었습니다.")
+      navigate('/auth/artist-application');
     } catch (error) {
       if (error.response.status === 401 || error.response.status === 403) {
-        authExceptionHandler(error, handleFormSubmit);
+        authExceptionHandler(error, fetchData);
       } else {
         console.log(error);
       }
@@ -81,13 +88,9 @@ const ArtistApplicationDetail = () => {
       <div>저작권자 이름: {artistApplication.copyrightName}</div>
       <div>국내외 구분: {artistApplication.locationType}</div>
       <div>장르: {artistApplication.sector}</div>
-      <select onChange={handleStatusChange}>
-        <option>처리중</option>
-        <option>삭제</option>
-        <option>거절</option>
-        <option>처리완료</option>
-      </select>
-      <button onClick={handleFormSubmit}>신청서 처리하기</button>
+      <button onClick={handleFormUpdate}>수정하기</button>
+      <button onClick={handleFormDelete}>삭제하기</button>
+      <button onClick={handleNavigateList}>목록으로</button>
       <div>처리 상태: {artistApplication.status}</div>
     </div>
   );

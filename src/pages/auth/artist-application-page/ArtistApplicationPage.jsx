@@ -25,7 +25,7 @@ const ArtistApplicationPage = () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const response = await axios.get(
-        `http://localhost:8080/api/v1/admin/artist-application?page=${currentPage}&size=${pageSize}`,
+        `http://localhost:8080/api/v1/auth/artist-application?page=${currentPage}&size=${pageSize}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -46,12 +46,10 @@ const ArtistApplicationPage = () => {
   };
 
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber - 1); // react-js-pagination은 페이지 번호를 1부터 시작하므로 -1 처리
+    setCurrentPage(pageNumber - 1); 
   };
 
   const handleClick = (id) => {
-    
-    // const id = application.artistApplicationId;
     navigate(`./${id}`);
   };
 
