@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { LogingedContext } from '../../App';
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { authExceptionHandler, logInByRefreshToken } from "../auth/AuthUtil";
 
 const InsertSongreply = (props) =>{
 
@@ -9,6 +10,15 @@ const InsertSongreply = (props) =>{
     const [comment, setComment] = useState('');
     const onChange = event => setComment(event.target.value);
     const id = props.id ? props.id : null ;
+
+    const fetchData = ()=>{
+        if (
+            !localStorage.getItem("accessToken") &&
+            localStorage.getItem("refreshToken")
+          ) {
+            logInByRefreshToken();
+          }
+    }
 
     const submitReply = (e)=>{
         e.preventDefault();
@@ -27,7 +37,11 @@ const InsertSongreply = (props) =>{
         }
         )
         .catch((err)=>{
-            alert(err.response);
+            if (err.response.status === 401 || err.response.status === 403) {
+                authExceptionHandler(err, fetchData);
+              } else {
+                console.log(err);
+              }
         })
     }
 

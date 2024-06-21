@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { LogingedContext } from "../../App";
 import axios from "axios";
+import { authExceptionHandler, logInByRefreshToken } from "../auth/AuthUtil";
 
 const SongReplyItem = (props)=>{
 
@@ -13,7 +14,18 @@ const SongReplyItem = (props)=>{
 
     useEffect(()=>{
         likeData();
+        fetchData();
+        console.log(reply);
     },[])
+
+    const fetchData = ()=>{
+        if (
+            !localStorage.getItem("accessToken") &&
+            localStorage.getItem("refreshToken")
+          ){
+            logInByRefreshToken();
+          }
+    }
 
     const likeData = ()=>{
         if(logingedCon.isLoggedIn){
@@ -26,6 +38,13 @@ const SongReplyItem = (props)=>{
             })
             .then((res)=>{
                 setLike(res.data.data);
+            })
+            .catch((err)=>{
+                if (err.response.status === 401 || err.response.status === 403) {
+                    authExceptionHandler(err, fetchData);
+                  } else {
+                    console.log(err);
+                  }
             })
         }
     }
@@ -44,13 +63,25 @@ const SongReplyItem = (props)=>{
             .then((res)=>{
                 props.fetchData();
             })
+            .catch((err)=>{
+                if (err.response.status === 401 || err.response.status === 403) {
+                    authExceptionHandler(err, fetchData);
+                  } else {
+                    console.log(err);
+                  }
+            })
         }
+    }
+
+    const updateReply = (e)=>{
+        console.log(e.target.value)
+        setInput(e.target.value);
     }
 
     const submitReply = (e)=>{
         e.preventDefault();
 
-        console.log("여기까지");
+        //console.log("여기까지");
 
         axios({
             method:"PUT",
@@ -63,6 +94,13 @@ const SongReplyItem = (props)=>{
         .then((res)=>{
             props.fetchData();
             setInput('');
+        })
+        .catch((err)=>{
+            if (err.response.status === 401 || err.response.status === 403) {
+                authExceptionHandler(err, fetchData);
+              } else {
+                console.log(err);
+              }
         })
     }
 
@@ -79,6 +117,13 @@ const SongReplyItem = (props)=>{
             props.fetchData();
             likeData();
         })
+        .catch((err)=>{
+            if (err.response.status === 401 || err.response.status === 403) {
+                authExceptionHandler(err, fetchData);
+              } else {
+                console.log(err);
+              }
+        })
     }
 
     const deleteReplyLike = ()=>{
@@ -94,8 +139,53 @@ const SongReplyItem = (props)=>{
             props.fetchData();
             likeData();
         })
+        .catch((err)=>{
+            if (err.response.status === 401 || err.response.status === 403) {
+                authExceptionHandler(err, fetchData);
+              } else {
+                console.log(err);
+              }
+        })
     }
 
+    console.log(reply.songReplyCorrect);
+
+    return(
+        <div className="songReply">
+            <p className="nickname">{reply.nickname}</p>
+            <p className="replyContent">
+                {input ? 
+                    <form className="replyUpdateBox" onSubmit={submitReply}> 
+                        <textarea className="updateContent" value={input} onChange={onChange}/>
+                        <button className="submitUpdate" type="submit">등록</button>
+                    </form> : reply.songReplyContent}
+            </p>
+            <div className="date">
+                {reply.songReplyCorrect ? reply.songReplyCordate+"(수정됨)" : reply.songReplyRegDate}
+            </div>
+
+            {   logingedCon.isLoggedIn &&
+                <div className="manageReply">
+                    <button className="updateReply" onClick={updateReply} value={reply.songReplyContent}>수정</button>
+                    <button className="deleteReply" value={reply.songReplySeq} onClick={deleteReply}>삭제</button>
+                </div>
+            }
+
+            { logingedCon.isLoggedIn ?
+                <div>{like ? 
+                    <div className>
+                        <button className="heartButton" onClick={deleteReplyLike}>🤍 {reply.songReplyLike}</button>
+                    </div> 
+                    : 
+                    <div>
+                        <button className="heartButton" onClick={insertReplyLike}>♡ {reply.songReplyLike}</button>
+                    </div>
+                }</div>  
+                :
+                <div className="songReplyLikeCount">♡ {reply.songReplyLike}</div>
+            }
+        </div>
+    )
     
 }
 

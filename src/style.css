@@ -235,7 +235,7 @@
 
 
 .songInfoBox {
-   height: 2000px;
+   height: 2200px;
 
    align-items: stretch;
    display: flex;
@@ -956,13 +956,13 @@ order: 0;
 flex-grow: 0;
 }
 .albumBoard{
-height: 3100px;
+height: 2100px;
 background-color: #000000;
 left: 200px;
 }
 .albumInfoBox {
 
-  height: 3000px;
+  height: 2000px;
    width: 1090px;
    background-color: #000000;
 
@@ -1635,8 +1635,11 @@ position: absolute;
 width: 1090px;
 height: 48px;
 left: 7px;
-top: 1500px;
-
+top: 800px;
+}
+.songReplyList .paginationBox{
+  position: relative;
+  top: 100px;
 }
 .pagination{
 display: flex;
@@ -1881,12 +1884,11 @@ position: absolute;
 font-size: 20px;
 }
 .songBoard{
-  /* height: 2100px; */
   left: 200px;
   background-color: #000000;
   /* align-items: stretch;
   display: flex; */
-  height: 3100px;
+  height: 2400px;
 }
 
 .songReply{
@@ -2042,4 +2044,26 @@ border-bottom: 1px solid rgba(153, 153, 153, 0.36);
   left: 50px;
   top: -48px;
   font-size: 20px;
+}
+
+/* src/Footer.css */
+.footer {
+  background-color: #171212;
+  color: white;
+  padding: 20px;
+  padding-left: 50px;
+  padding-bottom: 50px;
+}
+
+.footer span {
+  padding: 10px;
+  margin-right: 30px;
+}
+
+.footer a {
+  color: white;
+}
+
+.footer-bottom {
+  padding-bottom: 15px;
 }
