@@ -1,0 +1,9 @@
+.myalbum-table thead th {
+  padding-left: 100px;
+  text-align: center;
+}
+
+.myalbum-table tbody td {
+  padding-left: 100px;
+  text-align: center;
+}

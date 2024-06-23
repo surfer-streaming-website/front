@@ -13,6 +13,8 @@ const AlbumItem = (props) => {
         return "등록완료";
       case 2:
         return "반려됨";
+      case 3:
+        return "삭제";
       default:
         return "";
     }
@@ -22,37 +24,36 @@ const AlbumItem = (props) => {
   const formatDate = (date) => {
     const parsedDate = new Date(Number(date));
     const year = parsedDate.getFullYear();
-    const month = String(parsedDate.getMonth() + 1).padStart(2, '0');
-    const day = String(parsedDate.getDate()).padStart(2, '0');
+    const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
+    const day = String(parsedDate.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
   return (
-    <div>
-    
-      <div>
-        <table>
-          <td>{albumTitle}</td>
-          <td>{formatDate(albumRegDate)}</td>
-          <td>{getAlbumStatus(albumState)}</td>
-          {/* <td>{getAlbumStatus(albumState)}</td> */}
-          {/* {(albumState === 0)(<td>심사중</td>)} */}
-          {/* : (albumState === 1) ? 등록완료 } */}
+    <tbody>
+      {/* <div> */}
+      {/* <table> */}
+      <td>{albumTitle}</td>
+      <td>{formatDate(albumRegDate)}</td>
+      <td>{getAlbumStatus(albumState)}</td>
+      {/* <td>{getAlbumStatus(albumState)}</td> */}
+      {/* {(albumState === 0)(<td>심사중</td>)} */}
+      {/* : (albumState === 1) ? 등록완료 } */}
 
-          {(albumState === 0 || albumState === 2) && (
-            <td>
-              <button>수정</button>
-            </td>
-          )}
+      {(albumState === 0 || albumState === 2) && (
+        <td>
+          <button>수정</button>
+        </td>
+      )}
 
-          {(albumState === 0 || albumState === 2) && (
-            <td>
-              <button>삭제</button>
-            </td>
-          )}
-        </table>
-      </div>
-    </div>
+      {(albumState === 0 || albumState === 2) && (
+        <td>
+          <button>삭제</button>
+        </td>
+      )}
+      {/* </table> */}
+      {/* </div> */}
+    </tbody>
   );
 };
 
