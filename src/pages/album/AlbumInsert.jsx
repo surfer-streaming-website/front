@@ -12,7 +12,6 @@ const AlbumInsert = () => {
     albumContent: "",
     albumImage: null,
     releaseDate: "",
-    albumState: "",
     memberId: "",
     songEntities: [
       {
@@ -43,13 +42,11 @@ const AlbumInsert = () => {
     ],
   });
 
-
-
   const [songwriters, setSongwriters] = useState(["", ""]);
   const [lyricist, setLyricist] = useState("");
   const [arranger, setArranger] = useState("");
 
- const handleSongwriterChange = (e, index) => {
+  const handleSongwriterChange = (e, index) => {
     const newSongwriters = [...songwriters];
     newSongwriters[index] = e.target.value;
     setSongwriters(newSongwriters);
@@ -69,16 +66,15 @@ const AlbumInsert = () => {
   };
 
   const updateProducer = (songwriters, lyricist, arranger) => {
-    const producer = [...songwriters, lyricist, arranger].filter(Boolean).join('/');
+    const producer = [...songwriters, lyricist, arranger]
+      .filter(Boolean)
+      .join("/");
     setAlbumReq((prevState) => {
       const newState = { ...prevState };
       newState.songEntities[0].producer = producer;
       return newState;
     });
   };
-
-
-
 
   // const [imagePreview, setImagePreview] = useState(null);
   // const [soundSourceFiles, setSoundSourceFiles] = useState([]);
@@ -91,7 +87,7 @@ const AlbumInsert = () => {
   };
   const changeValue2 = (e) => {
     const { name, value } = e.target;
-    const [parentKey, index, childKey] = name.split('.');
+    const [parentKey, index, childKey] = name.split(".");
     setAlbumReq((prevState) => {
       const newState = { ...prevState };
       newState[parentKey][index][childKey] = value;
@@ -100,7 +96,7 @@ const AlbumInsert = () => {
   };
   const changeValue3 = (e) => {
     const { name, value } = e.target;
-    const [parentKey, index, childKey,index2,childkey2] = name.split('.');
+    const [parentKey, index, childKey, index2, childkey2] = name.split(".");
     setAlbumReq((prevState2) => {
       const newState2 = { ...prevState2 };
       newState2[parentKey][index][childKey][index2][childkey2] = value;
@@ -130,9 +126,6 @@ const AlbumInsert = () => {
   //   setMutipartFiles(newSoundSourceFiles);
   // };
 
-
-
-
   const navigator = useNavigate();
 
   const submitJoin = (e) => {
@@ -147,20 +140,20 @@ const AlbumInsert = () => {
 
     const albumData = {
       ...albumReq,
-      albumImage: undefined,
+      // albumImage: undefined,
 
       songEntities: albumReq.songEntities.map((song, index) => ({
         ...song,
-        soundSourceName: undefined,
+        // soundSourceName: undefined,
       })),
     };
 
     console.log("albumData", albumData);
     //console.log("songEntities", songEntities);
 
-   // formData.append("album", JSON.stringify(albumData));
+    // formData.append("album", JSON.stringify(albumData));
 
-   //formData.append("albumImage",   multipartfiles);
+    //formData.append("albumImage",   multipartfiles);
     // formData.append("album", new Blob([JSON.stringify(albumData)], { type: "application/json" }));
 
     // axios
@@ -229,8 +222,7 @@ const AlbumInsert = () => {
           name="albumSingerEntities.1.albumSingerName"
           onChange={changeValue2}
         />
-        
-        
+
         <Form.Label htmlFor="releaseDate">발매일</Form.Label>
         <Form.Control
           type="text"
@@ -339,8 +331,8 @@ const AlbumInsert = () => {
           onChange={changeValue2}
         />
         {/*  */}
-       
-        <Form.Label as="titlecheck">타이틀</Form.Label>
+
+        <Form.Label as="legend">타이틀</Form.Label>
         <Form.Check
           type="radio"
           id="true"
@@ -430,7 +422,7 @@ const AlbumInsert = () => {
           onChange={handleArrangerChange}
         />
 
-{/* 
+        {/* 
         <h4>작곡가</h4>
         <Form.Label htmlFor="songwriter">1</Form.Label>
         <Form.Control

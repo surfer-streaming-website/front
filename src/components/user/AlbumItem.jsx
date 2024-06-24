@@ -2,7 +2,8 @@ import React from "react";
 
 const AlbumItem = (props) => {
   // const { albumTitle,releaseDate,agency,albumContent,albumImage,albumState,albumRegDate  } = props.albumlist;
-  const { albumTitle, albumState, albumRegDate } = props.albumlist;
+  const { albumTitle, albumState, albumRegDate, albumSeq, onDelete } =
+    props.albumlist;
 
   // 상태에 따른 텍스트 반환 함수
   const getAlbumStatus = (state) => {
@@ -29,8 +30,12 @@ const AlbumItem = (props) => {
     return `${year}-${month}-${day}`;
   };
 
+  const handleDelete = () => {
+    onDelete(albumSeq);
+  };
+
   return (
-    <tbody>
+    <tr>
       {/* <div> */}
       {/* <table> */}
       <td>{albumTitle}</td>
@@ -40,20 +45,20 @@ const AlbumItem = (props) => {
       {/* {(albumState === 0)(<td>심사중</td>)} */}
       {/* : (albumState === 1) ? 등록완료 } */}
 
-      {(albumState === 0 || albumState === 2) && (
+      {/* {(albumState === 0 || albumState === 2) && (
         <td>
           <button>수정</button>
         </td>
-      )}
+      )} */}
 
       {(albumState === 0 || albumState === 2) && (
         <td>
-          <button>삭제</button>
+          <button onClick={handleDelete}>삭제</button>
         </td>
       )}
       {/* </table> */}
       {/* </div> */}
-    </tbody>
+    </tr>
   );
 };
 

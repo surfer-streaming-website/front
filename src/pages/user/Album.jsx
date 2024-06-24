@@ -13,6 +13,13 @@ const Album = () => {
     });
   }, []);
 
+  const albumDelete = (albumSeq) => {
+    console.log("삭제할 albumSeq:", albumSeq);
+    axios
+      .delete("http://localhost:8080/api/album/delete/" + albumSeq)
+      .then((res) => {});
+  };
+
   return (
     <div className="myAlbum">
       <h3>마이페이지</h3>
@@ -26,13 +33,29 @@ const Album = () => {
             <th>상태</th>
           </thead>
           {/* <div> */}
-          {AlbumRes.length > 0 ? (
-            AlbumRes.map((album, index) => (
-              <AlbumItem key={index} albumlist={album} />
-            ))
-          ) : (
-            <p>검색 결과가 없습니다</p>
-          )}
+          <tbody>
+            {/* {AlbumRes.length > 0 ? (
+              AlbumRes.map((album, index) => (
+                <AlbumItem key={index} albumlist={album} />
+              ))
+            ) : (
+              <p>검색 결과가 없습니다</p>
+            )}*/}
+
+            {AlbumRes.length > 0 ? (
+              AlbumRes.map((album, index) => (
+                <AlbumItem
+                  key={index}
+                  albumlist={{ ...album, onDelete: albumDelete }}
+                />
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3">검색 결과가 없습니다</td>
+              </tr>
+            )}
+          </tbody>
+
           {/* </div> */}
         </table>
       </div>
