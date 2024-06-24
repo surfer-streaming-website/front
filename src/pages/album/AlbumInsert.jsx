@@ -6,209 +6,473 @@ import { useNavigate } from "react-router-dom";
 import { Button, InputGroup } from "react-bootstrap";
 
 const AlbumInsert = () => {
-  //
-  const [member, setMember] = useState({
-    id: "",
-    name: "",
-    pwd: "",
-    address: "",
+  const [albumReq, setAlbumReq] = useState({
+    albumTitle: "",
+    agency: "",
+    albumContent: "",
+    albumImage: null,
+    releaseDate: "",
+    albumState: "",
+    memberId: "",
+    songEntities: [
+      {
+        songTitle: "",
+        songNumber: 1,
+        lyrics: "",
+        genre: "",
+        songState: "",
+        soundSourceName: null,
+        producer: "",
+        songSingerEntities: [
+          {
+            songSingerName: "",
+          },
+          {
+            songSingerName: "",
+          },
+        ],
+      },
+    ],
+    albumSingerEntities: [
+      {
+        albumSingerName: "",
+      },
+      {
+        albumSingerName: "",
+      },
+    ],
   });
 
-  // 중복체크 결과 값을 저장 할 idCheckResult
-  const [idCheckResult, setIdCheckResult] = useState("");
 
-  // 아이디 중복여부에 따른 css 를 적용하기 위해 상태 변수
-  const [isCheckResult, setIsCheckResult] = useState(false);
 
-  //각 text 박스에 값이 변경되었을 때
+  const [songwriters, setSongwriters] = useState(["", ""]);
+  const [lyricist, setLyricist] = useState("");
+  const [arranger, setArranger] = useState("");
+
+ const handleSongwriterChange = (e, index) => {
+    const newSongwriters = [...songwriters];
+    newSongwriters[index] = e.target.value;
+    setSongwriters(newSongwriters);
+    updateProducer(newSongwriters, lyricist, arranger);
+  };
+
+  const handleLyricistChange = (e) => {
+    const value = e.target.value;
+    setLyricist(value);
+    updateProducer(songwriters, value, arranger);
+  };
+
+  const handleArrangerChange = (e) => {
+    const value = e.target.value;
+    setArranger(value);
+    updateProducer(songwriters, lyricist, value);
+  };
+
+  const updateProducer = (songwriters, lyricist, arranger) => {
+    const producer = [...songwriters, lyricist, arranger].filter(Boolean).join('/');
+    setAlbumReq((prevState) => {
+      const newState = { ...prevState };
+      newState.songEntities[0].producer = producer;
+      return newState;
+    });
+  };
+
+
+
+
+  // const [imagePreview, setImagePreview] = useState(null);
+  // const [soundSourceFiles, setSoundSourceFiles] = useState([]);
+  // const [multipartfiles, setMutipartFiles] = useState([]);
+  const [multipartfiles, setMutipartFiles] = useState();
+
   const changeValue = (e) => {
-    //console.log(e.target.name +" = "+ e.target.value);
-    setMember(
-      { ...member, [e.target.name]: e.target.value } //key이름을 가지고 올때는 [e.target.name]처럼 [] 대괄호를 사용
-    );
-    //console.log(member)
-    //id 입력박스에 값이 입력될때다 axios를 이용해서 비동기통신 - 중복여부 체크
-    if (e.target.name === "id" && e.target.value !== "") {
-      axios({
-        method: "GET",
-        url: "http://localhost:9000/members/" + e.target.value,
-        // data : {"id" : e.target.value},
-      })
-        .then((res) => {
-          //console.log(res);
-          setIdCheckResult(res.data);
-          res.data === "중복입니다"
-            ? setIsCheckResult(true)
-            : setIsCheckResult(false);
-        })
-        .catch((err) => {
-          //실패
-          let errMessage = err.response.data.type + "\n";
-          errMessage += err.response.data.title + "\n";
-          errMessage += err.response.data.detail + "\n";
-          errMessage += err.response.data.status + "\n";
-          errMessage += err.response.data.instance + "\n";
-          errMessage += err.response.data.timestamp;
-          alert(errMessage);
-        });
+    const { name, value } = e.target;
+    setAlbumReq({ ...albumReq, [name]: value });
+  };
+  const changeValue2 = (e) => {
+    const { name, value } = e.target;
+    const [parentKey, index, childKey] = name.split('.');
+    setAlbumReq((prevState) => {
+      const newState = { ...prevState };
+      newState[parentKey][index][childKey] = value;
+      return newState;
+    });
+  };
+  const changeValue3 = (e) => {
+    const { name, value } = e.target;
+    const [parentKey, index, childKey,index2,childkey2] = name.split('.');
+    setAlbumReq((prevState2) => {
+      const newState2 = { ...prevState2 };
+      newState2[parentKey][index][childKey][index2][childkey2] = value;
+      return newState2;
+    });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setAlbumReq({ ...albumReq, albumImage: file });
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setMutipartFiles(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setMutipartFiles(null);
     }
   };
 
-  //가입하기
+  // const handleSoundSourceChange = (e, index) => {
+  //   const file = e.target.files[1];
+  //   const newSoundSourceFiles = [...multipartfiles];
+  //   newSoundSourceFiles[index] = file;
+  //   setMutipartFiles(newSoundSourceFiles);
+  // };
+
+
+
+
   const navigator = useNavigate();
 
   const submitJoin = (e) => {
-    axios({
-      method: "POST",
-      url: "http://localhost:9000/members",
-      data: member,
-    })
-      .then((res) => {
-        console.log(res);
-        navigator("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        let errMessage = err.response.data.type + "\n";
-        errMessage += err.response.data.title + "\n";
-        errMessage += err.response.data.detail + "\n";
-        errMessage += err.response.data.status + "\n";
-        errMessage += err.response.data.instance + "\n";
-        errMessage += err.response.data.timestamp;
-        alert(errMessage);
-      });
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("albumImage", albumReq.albumImage);
+
+    // multipartfiles.forEach((file, index) => {
+    //   formData.append(`songEntities[${index}].soundSourceName`, file);
+    // });
+
+    const albumData = {
+      ...albumReq,
+      albumImage: undefined,
+
+      songEntities: albumReq.songEntities.map((song, index) => ({
+        ...song,
+        soundSourceName: undefined,
+      })),
+    };
+
+    console.log("albumData", albumData);
+    //console.log("songEntities", songEntities);
+
+   // formData.append("album", JSON.stringify(albumData));
+
+   //formData.append("albumImage",   multipartfiles);
+    // formData.append("album", new Blob([JSON.stringify(albumData)], { type: "application/json" }));
+
+    // axios
+    //   .post("http://localhost:8080/api/album/save", formData)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     let errMessage = err.response.data.type + "\n";
+    //     errMessage += err.response.data.title + "\n";
+    //     errMessage += err.response.data.detail + "\n";
+    //     errMessage += err.response.data.status + "\n";
+    //     errMessage += err.response.data.instance + "\n";
+    //     errMessage += err.response.data.timestamp;
+    //     alert(errMessage);
+    //   });
   };
 
   return (
     <div className="album-insert-form">
-      <h2 style={{ padding: "20px" }}>앨범등록</h2>
-      <Form>
-        <Form.Label htmlFor="id">앨범 제목</Form.Label>
-        <InputGroup className="mb-3">
-          <Form.Control type="text" id="id" name="id" onChange={changeValue} />
-          <InputGroup.Text
-            style={isCheckResult ? { color: "red" } : { color: "blue" }}
-          >
-            {idCheckResult}
-          </InputGroup.Text>
+      <h2>앨범등록</h2>
+      <Form onSubmit={submitJoin}>
+        <Form.Label htmlFor="albumTitle">앨범 제목</Form.Label>
+        <InputGroup>
+          <Form.Control
+            type="text"
+            id="albumTitle"
+            name="albumTitle"
+            onChange={changeValue}
+          />
         </InputGroup>
-        <Form.Label htmlFor="name">1</Form.Label>
+
+        <h4>앨범 이미지</h4>
+        {multipartfiles && (
+          <div>
+            <img
+              src={multipartfiles}
+              alt="Album Preview"
+              style={{ maxWidth: "300px", maxHeight: "300px" }}
+            />
+          </div>
+        )}
+        <Form.Label htmlFor="albumImage"></Form.Label>
         <Form.Control
-          type="text"
-          id="name"
-          name="name"
-          onChange={changeValue}
+          type="file"
+          id="albumImage"
+          name="albumImage"
+          onChange={handleImageChange}
         />
         <br />
-        <Form.Label htmlFor="name">2</Form.Label>
+
+        <h4>가수</h4>
+        <Form.Label htmlFor="albumSingerName1">1</Form.Label>
         <Form.Control
           type="text"
-          id="name"
-          name="name"
+          id="albumSingerName1"
+          name="albumSingerEntities.0.albumSingerName"
+          onChange={changeValue2}
+        />
+        <br />
+
+        <Form.Label htmlFor="albumSingerName2">2</Form.Label>
+        <Form.Control
+          type="text"
+          id="albumSingerName2"
+          name="albumSingerEntities.1.albumSingerName"
+          onChange={changeValue2}
+        />
+        
+        
+        <Form.Label htmlFor="releaseDate">발매일</Form.Label>
+        <Form.Control
+          type="text"
+          id="releaseDate"
+          name="releaseDate"
+          onChange={changeValue}
+        />
+
+        <Form.Label htmlFor="agency">기획사</Form.Label>
+        <Form.Control
+          type="text"
+          id="agency"
+          name="agency"
           onChange={changeValue}
         />
         <br />
 
-        <Form.Label htmlFor="pwd">발매일</Form.Label>
-        <Form.Control
-          type="password"
-          id="pwd"
-          name="pwd"
-          onChange={changeValue}
-        />
-        <Form.Label htmlFor="pwd">기획사</Form.Label>
-        <Form.Control
-          type="password"
-          id="pwd"
-          name="pwd"
-          onChange={changeValue}
-        />
-        <br />
         <h4>앨범소개</h4>
-        <Form.Label htmlFor="address"></Form.Label>
+        <Form.Label htmlFor="albumContent"></Form.Label>
         <Form.Control
           type="text"
-          id="address"
-          name="address"
+          id="albumContent"
+          name="albumContent"
           onChange={changeValue}
         />
+
         <h3>수록곡</h3>
         <h4>곡제목</h4>
 
-        <Form.Label htmlFor="name">1</Form.Label>
+        <Form.Label htmlFor="songTitle">1</Form.Label>
         <Form.Control
           type="text"
-          id="name"
-          name="name"
-          onChange={changeValue}
+          id="songTitle"
+          name="songEntities.0.songTitle"
+          onChange={changeValue2}
+        />
+        <br />
+
+        {/* <h4>음원 파일</h4>
+        <Form.Label htmlFor="soundSourceName"></Form.Label>
+        <Form.Control
+          type="file"
+          id="soundSourceName"
+          name="soundSourceName"
+          onChange={(e) => handleSoundSourceChange(e, 1)}
+        /> */}
+        <br />
+
+        {/*  */}
+        <br />
+        <Form.Label as="legend">장르</Form.Label>
+        <Form.Check
+          type="radio"
+          id="ballad"
+          label="발라드"
+          name="songEntities.0.genre"
+          value="발라드"
+          onChange={changeValue2}
+        />
+        <Form.Check
+          type="radio"
+          id="blues"
+          label="블루스"
+          name="songEntities.0.genre"
+          value="블루스"
+          onChange={changeValue2}
+        />
+        <Form.Check
+          type="radio"
+          id="R&B"
+          label="R&B/소울"
+          name="songEntities.0.genre"
+          value="R&B/소울"
+          onChange={changeValue2}
+        />
+        <Form.Check
+          type="radio"
+          id="folk"
+          label="포크"
+          name="songEntities.0.genre"
+          value="포크"
+          onChange={changeValue2}
+        />
+        <Form.Check
+          type="radio"
+          id="rock"
+          label="락"
+          name="songEntities.0.genre"
+          value="락"
+          onChange={changeValue2}
+        />
+        <Form.Check
+          type="radio"
+          id="rap"
+          label="랩"
+          name="songEntities.0.genre"
+          value="랩"
+          onChange={changeValue2}
+        />
+        <Form.Check
+          type="radio"
+          id="electronica"
+          label="일렉트로니카"
+          name="songEntities.0.genre"
+          value="일렉트로니카"
+          onChange={changeValue2}
+        />
+        {/*  */}
+       
+        <Form.Label as="titlecheck">타이틀</Form.Label>
+        <Form.Check
+          type="radio"
+          id="true"
+          label="타이틀 곡 O"
+          name="songEntities.0.songState"
+          value="true"
+          onChange={changeValue2}
+        />
+        <Form.Check
+          type="radio"
+          id="false"
+          label="타이틀 곡 X"
+          name="songEntities.0.songState"
+          value="false"
+          onChange={changeValue2}
         />
 
-        <h4>음원파일</h4>
-        <Form.Label htmlFor="name"></Form.Label>
+        {/*  */}
+        <br />
+
+        <Form.Label htmlFor="lyrics">가사</Form.Label>
         <Form.Control
           type="text"
-          id="name"
-          name="name"
-          onChange={changeValue}
+          id="lyrics"
+          name="songEntities.0.lyrics"
+          onChange={changeValue2}
         />
-        <h4>가사</h4>
-        <Form.Label htmlFor="address"></Form.Label>
-        <Form.Control
-          type="text"
-          id="address"
-          name="address"
-          onChange={changeValue}
-        />
+
         <h4>가수</h4>
-        <Form.Label htmlFor="name">1</Form.Label>
+        <Form.Label htmlFor="songSingerName">1</Form.Label>
         <Form.Control
           type="text"
-          id="name"
-          name="name"
-          onChange={changeValue}
+          id="songSingerName"
+          name="songEntities.0.songSingerEntities.0.songSingerName"
+          onChange={changeValue3}
         />
         <br />
-        <Form.Label htmlFor="name">2</Form.Label>
+
+        <Form.Label htmlFor="songSingerName">2</Form.Label>
         <Form.Control
           type="text"
-          id="name"
-          name="name"
-          onChange={changeValue}
+          id="songSingerName"
+          name="songEntities.0.songSingerEntities.1.songSingerName"
+          onChange={changeValue3}
         />
+        <br />
+
         <h4>작곡가</h4>
-        <Form.Label htmlFor="name">1</Form.Label>
+        <Form.Label htmlFor="songwriter1">1</Form.Label>
         <Form.Control
           type="text"
-          id="name"
-          name="name"
-          onChange={changeValue}
+          id="songwriter1"
+          name="songwriter1"
+          value={songwriters[0]}
+          onChange={(e) => handleSongwriterChange(e, 0)}
         />
         <br />
-        <Form.Label htmlFor="name">2</Form.Label>
+
+        <Form.Label htmlFor="songwriter2">2</Form.Label>
         <Form.Control
           type="text"
-          id="name"
-          name="name"
-          onChange={changeValue}
+          id="songwriter2"
+          name="songwriter2"
+          value={songwriters[1]}
+          onChange={(e) => handleSongwriterChange(e, 1)}
         />
+        <br />
+
+        <h4>작사가</h4>
+        <Form.Label htmlFor="lyricist">1</Form.Label>
+        <Form.Control
+          type="text"
+          id="lyricist"
+          name="lyricist"
+          value={lyricist}
+          onChange={handleLyricistChange}
+        />
+        <br />
+
         <h4>편곡가</h4>
-        <Form.Label htmlFor="name">1</Form.Label>
+        <Form.Label htmlFor="arranger">1</Form.Label>
         <Form.Control
           type="text"
-          id="name"
-          name="name"
-          onChange={changeValue}
+          id="arranger"
+          name="arranger"
+          value={arranger}
+          onChange={handleArrangerChange}
+        />
+
+{/* 
+        <h4>작곡가</h4>
+        <Form.Label htmlFor="songwriter">1</Form.Label>
+        <Form.Control
+          type="text"
+          id="songwriter"
+          name="songwriter"
+          onChange={(e) => changeValue(e, "songEntities", 0, "producer")}
         />
         <br />
-        <Form.Label htmlFor="name">2</Form.Label>
+        <h4>작곡가</h4>
+        <Form.Label htmlFor="songwriter">2</Form.Label>
         <Form.Control
           type="text"
-          id="name"
-          name="name"
-          onChange={changeValue}
+          id="songwriter"
+          name="songwriter"
+          onChange={(e) => changeValue(e, "songEntities", 0, "producer")}
         />
+        <br />
+
+        <h4>작사가</h4>
+        <Form.Label htmlFor="lyricist">1</Form.Label>
+        <Form.Control
+          type="text"
+          id="lyricist"
+          name="lyricist"
+          onChange={(e) => changeValue(e, "songEntities", 0, "lyricist")}
+        />
+
+        <h4>편곡가</h4>
+        <Form.Label htmlFor="arranger">1</Form.Label>
+        <Form.Control
+          type="text"
+          id="arranger"
+          name="arranger"
+          onChange={(e) => changeValue(e, "songEntities", 0, "arranger")}
+        />  */}
+        <br />
+        <br />
+
+        <br />
         <p>
-          <Button variant="primary" onClick={submitJoin}>
+          <Button variant="primary" type="submit">
             등록완료
           </Button>
         </p>
@@ -216,4 +480,5 @@ const AlbumInsert = () => {
     </div>
   );
 };
+
 export default AlbumInsert;
