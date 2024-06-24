@@ -74,7 +74,7 @@ const SongInfo = (props)=>{
 
         setSongInfo(songBoardInfo);
       }
-
+      
       return(
       <div className="songBoard">
           {songBoardInfo &&(
@@ -85,7 +85,15 @@ const SongInfo = (props)=>{
               <img className="albumImage" src={albumImage} referrerPolicy="no-referrer"/>
               
               <p className="text-1">{songBoardInfo.songTitle}</p>
-              <p className="text-2">singer</p>
+              <p className="text-2">
+                  {songBoardInfo.singers && 
+                    songBoardInfo.singers.map((singer, index)=>(
+                      <p className="singer" key={singer.songSingerSeq}>
+                        {singer.songSingerName}
+                        {index !== songBoardInfo.singers.length -1 && ', '}
+                      </p>
+                    ))}
+              </p>
   
               <p className="text-3">앨범</p>
               <Link className="text-4" to={"/album/detail/"+songBoardInfo.albumSeq}>{songBoardInfo.albumTitle}</Link>

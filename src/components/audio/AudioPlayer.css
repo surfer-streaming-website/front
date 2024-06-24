@@ -118,6 +118,8 @@
     font-size: 13px;
     line-height: 150%;
     /* identical to box height, or 20px */
+    display: flex;
+    gap: 2px;
     
     color: #FFFFFF;
 
@@ -143,7 +145,7 @@
     position: absolute;
     width: 100px;
     height: 20px;
-    left: 1400px;
+    left: 1500px;
     top: 20px;
 
     font-family: 'Inter';
