@@ -29,7 +29,7 @@ const AlbumInfo = (props)=>{
     useEffect(()=>{
         if(props.albumInfo){
             setAlbumBoardInfo(props.albumInfo);
-            console.log(props.albumInfo.albumSeq);
+            console.log(props.albumInfo);
         }
     }, [props.albumInfo])
 
@@ -72,7 +72,15 @@ const AlbumInfo = (props)=>{
                 <img className="albumImage" src={albumImage} referrerPolicy="no-referrer"/>
 
                 <p className="albumTitle">{albumBoardInfo.albumTitle}</p>
-                <p className="albumSinger">singer</p>
+                <p className="albumSinger">
+                    {albumBoardInfo.singers && 
+                    albumBoardInfo.singers.map((singer, index)=>(
+                      <p className="singer" key={singer.albumSingerSeq}>
+                        {singer.albumSingerName}
+                        {index !== albumBoardInfo.singers.length -1 && ', '}
+                      </p>
+                    ))}
+                </p>
                 <p className="text1">발매일</p>
                 <p className="releaseDate">{albumBoardInfo.releaseDate}</p>
                 <p className="text2">댓글</p>
