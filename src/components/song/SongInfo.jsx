@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Pagination from "react-js-pagination";
 import { Link, useLocation } from "react-router-dom";
 import SongReplyItem from "./SongReplyItem.jsx";
@@ -7,6 +7,7 @@ import InsertSongreply from "./InsertSongReply";
 import AudioPlayer from "../audio/AudioPlayer.jsx";
 import './SongInfoBox.css';
 import './Lyrics.css';
+import { PlayerContext, AudioContext } from "../../App.jsx";
 
 const SongInfo = (props)=>{
 
@@ -19,7 +20,10 @@ const SongInfo = (props)=>{
     const arrangerList = songBoardInfo && songBoardInfo.producerDTO ? songBoardInfo.producerDTO.arrangerList : [];
     const albumImage = songBoardInfo ? songBoardInfo.albumImage : null;
     const location = useLocation();
-    const [playing, setPlaying] = useState(false); //현재 음악 진행 여부
+    const {playing, setPlaying} = useContext(PlayerContext); //음악 재생 상태 전역 변수
+    const {audio} = useContext(AudioContext);
+    //const {image, setImage, songTitle, setSongTitle, singer, setSinger} = useContext(AudioContext);
+    const {songInfo, setSongInfo} = useContext(AudioContext);
 
     useEffect(()=>{
         if(props.songInfo){
@@ -61,13 +65,23 @@ const SongInfo = (props)=>{
 
       const playMusic = ()=>{
         console.log(songBoardInfo.soundSourceUrl);
-        const audio = new Audio(songBoardInfo.soundSourceUrl)
+        //const audio = new Audio(songBoardInfo.soundSourceUrl)
+        audio.src = songBoardInfo.soundSourceUrl;
+        console.log(audio.src);
         audio.play(); //음악 재생
-        setPlaying(!playing);
+
+        const isPlaying = !playing;
+        setPlaying(isPlaying);
+        console.log("isPlaying="+isPlaying);
+
+        //setImage(songBoardInfo.albumImage); //이미지
+        //console.log(songBoardInfo.albumImage);
+        setSongInfo(songBoardInfo);
+        //const songInfo = songBoardInfo;
+        //console.log(songInfo);
       }
 
       return(
-        <div>
       <div className="songBoard">
           {songBoardInfo &&(
             <div className="songInfoBox">
@@ -178,8 +192,6 @@ const SongInfo = (props)=>{
   
         </div>
           )}
-        </div>
-        {playing && <AudioPlayer/>}
         </div>
       )
 }
