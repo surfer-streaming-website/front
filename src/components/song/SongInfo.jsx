@@ -22,7 +22,6 @@ const SongInfo = (props)=>{
     const location = useLocation();
     const {playing, setPlaying} = useContext(PlayerContext); //음악 재생 상태 전역 변수
     const {audio} = useContext(AudioContext);
-    //const {image, setImage, songTitle, setSongTitle, singer, setSinger} = useContext(AudioContext);
     const {songInfo, setSongInfo} = useContext(AudioContext);
 
     useEffect(()=>{
@@ -65,7 +64,6 @@ const SongInfo = (props)=>{
 
       const playMusic = ()=>{
         console.log(songBoardInfo.soundSourceUrl);
-        //const audio = new Audio(songBoardInfo.soundSourceUrl)
         audio.src = songBoardInfo.soundSourceUrl;
         console.log(audio.src);
         audio.play(); //음악 재생
@@ -74,11 +72,7 @@ const SongInfo = (props)=>{
         setPlaying(isPlaying);
         console.log("isPlaying="+isPlaying);
 
-        //setImage(songBoardInfo.albumImage); //이미지
-        //console.log(songBoardInfo.albumImage);
         setSongInfo(songBoardInfo);
-        //const songInfo = songBoardInfo;
-        //console.log(songInfo);
       }
 
       return(

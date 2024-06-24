@@ -13,7 +13,7 @@
   .AudioPlayer .pauseButton{
     /* Button */
     position: absolute;
-    left: 900px;
+    left: 940px;
     top: 15px;
   
     /* Auto layout */
@@ -27,7 +27,7 @@
   .AudioPlayer .playButton{
     /* Button */
     position: absolute;
-    left: 900px;
+    left: 940px;
     top: 15px;
   
     /* Auto layout */
@@ -90,6 +90,7 @@
     width: 100px;
     height: 24px;
     left: 100px;
+    top: 15px;
 
     font-family: 'Inter';
     font-style: italic;
@@ -98,6 +99,8 @@
     line-height: 150%;
     /* identical to box height, or 24px */
     color: #FFFFFF;
+
+    text-decoration-line: none;
 
   }
   .AudioPlayer .singers{
@@ -119,4 +122,39 @@
     color: #FFFFFF;
 
     display: flex;
+  }
+  .AudioPlayer .progress-container{
+    /* margin: 5px 0; */
+    background-color: #363636;
+    width: 100%;
+    /* border-radius: 5px; */
+    cursor: pointer;
+    height: 5px;
+  }
+  .AudioPlayer .progress{
+    background-color: aqua;
+    height: 5px;
+    width: 0%;
+    border-radius: 5px;
+    transition: width 0.1s linear;
+  }
+  .AudioPlayer .time{
+
+    position: absolute;
+    width: 100px;
+    height: 20px;
+    left: 1400px;
+    top: 20px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 14px;
+    line-height: 150%;
+    /* identical to box height, or 20px */
+    display: flex;
+    gap: 10px;
+
+    color: #FFFFFF;
+
   }

@@ -1,13 +1,18 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import './AudioPlayer.css';
 import { PlayerContext, AudioContext } from '../../App';
+import { Link } from 'react-router-dom';
 
 const AudioPlayer = ()=>{
     const {playing, setPlaying} = useContext(PlayerContext); //음악 재생 상태 전역 변수
     const {audio} = useContext(AudioContext);
-    //const {image, setImage} = useContext(AudioContext);
     const {songInfo, setSongInfo} = useContext(AudioContext);
+    const progressRef = useRef(null);
+    const progressContainerRef = useRef(null);
+    const [totalTime, setTotalTime] = useState('0:00');
+    const [currentTime, setCurrentTime] = useState('0:00');
 
+    //음악 재생
     const handlePlayPause = () =>{
         if(playing){
             //음악 재생 중이면 멈추기
@@ -20,12 +25,66 @@ const AudioPlayer = ()=>{
             audio.play(); //음악 다시 재생
         }
     }
+
+    //뮤직 진행 바
+    useEffect(()=>{
+        const progress = progressRef.current;
+        const progressContainer = progressContainerRef.current;
+
+
+        const updateProgress = (e) => {
+            const { duration, currentTime } = e.srcElement;
+            const progressPer = (currentTime / duration) * 100;
+            if (progress) {
+                progress.style.width = `${progressPer}%`;
+            }
+
+            let currentMin = Math.floor(currentTime / 60);
+            let currentSec = Math.floor(currentTime % 60);
+            if(currentSec<10) currentSec = `0${currentSec}`;
+            setCurrentTime(`${currentMin}:${currentSec}`);
+            
+        }
+        const changeProgress = (e) => {
+            const width = progressContainer.clientWidth;
+            const offsetX = e.offsetX;
+            const duration = audio.duration;
+            audio.currentTime = (offsetX / width) * duration;
+        };
+        const loadedData = ()=>{
+            let audioDuration = audio.duration;
+            let totalMin = Math.floor(audioDuration/60);
+            let totalSec = Math.floor(audioDuration % 60);
+            if(totalSec < 10) totalSec = `0${totalSec}`;
+            setTotalTime(`${totalMin}:${totalSec}`);
+        }
+
+        if (progressContainer) {
+            progressContainer.addEventListener('click', changeProgress);
+        }
+        if (audio) {
+            audio.addEventListener('timeupdate', updateProgress);
+            audio.addEventListener('loadeddata', loadedData);
+        }
+
+        return () => {
+            if (progressContainer) {
+                progressContainer.removeEventListener('click', changeProgress);
+            }
+            if (audio) {
+                audio.removeEventListener('timeupdate', updateProgress);
+                audio.removeEventListener('loadeddata', loadedData);
+            }
+        };
+    },[audio]);
+
     return(
         <div className="AudioPlayer">
-
-            {/* {image && <img className="playerImage" referrerPolicy="no-referrer" src={image}></img>} */}
+            <div className='progress-container' id='progress-container' ref={progressContainerRef}>
+                <div className='progress' id='progress' ref={progressRef}></div>
+            </div>
             {songInfo && <img className='playerImage' referrerPolicy='no-referrer' src={songInfo.albumImage}></img>}
-            <p className='songTitle'>{songInfo && songInfo.songTitle}</p>
+            <Link className='songTitle' to={songInfo && "/song/detail/"+songInfo.songSeq}>{songInfo && songInfo.songTitle}</Link>
             <div className='singers'>
                 {songInfo && songInfo.singers.map((singer, index)=>(<p className='singer' key={singer.songSingerSeq}>
                     {singer.songSingerName}
@@ -41,6 +100,11 @@ const AudioPlayer = ()=>{
                     <p className="play">▶</p>
                 </button>
             )}
+            <div className='time'>
+                <p className='currentTime'>{currentTime}</p>
+                <p className='slash'>/</p>
+                <p className='totalTime'>{totalTime}</p>
+            </div>
 
         </div>
     )

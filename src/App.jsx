@@ -39,9 +39,6 @@ function App() {
 
   const [playing, setPlaying] = useState(false);
   const [audio] = useState(new Audio());
-  // const [image, setImage] = useState('');
-  // const [songTitle, setSongTitle] = useState('');
-  // const [singer, setSinger] = useState('');
   const [songInfo, setSongInfo] = useState();
 
   return (
