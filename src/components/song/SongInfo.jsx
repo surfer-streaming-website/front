@@ -75,6 +75,11 @@ const SongInfo = (props)=>{
         setSongInfo(songBoardInfo);
       }
       
+      const songDownload = () => {
+        const downloadUrl = `http://localhost:8080/api/song/download/${songBoardInfo.songSeq}`;
+        window.location.href = downloadUrl;
+      };
+
       return(
       <div className="songBoard">
           {songBoardInfo &&(
@@ -129,9 +134,16 @@ const SongInfo = (props)=>{
               <button className="button1" onClick={playMusic}>
                 <p className="text-13">재생</p>
               </button>
-              <button className="button2">
+
+              {/*  */}
+              
+              
+              <button className="button2" onClick={songDownload}>
                 <p className="text-16">곡 다운</p>
               </button>
+
+
+              {/*  */}
               <button className="button3">
                 <p className="text-17">담기</p>
               </button>

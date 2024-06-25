@@ -23,7 +23,7 @@ const AlbumItem = (props) => {
 
   // 날짜 형식을 yyyy-mm-dd로 변환하는 함수
   const formatDate = (date) => {
-    const parsedDate = new Date(Number(date));
+    const parsedDate = new Date(date);
     const year = parsedDate.getFullYear();
     const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
     const day = String(parsedDate.getDate()).padStart(2, "0");

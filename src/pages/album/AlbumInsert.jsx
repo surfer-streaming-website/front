@@ -1,11 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-import "../../Album.css";
+import "./AlbumInsert.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Button, InputGroup } from "react-bootstrap";
+import { logInByRefreshToken } from "../../components/auth/AuthUtil";
+import { LogingedContext } from "../../App";
 
 const AlbumInsert = () => {
+  
+  let logingedCon = useContext(LogingedContext);
+
+  useEffect(()=>{
+    fetchData();
+},[])
+
+  const fetchData = ()=>{
+    if (
+        !localStorage.getItem("accessToken") &&
+        localStorage.getItem("refreshToken")
+      ){
+        logInByRefreshToken();
+      }
+}
+
+
+
+
   const [albumReq, setAlbumReq] = useState({
     albumTitle: "",
     agency: "",
@@ -107,11 +128,10 @@ const AlbumInsert = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setAlbumReq({ ...albumReq, albumImage: file.name });
-    
-    
+
     const newImage = [...multipartfiles];
     newImage[0] = file;
-    setMultipartFiles(newImage);    
+    setMultipartFiles(newImage);
 
     if (file) {
       const newImage = [file];
@@ -119,36 +139,35 @@ const AlbumInsert = () => {
 
       const reader = new FileReader();
       reader.onloadend = () => {
-          setImagePreview(reader.result);  // Ensure file is stored in array
+        setImagePreview(reader.result); // Ensure file is stored in array
       };
       reader.readAsDataURL(file);
-  } else {
+    } else {
       setImagePreview([]);
-  }
-};
+    }
+  };
 
-const handleSoundSourceChange = (e) => {
-  const file = e.target.files[0]; // 첫 번째 파일만 선택
-  if (!file) {
+  const handleSoundSourceChange = (e) => {
+    const file = e.target.files[0]; // 첫 번째 파일만 선택
+    if (!file) {
       return; // 파일이 선택되지 않았으면 함수 종료
-  }
+    }
 
-  // albumReq 업데이트
-  setAlbumReq({
+    // albumReq 업데이트
+    setAlbumReq({
       ...albumReq,
       songEntities: [
-          {
-              ...albumReq.songEntities[0], // 기존 요소 복사
-              soundSourceName: file.name // soundSourceName 속성 업데이트
-          }
-      ]
-  });
+        {
+          ...albumReq.songEntities[0], // 기존 요소 복사
+          soundSourceName: file.name, // soundSourceName 속성 업데이트
+        },
+      ],
+    });
 
-  // multipartfiles 업데이트
-  const newSoundSourceFiles = [...multipartfiles, file];
-  setMultipartFiles(newSoundSourceFiles);
-};
-
+    // multipartfiles 업데이트
+    const newSoundSourceFiles = [...multipartfiles, file];
+    setMultipartFiles(newSoundSourceFiles);
+  };
 
   // const handleSoundSourceChange = (e) => {
   //   const file = e.target.files[1];
@@ -161,12 +180,12 @@ const handleSoundSourceChange = (e) => {
   //   newSoundSourceFiles[1] = file;
   //   setMultipartFiles(newSoundSourceFiles);
   // };
-  
+
   // const handleSoundSourceChange = (e, index) => {
   //   const file = e.target.files[1];
   //   setAlbumReq({
   //     ...albumReq,
-  //     songEntities: albumReq.songEntities.map((song, i) => 
+  //     songEntities: albumReq.songEntities.map((song, i) =>
   //         i === 0 ? { ...song, soundSourceName: file } : song
   //     )
   // });
@@ -186,16 +205,13 @@ const handleSoundSourceChange = (e) => {
     // multipartfiles.forEach((file, index) => {
     //   formData.append(`songEntities[${index}].soundSourceName`, file);
     // });
-    multipartfiles.forEach((file,index) => {
+    multipartfiles.forEach((file, index) => {
       formData.append("multipartfiles", file);
-      
+
       console.log("이름: " + file.name);
       console.log("크기: " + file.size + " bytes");
       console.log("타입: " + file.type);
     });
-
-  
-
 
     const albumData = {
       ...albumReq,
@@ -213,15 +229,18 @@ const handleSoundSourceChange = (e) => {
     // formData.append("album", JSON.stringify(albumData));
 
     //formData.append("albumImage",   multipartfiles);
-    formData.append("album", new Blob([JSON.stringify(albumData)], { type: "application/json" }));
+    formData.append(
+      "album",
+      new Blob([JSON.stringify(albumData)], { type: "application/json" })
+    );
 
     axios
-      .post("http://localhost:8080/api/album/save", formData  , {
+      .post("http://localhost:8080/api/album/save", formData, {
         headers: {
-            "Contest-Type": "multipart/form-data"
-        }
-    }
-)
+          "Contest-Type": "multipart/form-data",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      })
       .then((res) => {
         console.log(res);
       })
@@ -234,22 +253,15 @@ const handleSoundSourceChange = (e) => {
         errMessage += err.response.data.timestamp;
         alert(errMessage);
       });
-  
-    };
+  };
 
   return (
+    <div className="album-insert-main">
+
+      <h2>앨범 등록 신청</h2>
     <div className="album-insert-form">
-      <h2>앨범등록</h2>
       <Form onSubmit={submitJoin}>
-        <Form.Label htmlFor="albumTitle">앨범 제목</Form.Label>
-        <InputGroup>
-          <Form.Control
-            type="text"
-            id="albumTitle"
-            name="albumTitle"
-            onChange={changeValue}
-          />
-        </InputGroup>
+       
 
         <h4>앨범 이미지</h4>
         {imagePreview && (
@@ -268,10 +280,21 @@ const handleSoundSourceChange = (e) => {
           name="albumImage"
           onChange={handleImageChange}
         />
-        <br />
+
+        <br/>
+        <br/>
+         <Form.Label htmlFor="albumTitle">앨범 제목</Form.Label>
+        <InputGroup>
+          <Form.Control
+            type="text"
+            id="albumTitle"
+            name="albumTitle"
+            onChange={changeValue}
+          />
+        </InputGroup>
 
         <h4>가수</h4>
-        <Form.Label htmlFor="albumSingerName1">1</Form.Label>
+        <Form.Label htmlFor="albumSingerName1"></Form.Label>
         <Form.Control
           type="text"
           id="albumSingerName1"
@@ -279,16 +302,15 @@ const handleSoundSourceChange = (e) => {
           onChange={changeValue2}
         />
         <br />
+        
+        <br />
+        
+        <span className="album-insert-form-releaseDate">발매일</span>
+        <span className="album-insert-form-agency">기획사</span>
+        
+        <br />
 
-        <Form.Label htmlFor="albumSingerName2">2</Form.Label>
-        <Form.Control
-          type="text"
-          id="albumSingerName2"
-          name="albumSingerEntities.1.albumSingerName"
-          onChange={changeValue2}
-        />
-
-        <Form.Label htmlFor="releaseDate">발매일</Form.Label>
+        <Form.Label htmlFor="releaseDate"></Form.Label>
         <Form.Control
           type="text"
           id="releaseDate"
@@ -296,8 +318,9 @@ const handleSoundSourceChange = (e) => {
           onChange={changeValue}
         />
 
-        <Form.Label htmlFor="agency">기획사</Form.Label>
+        <Form.Label htmlFor="agency"></Form.Label>
         <Form.Control
+        className="album-insert-form-agency-text"
           type="text"
           id="agency"
           name="agency"
@@ -308,15 +331,21 @@ const handleSoundSourceChange = (e) => {
         <h4>앨범소개</h4>
         <Form.Label htmlFor="albumContent"></Form.Label>
         <Form.Control
-          type="text"
+          className="album-insert-form-albumContent"
+          as="textarea"
+          rows={10}
           id="albumContent"
           name="albumContent"
           onChange={changeValue}
         />
-
+        <br/>
+        <br/>
         <h3>수록곡</h3>
+
+        <div className="album-insert-form-songList">
         <h4>곡제목</h4>
-        <Form.Label htmlFor="songTitle">1</Form.Label>
+
+        <Form.Label htmlFor="songTitle"></Form.Label>
         <Form.Control
           type="text"
           id="songTitle"
@@ -338,6 +367,8 @@ const handleSoundSourceChange = (e) => {
         {/*  */}
         <br />
         <Form.Label as="legend">장르</Form.Label>
+        <br />
+
         <Form.Check
           type="radio"
           id="ballad"
@@ -394,7 +425,7 @@ const handleSoundSourceChange = (e) => {
           value="일렉트로니카"
           onChange={changeValue2}
         />
-        {/*  */}
+        <br />
 
         <Form.Label as="legend">타이틀</Form.Label>
         <Form.Check
@@ -418,15 +449,19 @@ const handleSoundSourceChange = (e) => {
         <br />
 
         <Form.Label htmlFor="lyrics">가사</Form.Label>
+        <br />
+
         <Form.Control
-          type="text"
+          className="album-insert-form-song-lyrics"
+          as="textarea"
+          rows={10}
           id="lyrics"
           name="songEntities.0.lyrics"
           onChange={changeValue2}
         />
 
         <h4>가수</h4>
-        <Form.Label htmlFor="songSingerName">1</Form.Label>
+        <Form.Label htmlFor="songSingerName"></Form.Label>
         <Form.Control
           type="text"
           id="songSingerName"
@@ -435,17 +470,11 @@ const handleSoundSourceChange = (e) => {
         />
         <br />
 
-        <Form.Label htmlFor="songSingerName">2</Form.Label>
-        <Form.Control
-          type="text"
-          id="songSingerName"
-          name="songEntities.0.songSingerEntities.1.songSingerName"
-          onChange={changeValue3}
-        />
+      
         <br />
 
         <h4>작곡가</h4>
-        <Form.Label htmlFor="songwriter1">1</Form.Label>
+        <Form.Label htmlFor="songwriter1"></Form.Label>
         <Form.Control
           type="text"
           id="songwriter1"
@@ -455,18 +484,11 @@ const handleSoundSourceChange = (e) => {
         />
         <br />
 
-        <Form.Label htmlFor="songwriter2">2</Form.Label>
-        <Form.Control
-          type="text"
-          id="songwriter2"
-          name="songwriter2"
-          value={songwriters[1]}
-          onChange={(e) => handleSongwriterChange(e, 1)}
-        />
+    
         <br />
 
         <h4>작사가</h4>
-        <Form.Label htmlFor="lyricist">1</Form.Label>
+        <Form.Label htmlFor="lyricist"></Form.Label>
         <Form.Control
           type="text"
           id="lyricist"
@@ -477,7 +499,7 @@ const handleSoundSourceChange = (e) => {
         <br />
 
         <h4>편곡가</h4>
-        <Form.Label htmlFor="arranger">1</Form.Label>
+        <Form.Label htmlFor="arranger"></Form.Label>
         <Form.Control
           type="text"
           id="arranger"
@@ -485,55 +507,23 @@ const handleSoundSourceChange = (e) => {
           value={arranger}
           onChange={handleArrangerChange}
         />
+        </div>
 
-        {/* 
-        <h4>작곡가</h4>
-        <Form.Label htmlFor="songwriter">1</Form.Label>
-        <Form.Control
-          type="text"
-          id="songwriter"
-          name="songwriter"
-          onChange={(e) => changeValue(e, "songEntities", 0, "producer")}
-        />
-        <br />
-        <h4>작곡가</h4>
-        <Form.Label htmlFor="songwriter">2</Form.Label>
-        <Form.Control
-          type="text"
-          id="songwriter"
-          name="songwriter"
-          onChange={(e) => changeValue(e, "songEntities", 0, "producer")}
-        />
-        <br />
 
-        <h4>작사가</h4>
-        <Form.Label htmlFor="lyricist">1</Form.Label>
-        <Form.Control
-          type="text"
-          id="lyricist"
-          name="lyricist"
-          onChange={(e) => changeValue(e, "songEntities", 0, "lyricist")}
-        />
-
-        <h4>편곡가</h4>
-        <Form.Label htmlFor="arranger">1</Form.Label>
-        <Form.Control
-          type="text"
-          id="arranger"
-          name="arranger"
-          onChange={(e) => changeValue(e, "songEntities", 0, "arranger")}
-        />  */}
         <br />
         <br />
 
         <br />
         <p>
-          <Button variant="primary" type="submit">
+          <Button className="album-insert-form-button" type="submit">
             등록완료
           </Button>
         </p>
       </Form>
     </div>
+    
+    </div>
+
   );
 };
 

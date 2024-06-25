@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "../../user.css";
+import "./user.css";
 import axios from "axios";
 import AlbumItem from "../../components/user/AlbumItem";
-import "../../MyAlbum.css";
 
 const Album = () => {
   const [AlbumRes, setAlbumRes] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/album/status/" + 2).then((res) => {
+    axios.get("http://localhost:8080/api/album/status/"+2).then((res) => {
       setAlbumRes(res.data);
     });
   }, []);
@@ -34,13 +33,6 @@ const Album = () => {
           </thead>
           {/* <div> */}
           <tbody>
-            {/* {AlbumRes.length > 0 ? (
-              AlbumRes.map((album, index) => (
-                <AlbumItem key={index} albumlist={album} />
-              ))
-            ) : (
-              <p>검색 결과가 없습니다</p>
-            )}*/}
 
             {AlbumRes.length > 0 ? (
               AlbumRes.map((album, index) => (

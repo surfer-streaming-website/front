@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 import "./Navigation.css"
 import { useContext, useState } from "react";
 import { LogingedContext } from "../../App";
 
 const Navigtion = () => {
+
 
   let logingedCon = useContext(LogingedContext);
   const [click, setClick] = useState(false);
@@ -12,11 +13,31 @@ const Navigtion = () => {
     setClick(!click);
   }
 
+  const [keyword, setKeyword] = useState('');
+  const navigate = useNavigate();
+
+  const handleInputChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
+
+  const handleButtonClick = () => {
+    if (keyword) {
+      navigate(`/search/${encodeURIComponent(keyword)}`);
+    }
+
+  };
     return (
       <div className="Navigtion">
         <Link className="text-1" to={"/"}>SURFER</Link>
         
-        <button className="button">
+        <input
+        className="search-text"
+        type="text"
+        value={keyword}
+        onChange={handleInputChange}
+      />
+        <button className="button" onClick={handleButtonClick}>
           <p className="text-2">🔎 검색</p>
         </button>
 
