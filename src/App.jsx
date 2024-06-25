@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -28,7 +28,6 @@ export const PlaylistContext = createContext(); //플레이리스트 관리
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
-
   useEffect(() => {
     localStorage.getItem("nickname") != null
       ? setIsLoggedIn(true)
