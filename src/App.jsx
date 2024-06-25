@@ -21,8 +21,8 @@ import AlbumList from './pages/admin/album/AlbumList';
 import AdminHome from './pages/admin/home/AdminHome';
 
 export const LogingedContext = createContext();
-export const PlayerContext = createContext(); //음악 재생 상태 관리할 전역 변수
-export const AudioContext = createContext(); //오디오 전역 변수
+export const PlayerContext = createContext(); //음악 재생, 오디오 상태 관리
+export const PlaylistContext = createContext(); //플레이리스트 관리
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -41,18 +41,38 @@ function App() {
 
   const [playing, setPlaying] = useState(false);
   const [audio] = useState(new Audio());
-  const [songInfo, setSongInfo] = useState();
+    
+  const [songInfo, setSongInfo] = useState(()=>{
+    const storedSongInfo = JSON.parse(localStorage.getItem('songInfo')) || [];
+    return storedSongInfo;
+  });
+
+  useEffect(()=>{
+    localStorage.setItem('songInfo',JSON.stringify(songInfo));
+  },[songInfo]);
+
+  const [isVisible, setIsVisible] = useState(false); //플레이리스트 가시성 관리
+  
+  //플레이리스트 노래 목록
+  const [musicList, setMusicList] = useState(()=>{
+    const storedMusicList = JSON.parse(localStorage.getItem('surfer_player')) || [];
+    return storedMusicList;
+  })
+
+  //로컬스토리지에 음악 재생 리스트에 관한 정보를 저장
+  useEffect(()=>{
+    localStorage.setItem('surfer_player',JSON.stringify(musicList));
+  },[musicList])
 
   return (
     <LogingedContext.Provider
       value={{ isLoggedIn: isLoggedIn, onLoggedChange: handleLoggedChange }}
     >
     <PlayerContext.Provider
-      value={{ playing: playing, setPlaying: setPlaying }}
+      value={{ playing: playing, setPlaying: setPlaying, audio: audio, songInfo: songInfo, setSongInfo: setSongInfo}}
     >
-    <AudioContext.Provider
-      value={{audio: audio, songInfo: songInfo, setSongInfo: setSongInfo
-      }}>
+    <PlaylistContext.Provider
+      value={{musicList: musicList, setMusicList: setMusicList, isVisible: isVisible, setIsVisible: setIsVisible}}>
       <div className="main-container">
         {/* <Header /> */}
         <Navigtion className="navigator" />
@@ -111,7 +131,7 @@ function App() {
       </div>
       <AudioPlayer/>
       <Footer />
-    </AudioContext.Provider>
+    </PlaylistContext.Provider>
     </PlayerContext.Provider>
     </LogingedContext.Provider>
   );

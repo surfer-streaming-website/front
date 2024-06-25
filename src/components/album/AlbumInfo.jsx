@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Pagination from 'react-js-pagination'
 import axios from "axios";
 import { useLocation } from "react-router-dom";
@@ -8,6 +8,7 @@ import SongItem from "../song/SongItem";
 import './AlbumInfo.css';
 import './SongList.css';
 import './AlbumReplyItem.css';
+import { LogingedContext, PlayerContext, PlaylistContext } from "../../App";
 
 const AlbumInfo = (props) => {
     const [albumBoardInfo, setAlbumBoardInfo] = useState(props.albumInfo || {});
@@ -17,6 +18,9 @@ const AlbumInfo = (props) => {
     const [sort, setSort] = useState('regDate'); //현재 댓글 정렬 기준
     const albumImage = albumBoardInfo ? albumBoardInfo.albumImage : null;
     const [albumLikeCount, setAlbumLikeCount] = useState(0);
+    const {isLoggedIn} = useContext(LogingedContext);
+    const {audio, setPlaying, setSongInfo} = useContext(PlayerContext);
+    const {setMusicList, musicList} = useContext(PlaylistContext);
 
     const location = useLocation();
 
@@ -76,6 +80,46 @@ const AlbumInfo = (props) => {
         }
     }
 
+        //앨범 전체 재생
+        const playAlbum = ()=>{
+            if(!isLoggedIn){
+                alert('로그인하고 이용해주세요!');
+            }else{
+                console.log(albumBoardInfo);
+                const songstoAdd = []; 
+                for(let i=0; i<albumBoardInfo.songDtoList.length; i++){
+                    const newSong = {
+                        songSeq: albumBoardInfo.songDtoList[i].songSeq,
+                        albumImage: albumBoardInfo.albumImage,
+                        songTitle: albumBoardInfo.songDtoList[i].songTitle,
+                        singers: albumBoardInfo.songDtoList[i].singers,
+                        soundSourceUrl: albumBoardInfo.songDtoList[i].soundSourceUrl
+                    }
+                    songstoAdd.push(newSong); //배열에 곡 객체 추가
+                }
+    
+                audio.src = songstoAdd[0].soundSourceUrl;
+                audio.play();
+                setPlaying(true);
+                setSongInfo(songstoAdd[0]);
+    
+                songstoAdd.forEach(song=>{
+                    const newSong ={
+                        songSeq: song.songSeq,
+                        albumImage: song.albumImage,
+                        songTitle: song.songTitle,
+                        singers: song.singers,
+                        soundSourceUrl: song.soundSourceUrl
+                    };
+                    //중복 체크 후 추가
+                     if(!musicList.some(existingSong=>existingSong.soundSourceUrl === newSong.soundSourceUrl)){
+                    setMusicList(prevMusicList => [...prevMusicList, newSong]);
+                    }
+                })
+            }
+        }
+    
+
     return (
         <div className="albumBoard">
             {albumBoardInfo && (
@@ -101,7 +145,7 @@ const AlbumInfo = (props) => {
                 <p className="agency">{albumBoardInfo.agency}</p>
                 <p className="albumLike">🤍 {albumLikeCount}</p>
                 <p className="albumPlayCount">💿 {totalPlayedCount}</p>
-                <button className="button1">
+                <button className="button1" onClick={playAlbum}>
                     <p className="playAlbum">전체 재생</p>
                 </button>
                 <button className="button2">
@@ -120,7 +164,7 @@ const AlbumInfo = (props) => {
 
                     <div className="songList">
                         <div className="songs-container">
-                            {songList && songList.map((song) => (<SongItem key={song.songSeq} song={song} />))}
+                            {songList && songList.map((song) => (<SongItem key={song.songSeq} song={song} albumImage={albumBoardInfo.albumImage} />))}
                         </div>
                     </div>
 
