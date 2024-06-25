@@ -198,6 +198,7 @@
     font-family: Inter;
     line-height: 150%;
     color: #ffffff;
+    text-decoration: none;
   }
   .Navigtion .navButton1 {
     /* 네비게이션 버튼1 */

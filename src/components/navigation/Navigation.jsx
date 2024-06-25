@@ -48,9 +48,9 @@ const Navigtion = () => {
             null
             )
             :
-            <div className="navButton1">
-              <p className="text-4">비밀번호 찾기/회원가입/이용권 구매</p>
-            </div>
+            <button className="navButton1">
+            <Link to={'/register'} className="text-4">회원가입</Link>
+            </button>
           }
         </div>
 
