@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useRef } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
@@ -7,7 +7,7 @@ import Login from "./pages/auth/login/Login";
 import Home from "./pages/Home/Home";
 import Register from "./pages/auth/register/Register";
 import AdminArtistApplicationsPage from "./pages/admin/artist-application-page/ArtistApplicationPage";
-import Navigtion from "./components/Navigation";
+import Navigtion from "./components/navigation/Navigation";
 import SongBoard from "./pages/song/SongBoard";
 import AlbumBoard from "./pages/album/AlbumBoard";
 import AdminArtistApplicationDetail from "./pages/admin/artist-application-detail/ArtistApplicationDetail";
@@ -18,8 +18,11 @@ import UpdateArtistApplication from "./pages/auth/update-artist-application/Upda
 import Search from "./pages/search/Search";
 import Album from "./pages/user/Album";
 import AlbumInsert from "./pages/album/AlbumInsert";
+import AudioPlayer from "./components/audio/AudioPlayer";
 
 export const LogingedContext = createContext();
+export const PlayerContext = createContext(); //음악 재생 상태 관리할 전역 변수
+export const AudioContext = createContext(); //오디오 전역 변수
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,10 +39,20 @@ function App() {
     setIsLoggedIn(isLoggedIn);
   };
 
+  const [playing, setPlaying] = useState(false);
+  const [audio] = useState(new Audio());
+  const [songInfo, setSongInfo] = useState();
+
   return (
     <LogingedContext.Provider
       value={{ isLoggedIn: isLoggedIn, onLoggedChange: handleLoggedChange }}
     >
+    <PlayerContext.Provider
+      value={{ playing: playing, setPlaying: setPlaying }}
+    >
+    <AudioContext.Provider
+      value={{audio: audio, songInfo: songInfo, setSongInfo: setSongInfo
+      }}>
       <div className="main-container">
         {/* <Header /> */}
         <Navigtion className="navigator" />
@@ -98,7 +111,10 @@ function App() {
           </Routes>
         </div>
       </div>
+      <AudioPlayer/>
       <Footer />
+    </AudioContext.Provider>
+    </PlayerContext.Provider>
     </LogingedContext.Provider>
   );
 }

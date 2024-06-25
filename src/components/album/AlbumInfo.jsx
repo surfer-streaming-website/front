@@ -5,6 +5,9 @@ import { useLocation } from "react-router-dom";
 import AlbumReplyItem from "./AlbumReplyItem";
 import InsertAlbumReply from './InsertAlbumReply';
 import SongItem from "../song/SongItem";
+import './AlbumInfo.css';
+import './SongList.css';
+import './AlbumReplyItem.css';
 
 const AlbumInfo = (props)=>{
     const [albumBoardInfo, setAlbumBoardInfo] = useState(props.albumInfo || {});
@@ -26,7 +29,7 @@ const AlbumInfo = (props)=>{
     useEffect(()=>{
         if(props.albumInfo){
             setAlbumBoardInfo(props.albumInfo);
-            console.log(props.albumInfo.albumSeq);
+            console.log(props.albumInfo);
         }
     }, [props.albumInfo])
 
@@ -69,7 +72,15 @@ const AlbumInfo = (props)=>{
                 <img className="albumImage" src={albumImage} referrerPolicy="no-referrer"/>
 
                 <p className="albumTitle">{albumBoardInfo.albumTitle}</p>
-                <p className="albumSinger">singer</p>
+                <p className="albumSinger">
+                    {albumBoardInfo.singers && 
+                    albumBoardInfo.singers.map((singer, index)=>(
+                      <p className="singer" key={singer.albumSingerSeq}>
+                        {singer.albumSingerName}
+                        {index !== albumBoardInfo.singers.length -1 && ', '}
+                      </p>
+                    ))}
+                </p>
                 <p className="text1">발매일</p>
                 <p className="releaseDate">{albumBoardInfo.releaseDate}</p>
                 <p className="text2">댓글</p>
@@ -126,7 +137,7 @@ const AlbumInfo = (props)=>{
                             <div className="paginationBox">
                                 <Pagination
                                     activePage={replies.pageable.pageNumber+1}
-                                    itemsCountPerPage={10} //한 페이지에 출력할 댓글 수
+                                    itemsCountPerPage={5} //한 페이지에 출력할 댓글 수
                                     totalItemsCount={replies.totalElements} //총 댓글 수
                                     prevPageText={"<"}
                                     nextPageText={">"}

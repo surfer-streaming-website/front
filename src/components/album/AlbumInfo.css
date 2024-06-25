@@ -1,0 +1,646 @@
+.albumInfo {
+    box-sizing: border-box;
+    
+    position: absolute;
+    width: 1090px;
+    height: 328px;
+    
+    border: 1px solid rgba(153, 153, 153, 0.67);
+    }
+    .albumInfo .albumImage{
+    /* 앨범 이미지 */
+    
+    /* position: absolute; */
+    width: 326px;
+    height: 326px;
+    left: -2px;
+    top: -1px;
+    
+    background: #D9D9D9;
+    }
+    
+    .albumInfo .albumTitle {
+    /* Album Name */
+    
+    position: absolute;
+    width: 237px;
+    height: 60px;
+    left: 364px;
+    top: 19px;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 40px;
+    line-height: 150%;
+    /* identical to box height, or 60px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    }
+    .albumInfo .albumSinger {
+    /* singer */
+    
+    position: absolute;
+    width: 300px;
+    height: 48px;
+    left: 364px;
+    top: 79px;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 32px;
+    line-height: 150%;
+    /* identical to box height, or 48px */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    
+    color: #FFFFFF;
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    }
+    .albumInfo .text1{
+    /* 발매일 */
+    
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    left: 364px;
+    top: 140px;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #999999;
+    
+    }.albumInfo .releaseDate{
+    /* 2024.05.31 */
+    
+    position: absolute;
+    width: 120px;
+    height: 30px;
+    left: 442px;
+    top: 140px;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #999999;
+    
+    }
+    .albumInfo .text2{
+    /* 댓글 */
+    
+    position: absolute;
+    width: 40px;
+    height: 30px;
+    left: 863px;
+    top: 140px;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #999999;
+    
+    }
+    .albumInfo .replyCount{
+    /* 댓글 수 */
+    
+    position: absolute;
+    width: 37px;
+    height: 30px;
+    left: 922px;
+    top: 140px;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #999999;
+    }
+    .albumInfo .text3{
+    /* 기획사 */
+    
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    left: 364px;
+    top: 185px;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    color: #999999;
+    }
+    .albumInfo .agency{
+    /* Entertainment */
+    
+    position: absolute;
+    width: 131px;
+    height: 30px;
+    left: 442px;
+    top: 185px;
+    
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    /* color: #FFFFFF; */
+    color: #999999;
+    }
+    .albumInfo .albumLike{
+    /* 🤍 100 */
+    
+    position: absolute;
+    width: 85px;
+    height: 36px;
+    left: 364px;
+    top: 235px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 150%;
+    /* identical to box height, or 36px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    }
+    .albumInfo .albumPlayCount{
+      position: absolute;
+      width: 100px;
+      height: 36px;
+      left: 474px;
+      top: 235px;
+    
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 150%;
+      /* identical to box height, or 36px */
+      display: flex;
+      align-items: center;
+    
+      color: #FFFFFF;
+    }
+    .albumInfo .button1{
+    /* Button */
+    
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* padding: 14px 24px; */
+    gap: 8px;
+    
+    position: absolute;
+    width: 111px;
+    height: 44px;
+    left: 580px;
+    top: 259px;
+    
+    background: linear-gradient(99deg, #00F8F8 6.84%, #009292 83.28%);
+    /* Button Shadow */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    
+    }
+    .albumInfo .playAlbum{
+    /* 전체 재생 */
+    
+    width: 88px;
+    height: 30px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    
+    text-align: center;
+    }
+    .albumInfo .button2{
+    /* Button */
+    
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    
+    position: absolute;
+    width: 111px;
+    height: 44px;
+    left: 710px;
+    top: 259px;
+    
+    background: linear-gradient(99deg, #00F8F8 6.84%, #009292 83.28%);
+    /* Button Shadow */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    
+    }
+    .albumInfo .button3{
+    /* Button */
+    
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    
+    position: absolute;
+    width: 111px;
+    height: 44px;
+    left: 840px;
+    top: 259px;
+    
+    background: linear-gradient(99deg, #00F8F8 6.84%, #009292 83.28%);
+    /* Button Shadow */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    }
+    .albumInfo .download{
+    /* 앨범 다운 */
+    
+    width: 88px;
+    height: 30px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    
+    
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    }
+    .albumInfo .share{
+    /* 공유 */
+    
+    /* position: absolute; */
+    width: 50px;
+    height: 30px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    
+    
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    
+    }
+    .albumInfoBox .albumContent{
+      /* 앨범소개글 */
+      
+      position: relative;
+      width: 1090px;
+      height: 93px;
+      top: 423px;
+      
+      align-items: stretch;
+      
+      }
+      .albumInfoBox .content{
+      /* 앨범 소개글 들어가는 자리*/
+      
+      position: relative;
+      width: 619px;
+      height: 30px;
+      left: 39px;
+      top: calc(50%-2px);
+      
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 150%;
+      /* identical to box height, or 30px */
+      display: flex;
+      align-items: center;
+      
+      /* color: #FFFFFF; */
+      color:#999999
+      }
+      .albumInfoBox {
+
+        height: 2000px;
+         width: 1090px;
+         background-color: #000000;
+      
+         left: 250px;
+         top: 80px;
+         /* 스크롤 움직여도 고정되도록 */
+         position: relative;
+      
+         /* 부모 요소에 display: flex;를 추가하여 flex 컨테이너로 만들기 */
+        display: flex;
+        flex-direction: column; /* 세로 방향으로 정렬 */
+        gap: 20px; /* 각 섹션 사이의 간격 */
+      
+      }
+
+      /*pagination*/
+      .pagination{
+        display: flex;
+        justify-content: center;
+        }
+        .pagination li:first-child{
+        /* Button */
+        
+        /* Auto layout */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        /* padding: 14px 24px; */
+        gap: 8px;
+        
+        position: absolute;
+        width: 41px;
+        height: 41px;
+        left: 300px;
+        
+        background: rgba(153, 153, 153, 0.6);
+        /* Button Shadow */
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        
+        }
+        .pagination li:last-child{
+        /* Button */
+        
+        /* Auto layout */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        /* padding: 14px 24px; */
+        gap: 8px;
+        
+        position: absolute;
+        width: 41px;
+        height: 41px;
+        left: 750px;
+        
+        background: rgba(153, 153, 153, 0.6);
+        /* Button Shadow */
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        }
+        .pagination li:nth-child(2){
+        /* Button */
+        
+        /* Auto layout */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        /* padding: 14px 24px; */
+        gap: 8px;
+        
+        position: absolute;
+        width: 41px;
+        height: 41px;
+        left: 350px;
+        
+        background: rgba(153, 153, 153, 0.6);
+        /* Button Shadow */
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        }
+        .pagination li:nth-last-child(2){
+        /* Button */
+        
+        /* Auto layout */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        /* padding: 14px 24px; */
+        gap: 8px;
+        
+        position: absolute;
+        width: 41px;
+        height: 41px;
+        left: 700px;
+        
+        background: rgba(153, 153, 153, 0.6);
+        /* Button Shadow */
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        }
+        .pagination li a{
+        /* < */
+        
+        width: 16px;
+        height: 36px;
+        
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 150%;
+        /* identical to box height, or 36px */
+        display: flex;
+        align-items: center;
+        
+        color: #FFFFFF;
+        
+        /* Inside auto layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        
+        text-decoration-line: none;
+        }
+        .pagination li{
+        display: inline-block;
+        width: 41px;
+        height: 41px;
+        justify-content: center;
+        align-items: center;
+        }
+        .pagination li.active a{
+        color:#00FFFF;
+        }
+
+        /*sort*/
+        .sort{
+          /* Frame */
+          
+          position: relative;
+          width: 192px;
+          height: 33px;
+          left: 900px;
+          top: 500px;
+          }
+          .sort .sortRegDate{
+          /* 최신순*/
+          
+          position: absolute;
+          width: 70px;
+          height: 30px;
+          
+          margin-top: 0;
+          margin-bottom: 0;
+          
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 150%;
+          /* identical to box height, or 30px */
+          display: flex;
+          align-items: center;
+          
+          color: #FFFFFF;
+          
+          background-color: transparent;
+          padding-left: 0;
+          padding-right: 0;
+          
+          border-radius: 10px;
+          border-color: transparent;
+          }
+          .sort .slash{
+          /* / */
+          
+          position: absolute;
+          width: 10px;
+          height: 30px;
+          left: 70px;
+          
+          margin-top: 0;
+          margin-bottom: 0;
+          
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 150%;
+          /* identical to box height, or 30px */
+          display: flex;
+          align-items: center;
+          
+          color: #FFFFFF;
+          }
+          .sort .sortLike{
+          /* 추천순 */
+          
+          position: absolute;
+          width: 70px;
+          height: 30px;
+          left: 80px;
+          
+          margin-top: 0;
+          margin-bottom: 0;
+          
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 150%;
+          /* identical to box height, or 30px */
+          display: flex;
+          align-items: center;
+          
+          color: #FFFFFF;
+          
+          background-color: transparent;
+          padding-left: 0;
+          padding-right: 0;
+          
+          border-radius: 10px;
+          border-color: transparent;
+          }
+
+          /*댓글 수*/
+    .replyCountNumber{
+      position: relative;
+      top: 500px;
+      height: 50px;
+      left: 20px;
+    }
+    .replyCountNumber .text1{
+      color:#FFFFFF;
+      font-style: normal;
+      font-size: 20px;
+    }
+    .replyCountNumber .text2{
+      color:#00FFFF;
+      font-style: normal;
+      position: relative;
+      left: 50px;
+      top: -48px;
+      font-size: 20px;
+    }

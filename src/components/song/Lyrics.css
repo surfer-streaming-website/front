@@ -1,0 +1,59 @@
+.songInfoBox .lyrics{
+    /* 가사 박스 */
+
+    box-sizing: border-box;
+
+    position: relative;
+    width: 1090px;
+    left: -0px;
+    top: 100px;
+
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+    background-color: #000000;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 500px;
+
+ }
+ .songInfoBox .lyrics .text-18{
+  /* 가사 */
+
+  position: relative;
+  width: 70px;
+  height: 48px;
+  left: 43px;
+  top: 12px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 150%;
+  /* display: flex;
+  align-items: center; */
+
+  color: #FFFFFF;
+
+ }
+ .songInfoBox .lyrics .text-19{
+  /* 가사 들어가는 자리 */
+
+    position: relative;
+    width: 158px;
+    left: 40px;
+    top: 0px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    display: flex;
+    align-items: stretch;
+
+    color: #999999;
+
+ }

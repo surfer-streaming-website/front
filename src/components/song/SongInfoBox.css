@@ -1,0 +1,796 @@
+.songInfoBox .songInfo {
+    height: 328px;
+    width: 1090px;
+    border: 1px solid rgba(153, 153, 153, 0.6700000166893005);
+ }
+ .songInfoBox .text-1 {
+   /* Song Title */
+ 
+   position: absolute;
+   width: 300px;
+   height: 60px;
+   left: 364px;
+   top: 19px;
+ 
+   margin-top: 0;
+   margin-bottom: 0;
+ 
+   font-family: 'Inter';
+   font-style: italic;
+   font-weight: 200;
+   font-size: 40px;
+   line-height: 150%;
+   /* identical to box height, or 60px */
+   display: flex;
+   align-items: center;
+ 
+   color: #FFFFFF;
+ 
+ 
+ }
+ .songInfoBox .albumImage{
+   /* 앨범 이미지 */
+   width: 326px;
+   height: 326px;
+   left: -2px;
+   top: -1px;
+   
+   background: #D9D9D9;
+ }
+ .songInfoBox .text-2 {
+ 
+   /* singer */
+ 
+   position: absolute;
+   width: 200px;
+   height: 48px;
+   left: 364px;
+   top: 79px;
+ 
+   margin-top: 0;
+   margin-bottom: 0;
+ 
+   font-family: 'Inter';
+   font-style: italic;
+   font-weight: 200;
+   font-size: 32px;
+   line-height: 150%;
+   /* identical to box height, or 48px */
+   display: flex;
+   align-items: center;
+   gap: 5px;
+ 
+   color: #FFFFFF;
+ 
+ }
+ .songInfoBox .text-3 {
+   /* 앨범 */
+ 
+   position: absolute;
+   width: 50px;
+   height: 30px;
+   left: 364px;
+   top: 120px;
+ 
+   font-family: 'Inter';
+   font-style: italic;
+   font-weight: 200;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   /* color: #FFFFFF; */
+   color: #999999;
+ }
+ .songInfoBox .text-4 {
+   /* Album Title */
+ 
+   position: absolute;
+   width: 120px;
+   height: 30px;
+   left: 442px;
+   top: 120px;
+ 
+   font-family: 'Inter';
+   font-style: italic;
+   font-weight: 200;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   /* color: #FFFFFF; */
+   color: #999999;
+ 
+   text-decoration: none;
+ 
+   margin-top: 20px;
+ }
+ .songInfoBox .text-9 {
+    /* 장르 */
+ 
+     position: absolute;
+     width: 50px;
+     height: 30px;
+     left: 700px;
+     top: 120px;
+ 
+     font-family: 'Inter';
+     font-style: italic;
+     font-weight: 200;
+     font-size: 20px;
+     line-height: 150%;
+     /* identical to box height, or 30px */
+     display: flex;
+     align-items: center;
+ 
+     /* color: #FFFFFF; */
+     color: #999999;
+ 
+  }
+  .songInfoBox .text-10{
+   /* 장르 들어가는 자리 */
+ 
+   position: absolute;
+   width: 80px;
+   height: 30px;
+   left: 780px;
+   top: 120px;
+ 
+   font-family: 'Inter';
+   font-style: italic;
+   font-weight: 200;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   /* color: #FFFFFF; */
+   color: #999999;
+ 
+  }
+  .songInfo .text-5{
+   /* 작사 */
+ 
+   position: absolute;
+   width: 50px;
+   height: 30px;
+   left: 364px;
+   top: 160px;
+ 
+   font-family: 'Inter';
+   font-style: italic;
+   font-weight: 200;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   /* color: #FFFFFF; */
+   color: #999999;
+ 
+  }
+  .songInfoBox .text-7{
+   /* 작사가 */
+ 
+   position: absolute;
+   width: 150px;
+   height: 30px;
+   left: 442px;
+   top: 160px;
+ 
+   font-family: 'Inter';
+   font-style: italic;
+   font-weight: 200;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   /* color: #FFFFFF; */
+   color: #999999;
+  }
+  .songInfoBox .text-6{
+   /* 작곡 */
+ 
+   position: absolute;
+   width: 60px;
+   height: 30px;
+   left: 364px;
+   top: 200px;
+ 
+   font-family: 'Inter';
+   font-style: italic;
+   font-weight: 200;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   /* color: #FFFFFF; */
+   color: #999999;
+  }
+  .songInfoBox .text-8{
+   /* 작곡가 */
+ 
+   position: absolute;
+   width: 150px;
+   height: 30px;
+   left: 442px;
+   top: 200px;
+ 
+   font-family: 'Inter';
+   font-style: italic;
+   font-weight: 200;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   /* color: #FFFFFF; */
+   color: #999999;
+  }
+  .songInfoBox .text-11{
+   /* 편곡 */
+ 
+   position: absolute;
+   width: 50px;
+   height: 30px;
+   left: 700px;
+   top: 160px;
+ 
+   font-family: 'Inter';
+   font-style: italic;
+   font-weight: 200;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   /* color: #FFFFFF; */
+   color: #999999;
+  }
+  .songInfoBox .text-12{
+   /* 편곡자 */
+ 
+   position: absolute;
+   width: 100px;
+   height: 30px;
+   left: 780px;
+   top: 160px;
+ 
+   font-family: 'Inter';
+   font-style: italic;
+   font-weight: 200;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   /* color: #FFFFFF; */
+   color: #999999;
+  }
+  .songInfoBox .text-14{
+   /* 🤍 100 */
+ 
+   position: absolute;
+   width: 100px;
+   height: 36px;
+   left: 364px;
+   top: 240px;
+ 
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 500;
+   font-size: 24px;
+   line-height: 150%;
+   /* identical to box height, or 36px */
+   display: flex;
+   align-items: center;
+ 
+   color: #FFFFFF;
+  }
+  .songInfoBox .text-15{
+   /* 💿 94 */
+ 
+   position: absolute;
+   width: 100px;
+   height: 36px;
+   left: 474px;
+   top: 240px;
+ 
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 500;
+   font-size: 24px;
+   line-height: 150%;
+   /* identical to box height, or 36px */
+   display: flex;
+   align-items: center;
+ 
+   color: #FFFFFF;
+ 
+ 
+  }
+  .songInfoBox .button1{
+   /* Button */
+ 
+   /* Auto layout */
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   padding: 14px 24px;
+   gap: 8px;
+ 
+   position: absolute;
+   width: 111px;
+   height: 44px;
+   left: 577px;
+   top: 259px;
+ 
+   background: linear-gradient(99deg, #00F8F8 6.84%, #009292 83.28%);
+   /* Button Shadow */
+   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+   border-radius: 8px;
+  }
+  .songInfoBox .text-13{
+   /* 재생 */
+ 
+     width: 45px;
+     height: 30px;
+ 
+     font-family: 'Inter';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 20px;
+     line-height: 150%;
+     /* identical to box height, or 30px */
+     display: flex;
+     align-items: center;
+ 
+     color: #FFFFFF;
+ 
+ 
+     /* Inside auto layout */
+     flex: none;
+     order: 0;
+     flex-grow: 0;
+ 
+  }
+  .songInfoBox .button2{
+   /* Button */
+ 
+   /* Auto layout */
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   padding: 14px 24px;
+   gap: 8px;
+ 
+   position: absolute;
+   width: 111px;
+   height: 44px;
+   left: 700px;
+   top: 259px;
+ 
+   background: linear-gradient(99deg, #00F8F8 6.84%, #009292 83.28%);
+   /* Button Shadow */
+   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+   border-radius: 8px;
+ 
+  }
+  .songInfoBox .text-16{
+   /* 곡 다운 */
+ 
+   width: 70px;
+   height: 30px;
+ 
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 500;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   color: #FFFFFF;
+ 
+ 
+   /* Inside auto layout */
+   flex: none;
+   order: 0;
+   flex-grow: 0;
+  }
+  .songInfoBox .button3{
+   /* Button */
+ 
+   /* Auto layout */
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   padding: 14px 24px;
+   gap: 8px;
+ 
+   position: absolute;
+   width: 111px;
+   height: 44px;
+   left: 820px;
+   top: 259px;
+ 
+   background: linear-gradient(99deg, #00F8F8 6.84%, #009292 83.28%);
+   /* Button Shadow */
+   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+   border-radius: 8px;
+ 
+  }
+  .songInfoBox .text-17{
+   /* 담기 */
+ 
+   width: 45px;
+   height: 30px;
+ 
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 500;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   color: #FFFFFF;
+ 
+ 
+   /* Inside auto layout */
+   flex: none;
+   order: 0;
+   flex-grow: 0;
+  }
+  .songInfoBox .button4{
+   /* Auto layout */
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   padding: 14px 24px;
+   gap: 8px;
+ 
+   position: absolute;
+   width: 111px;
+   height: 44px;
+   left: 940px;
+   top: 259px;
+ 
+   background: linear-gradient(99deg, #00F8F8 6.84%, #009292 83.28%);
+   /* Button Shadow */
+   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+   border-radius: 8px;
+  }
+  .songInfoBox .text-18{
+   /* 공유 */
+ 
+   width: 45px;
+   height: 30px;
+ 
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 500;
+   font-size: 20px;
+   line-height: 150%;
+   /* identical to box height, or 30px */
+   display: flex;
+   align-items: center;
+ 
+   color: #FFFFFF;
+ 
+ 
+   /* Inside auto layout */
+   flex: none;
+   order: 0;
+   flex-grow: 0;
+  }
+  .songInfoBox .songReplyList{
+    width: 1090px;
+    top: 200px;
+    height: 500px;
+  
+     display: flex;
+     flex-direction: column; /* 세로 방향 정렬 */
+     gap: 10px; /* 각 SongItem 사이의 간격을 설정 */
+  
+     position: relative;
+     align-items: stretch; /* 자식 요소들이 세로로 꽉 차도록 설정 */
+  
+  }
+  .songReplyList .noReply{
+  color: #999999;
+  font-family: 'Inter';
+  font-style: normal;
+  
+  left: 400px;
+  position: absolute;
+  font-size: 20px;
+  }
+  .songBoard{
+    left: 200px;
+    background-color: #000000;
+    /* align-items: stretch;
+    display: flex; */
+    height: 2400px;
+  }
+  .songInfoBox {
+    height: 2200px;
+ 
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+ 
+    width: 1090px;
+    background-color: #000000;
+ 
+    left: 250px;
+    top: 80px;
+    /* 스크롤 움직여도 고정되도록 */
+    position: relative;
+ }
+ .songInfoBox .replyCountNumber{
+  position: relative;
+  top: 130px;
+  height: 50px;
+  left: 20px;
+}
+
+
+/*pagination*/
+.songReplyList .paginationBox{
+  position: relative;
+  top: 100px;
+}
+.pagination{
+  display: flex;
+  justify-content: center;
+  }
+  .pagination li:first-child{
+  /* Button */
+  
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* padding: 14px 24px; */
+  gap: 8px;
+  
+  position: absolute;
+  width: 41px;
+  height: 41px;
+  left: 300px;
+  
+  background: rgba(153, 153, 153, 0.6);
+  /* Button Shadow */
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  
+  }
+  .pagination li:last-child{
+  /* Button */
+  
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* padding: 14px 24px; */
+  gap: 8px;
+  
+  position: absolute;
+  width: 41px;
+  height: 41px;
+  left: 750px;
+  
+  background: rgba(153, 153, 153, 0.6);
+  /* Button Shadow */
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  }
+  .pagination li:nth-child(2){
+  /* Button */
+  
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* padding: 14px 24px; */
+  gap: 8px;
+  
+  position: absolute;
+  width: 41px;
+  height: 41px;
+  left: 350px;
+  
+  background: rgba(153, 153, 153, 0.6);
+  /* Button Shadow */
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  }
+  .pagination li:nth-last-child(2){
+  /* Button */
+  
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* padding: 14px 24px; */
+  gap: 8px;
+  
+  position: absolute;
+  width: 41px;
+  height: 41px;
+  left: 700px;
+  
+  background: rgba(153, 153, 153, 0.6);
+  /* Button Shadow */
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  }
+  .pagination li a{
+  /* < */
+  
+  width: 16px;
+  height: 36px;
+  
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 150%;
+  /* identical to box height, or 36px */
+  display: flex;
+  align-items: center;
+  
+  color: #FFFFFF;
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  
+  text-decoration-line: none;
+  }
+  .pagination li{
+  display: inline-block;
+  width: 41px;
+  height: 41px;
+  justify-content: center;
+  align-items: center;
+  }
+  .pagination li.active a{
+  color:#00FFFF;
+  }
+
+  /*sort*/
+  .sort{
+    /* Frame */
+    
+    position: relative;
+    width: 192px;
+    height: 33px;
+    left: 900px;
+    top: 500px;
+    }
+    .sort .sortRegDate{
+    /* 최신순*/
+    
+    position: absolute;
+    width: 70px;
+    height: 30px;
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    
+    border-radius: 10px;
+    border-color: transparent;
+    }
+    .sort .slash{
+    /* / */
+    
+    position: absolute;
+    width: 10px;
+    height: 30px;
+    left: 70px;
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    }
+    .sort .sortLike{
+    /* 추천순 */
+    
+    position: absolute;
+    width: 70px;
+    height: 30px;
+    left: 80px;
+    
+    margin-top: 0;
+    margin-bottom: 0;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+    display: flex;
+    align-items: center;
+    
+    color: #FFFFFF;
+    
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    
+    border-radius: 10px;
+    border-color: transparent;
+    }
+
+    /*댓글 수*/
+    .replyCountNumber{
+      position: relative;
+      top: 500px;
+      height: 50px;
+      left: 20px;
+    }
+    .replyCountNumber .text1{
+      color:#FFFFFF;
+      font-style: normal;
+      font-size: 20px;
+    }
+    .replyCountNumber .text2{
+      color:#00FFFF;
+      font-style: normal;
+      position: relative;
+      left: 50px;
+      top: -48px;
+      font-size: 20px;
+    }

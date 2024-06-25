@@ -1,0 +1,233 @@
+.Navigtion {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: left;
+    padding: 10px 12px;
+    gap: 16px;
+    background-color: #000000;
+  
+    width: 210px;
+    height: 800px;
+  }
+  .Navigtion .text-1 {
+    /* SURFER */
+  
+    width: 213\px;
+    height: 54px;
+  
+    margin-top: 0;
+    margin-bottom: 0;
+  
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 150%;
+    /* or 36px */
+    display: flex;
+    align-items: center;
+  
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), linear-gradient(0deg, #FFFFFF 0%, #00FFFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+  
+  
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  
+  }
+  .Navigtion .button {
+    /* Button */
+  
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 24px;
+    gap: 8px;
+  
+    width: 216px;
+    height: 32px;
+  
+    background: rgba(153, 153, 153, 0.36);
+    /* Button Shadow */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+  
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+  
+  
+    /* 🔎 검색 */
+  
+    width: 216px;
+    height: 32px;
+  
+    /* Small text
+  
+    Small text
+    */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    /* identical to box height, or 24px */
+    display: flex;
+    align-items: center;
+  
+    color: #FFFFFF;
+  
+  
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  
+  }
+  .Navigtion .button2 {
+    /* Button */
+  
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 24px;
+    gap: 8px;
+  
+    width: 216px;
+    height: 32px;
+  
+    /* background: linear-gradient(98.88deg, #00FFFF 6.76%, #077D7D 98.88%); */
+    background-color: #00FFFF;
+    /* Button Shadow */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+  
+    /* Inside auto layout */
+    flex: none;
+    order: 2;
+    align-self: stretch;
+    flex-grow: 0;
+  
+  }
+  .Navigtion .text-2 {
+    text-align: left;
+    vertical-align: middle;
+    font-size: 16px;
+    font-family: Inter;
+    line-height: 150%;
+    color: #ffffff;
+  }
+  .Navigtion .login {
+    text-align: left;
+    vertical-align: middle;
+    font-size: 16px;
+    font-family: Inter;
+    line-height: 150%;
+    color: #686767;
+    /* color:#ffffff; */
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .Navigtion .memberBox{
+    box-sizing: border-box;
+  
+    width: 210px;
+    height: 78px;
+    left: 20px;
+    top: 127px;
+  
+    background: #000000;
+    border: 2px solid #00FFFF;
+    border-radius: 10px;
+  }
+  .memberBox .nickname{
+    /* AAA님 로그인 ⚙️ */
+  
+    position: relative;
+    width: 115px;
+    height: 21px;
+    left: 60px;
+    top: 10px;
+  
+    font-family: 'Nova Round';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 150%;
+    /* or 20px */
+    display: flex;
+    align-items: center;
+  
+    color:#FFFFFF;
+  
+  }
+  .memberBox .setting{
+    position: relative;
+    top: -25px;
+    left: 150px;
+  }
+  .memberButton{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* background-color: #00FFFF; */
+  }
+  .memberButton button{
+    /* background-color: transparent; */
+    background: rgba(153, 153, 153, 0.36);
+    color:white;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+  }
+  .Navigtion .text-4 {
+    text-align: left;
+    vertical-align: middle;
+    font-size: 12px;
+    font-family: Inter;
+    line-height: 150%;
+    color: #ffffff;
+  }
+  .Navigtion .navButton1 {
+    /* 네비게이션 버튼1 */
+  
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  
+    width: 213px;
+    height: 32px;
+  
+    background: #000000;
+    /* Button Shadow */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+  
+    /* Inside auto layout */
+    flex: none;
+    order: 4;
+    flex-grow: 0;
+  
+  }
+  .Navigtion .text-5 {
+    text-align: left;
+    vertical-align: middle;
+    font-size: 16px;
+    font-family: Inter;
+    line-height: 150%;
+    color: #ffffff;
+  }
