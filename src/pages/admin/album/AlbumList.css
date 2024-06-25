@@ -1,7 +1,7 @@
 .album-list-container {
   padding: 20px;
-  background-color: #000000; /* 배경색을 검정색으로 변경 */
-  color: #ffffff; /* 글씨 색을 흰색으로 변경 */
+  background-color: #000000; /* 바탕을 검정색으로 변경 */
+  color: #ffffff; /* 글씨를 흰색으로 변경 */
 }
 
 .album-list-content {
@@ -16,18 +16,18 @@
 .album-table th,
 .album-table td {
   padding: 10px;
-  border: 1px solid #444444; /* 경계선을 어두운 회색으로 변경 */
+  border: 1px solid #ddd;
   text-align: left;
 }
 
 .album-table th {
-  background-color: #333333; /* 테이블 헤더의 배경색을 어두운 회색으로 변경 */
+  background-color: #333333; /* 헤더 배경을 어두운 색으로 변경 */
 }
 
 .message {
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid green;
-  background-color: #333333; /* 메시지 배경색을 어두운 회색으로 변경 */
+  background-color: #dff0d8;
   color: green;
 }

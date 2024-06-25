@@ -14,12 +14,7 @@ const AlbumList = () => {
   const fetchAlbums = async () => {
     try {
       const response = await axios.get(
-        'http://localhost:8080/api/album/status/2',
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`, // JWT 토큰 추가
-          },
-        }
+        'http://localhost:8080/api/album/status/2'
       );
       setAlbums(response.data);
     } catch (error) {
@@ -29,17 +24,21 @@ const AlbumList = () => {
 
   const handleStatusChange = async (albumSeq, newStatus) => {
     try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Token not found');
+      }
+
       await axios.put(
-        `http://localhost:8080/api/album/updateStatus/${albumSeq}`,
-        {
-          albumState: newStatus,
-        },
+        `http://localhost:8080/api/album/updateStatus/${albumSeq}`, 
+        { albumState: newStatus },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`, // JWT 토큰 추가
-          },
+            'Authorization': `${token}`
+          }
         }
       );
+
       setAlbums((prevAlbums) =>
         prevAlbums.map((album) =>
           album.albumSeq === albumSeq
@@ -61,8 +60,7 @@ const AlbumList = () => {
       <AdminNavigation /> {/* AdminNavigation 추가 */}
       <div className="album-list-content">
         <h1>Album List</h1>
-        {message && <div className="message">{message}</div>}{' '}
-        {/* 메시지 표시 */}
+        {message && <div className="message">{message}</div>} {/* 메시지 표시 */}
         <table className="album-table">
           <thead>
             <tr>
@@ -86,10 +84,7 @@ const AlbumList = () => {
                   <select
                     value={album.albumState}
                     onChange={(e) =>
-                      handleStatusChange(
-                        album.albumSeq,
-                        parseInt(e.target.value)
-                      )
+                      handleStatusChange(album.albumSeq, parseInt(e.target.value))
                     }
                   >
                     <option value={0}>심사중</option>
