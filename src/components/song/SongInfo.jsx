@@ -9,7 +9,7 @@ import './SongInfoBox.css';
 import './Lyrics.css';
 import { PlayerContext, AudioContext } from "../../App.jsx";
 
-const SongInfo = (props)=>{
+const SongInfo = (props) => {
 
     const [songBoardInfo, setSongBoardInfo] = useState(props.songInfo || {});
     const replies = songBoardInfo ? songBoardInfo.replies : null;
@@ -20,49 +20,55 @@ const SongInfo = (props)=>{
     const arrangerList = songBoardInfo && songBoardInfo.producerDTO ? songBoardInfo.producerDTO.arrangerList : [];
     const albumImage = songBoardInfo ? songBoardInfo.albumImage : null;
     const location = useLocation();
+    // const [playing, setPlaying] = useState(false); //현재 음악 진행 여부
+    const [liked, setLiked] = useState(false); // 좋아요 상태
+    const [likeCount, setLikeCount] = useState(0); // 좋아요 수
     const {playing, setPlaying} = useContext(PlayerContext); //음악 재생 상태 전역 변수
     const {audio} = useContext(AudioContext);
     const {songInfo, setSongInfo} = useContext(AudioContext);
 
-    useEffect(()=>{
-        if(props.songInfo){
-          setSongBoardInfo(props.songInfo);
-          console.log(songBoardInfo);
+    useEffect(() => {
+        if (props.songInfo) {
+            setSongBoardInfo(props.songInfo);
+            setLikeCount(props.songInfo.likeCount || 0);
+            setLiked(props.songInfo.isLiked || false);
         }
-      }, [props.songInfo])
+    }, [props.songInfo])
 
-      useEffect(()=>{
+    useEffect(() => {
         fetchData();
-      }, [page, sort]); //page또는 sort가 변경될 때마다 데이터 다시 불러오기.
-  
-      const fetchData = () => {
-        if(songBoardInfo && songBoardInfo.songSeq){
-          axios.get(`http://localhost:8080/api/song/detail/${songBoardInfo.songSeq}?nowPage=${page}&sort=${sort}`)
-          .then((res) => {
-            setSongBoardInfo(res.data.data);
-          })
-        }
-      };
+    }, [page, sort]); //page 또는 sort가 변경될 때마다 데이터 다시 불러오기.
 
-      const handlePageChange = (pageNumber) => {
+    const fetchData = () => {
+        if (songBoardInfo && songBoardInfo.songSeq) {
+            axios.get(`http://localhost:8080/api/song/detail/${songBoardInfo.songSeq}?nowPage=${page}&sort=${sort}`)
+                .then((res) => {
+                    setSongBoardInfo(res.data.data);
+                    setLikeCount(res.data.data.likeCount || 0);
+                    setLiked(res.data.data.isLiked || false);
+                })
+        }
+    };
+
+    const handlePageChange = (pageNumber) => {
         setPage(pageNumber);
-      };
-  
-      const handlePageSort = (e) => {
+    };
+
+    const handlePageSort = (e) => {
         const selectedSort = e.target.value;
         setSort(selectedSort);
-      };
+    };
 
-      const handleCopyClipBoard = async(text) => {
-        try{
-          await navigator.clipboard.writeText(text);
-          alert("클립보드에 링크가 복사되었어요.");
-        } catch (err){
-          console.log(err);
+    const handleCopyClipBoard = async (text) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            alert("클립보드에 링크가 복사되었어요.");
+        } catch (err) {
+            console.log(err);
         }
-      };
+    };
 
-      const playMusic = ()=>{
+    const playMusic = () => {
         console.log(songBoardInfo.soundSourceUrl);
         audio.src = songBoardInfo.soundSourceUrl;
         console.log(audio.src);
@@ -73,8 +79,39 @@ const SongInfo = (props)=>{
         console.log("isPlaying="+isPlaying);
 
         setSongInfo(songBoardInfo);
-      }
+    }
+
+    const handleLike = () => {
+        const token = localStorage.getItem('accessToken');
+        const memberId = localStorage.getItem('memberId');
+        if (!memberId) {
+            alert("로그인이 필요합니다.");
+            return;
+        }
+
+        const method = liked ? 'DELETE' : 'POST';
+        const url = `http://localhost:8080/api/song/${songBoardInfo.songSeq}/like/${memberId}`;
+
+
+        axios({
+            method: method,
+            url: url,
+            headers: {
+                'Authorization': `${token}`
+            }
+        })
+            .then(() => {
+                setLiked(!liked);
+                setLikeCount(prev => liked ? prev - 1 : prev + 1);
+            })
+            .catch(err => {
+                console.error(err);
+                alert("좋아요 기능을 사용할 수 없습니다.");
+            });
+    };
+
       
+
       return(
       <div className="songBoard">
           {songBoardInfo &&(
@@ -136,7 +173,7 @@ const SongInfo = (props)=>{
                 <p className="text-17">담기</p>
               </button>
   
-              <p className="text-14">🤍 100</p>
+              <p className="text-14" onClick={handleLike}>{liked ? "❤️" : "🤍"} {likeCount}</p>
               <p className="text-15">💿 {songBoardInfo.totalPlayedCount}</p>
               <button className="button4" onClick={()=>handleCopyClipBoard(`http://localhost:5173${location.pathname}`)}>
                   <p className="text-18">공유</p>

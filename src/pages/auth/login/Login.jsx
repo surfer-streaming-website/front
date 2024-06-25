@@ -24,25 +24,25 @@ const Login = () => {
 
     let formData = {
       email: member.email,
-      password: member.password
+      password: member.password,
     };
     axios({
       method: "POST",
       url: "http://localhost:8080/api/v1/auth/sign-in",
       // data: JSON.stringify(formData),
       data: formData,
-      headers:{
+      headers: {
         "Content-Type": "application/json",
-      }
+      },
     })
       .then((res) => {
-        const [, payloadBase64] = res.data.data.accessToken.split('.');
+        const [, payloadBase64] = res.data.data.accessToken.split(".");
         const decodedPayload = JSON.parse(atob(payloadBase64));
         //인증된 사용자의 정보를 저장
-        localStorage.setItem("accessToken", 'Bearer ' + res.data.data.accessToken);
+        localStorage.setItem("accessToken", "Bearer " + res.data.data.accessToken);
         localStorage.setItem("refreshToken", res.data.data.refreshToken);
         localStorage.setItem("nickname", decodedPayload.nickname);
-        
+        localStorage.setItem("memberId", res.data.data.memberId); // memberId 저장
 
         //App.js에 있는 isLoggedIn 변수를 true 변경한다.
         logingedCon.onLoggedChange(true);
@@ -60,7 +60,7 @@ const Login = () => {
 
   return (
     <div>
-      <h3 style={{ padding: "10px" }}>로그인하기 </h3>
+      <h3 style={{ padding: "10px" }}>로그인하기</h3>
       <form onSubmit={submitLogin}>
         <label htmlFor="email">아이디</label>
         <input
