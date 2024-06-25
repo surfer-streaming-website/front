@@ -122,6 +122,7 @@
     align-items: center;
     
     color: #FFFFFF;
+    text-decoration: none;
     }
     .songItem .download{
     /* 다운로드 */

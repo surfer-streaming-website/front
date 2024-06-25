@@ -17,6 +17,10 @@ import CreateArtistApplication from "./pages/auth/create-artist-application/Crea
 import UpdateArtistApplication from "./pages/auth/update-artist-application/UpdateArtistApplication";
 import Search from "./pages/search/Search";
 import AudioPlayer from "./components/audio/AudioPlayer";
+import Exist from "./pages/playlist/exsit/Exist";
+import MyPlaylist from "./pages/playlist/myPlaylists/MyPlaylist";
+import PlaylistDetail from "./pages/playlist/playlistDetail/PlaylistDetail";
+import PlaylistSaveForm from "./pages/playlist/savePlaylist/PlaylistSaveForm";
 
 export const LogingedContext = createContext();
 export const PlayerContext = createContext(); //음악 재생 상태 관리할 전역 변수
@@ -86,6 +90,11 @@ function App() {
             <Route path="/album/detail/:id" element={<AlbumBoard />} />
 
             <Route path="/search/:keyword" element={<Search />} />
+
+            <Route path="/save" element={<Exist/>}/>
+            <Route path="/myPlaylists" element={<MyPlaylist/>}/>
+            <Route path="/myPlaylists/:id" element={<PlaylistDetail/>}/>
+            <Route path="/save/:song/playlist" element={<PlaylistSaveForm/>}/>
 
             {/* error */}
             <Route

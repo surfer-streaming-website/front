@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Pagination from "react-js-pagination";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SongReplyItem from "./SongReplyItem.jsx";
 import InsertSongreply from "./InsertSongReply";
 import AudioPlayer from "../audio/AudioPlayer.jsx";
@@ -24,6 +24,8 @@ const SongInfo = (props)=>{
     const {audio} = useContext(AudioContext);
     const {songInfo, setSongInfo} = useContext(AudioContext);
 
+    const navigate = useNavigate();
+    
     useEffect(()=>{
         if(props.songInfo){
           setSongBoardInfo(props.songInfo);
@@ -132,7 +134,7 @@ const SongInfo = (props)=>{
               <button className="button2">
                 <p className="text-16">곡 다운</p>
               </button>
-              <button className="button3">
+              <button className="button3" onClick={()=>navigate("/save")}>
                 <p className="text-17">담기</p>
               </button>
   
