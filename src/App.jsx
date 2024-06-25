@@ -28,7 +28,6 @@ export const PlaylistContext = createContext(); //플레이리스트 관리
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
-
   useEffect(() => {
     localStorage.getItem("nickname") != null
       ? setIsLoggedIn(true)
