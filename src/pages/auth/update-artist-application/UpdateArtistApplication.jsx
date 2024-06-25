@@ -5,6 +5,7 @@ import {
   authExceptionHandler,
 } from "../../../components/auth/AuthUtil";
 import { useNavigate, useParams } from "react-router-dom";
+import './UpdateArtistApplication.css'
 
 const UpdateArtistApplication = () => {
   const { id } = useParams();
@@ -40,7 +41,7 @@ const UpdateArtistApplication = () => {
           },
         }
       );
-      
+
       setFormValues(() => ({
         locationType: response.data.data.locationType,
         sector: response.data.data.sector,
@@ -105,143 +106,145 @@ const UpdateArtistApplication = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>국내외 구분:</label>
-          <label>
+    <div className="container">
+      <div>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>국내외 구분:</label>
+            <label>
+              <input
+                type="radio"
+                name="locationType"
+                value="국내"
+                checked={formValues.locationType === "국내"}
+                onChange={handleChange}
+                required
+              />
+              국내
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="locationType"
+                value="국외"
+                checked={formValues.locationType === "국외"}
+                onChange={handleChange}
+                required
+              />
+              국외
+            </label>
+          </div>
+          <div>
+            <label>부문:</label>
+            <label>
+              <input
+                type="radio"
+                name="sector"
+                value="대중"
+                checked={formValues.sector === "대중"}
+                onChange={handleChange}
+                required
+              />
+              대중
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="sector"
+                value="클래식"
+                checked={formValues.sector === "클래식"}
+                onChange={handleChange}
+                required
+              />
+              클래식
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="sector"
+                value="순수"
+                checked={formValues.sector === "순수"}
+                onChange={handleChange}
+                required
+              />
+              순수
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="sector"
+                value="국악"
+                checked={formValues.sector === "국악"}
+                onChange={handleChange}
+                required
+              />
+              국악
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="sector"
+                value="동요"
+                checked={formValues.sector === "동요"}
+                onChange={handleChange}
+                required
+              />
+              동요
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="sector"
+                value="종교"
+                checked={formValues.sector === "종교"}
+                onChange={handleChange}
+                required
+              />
+              종교
+            </label>
+          </div>
+          <div>
+            <label>저작물명:</label>
             <input
-              type="radio"
-              name="locationType"
-              value="국내"
-              checked={formValues.locationType === "국내"}
+              type="text"
+              name="copyrightName"
+              value={formValues.copyrightName}
               onChange={handleChange}
               required
             />
-            국내
-          </label>
-          <label>
+          </div>
+          <div>
+            <label>앨범명:</label>
             <input
-              type="radio"
-              name="locationType"
-              value="국외"
-              checked={formValues.locationType === "국외"}
+              type="text"
+              name="albumName"
+              value={formValues.albumName}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>가수명:</label>
+            <input
+              type="text"
+              name="artistName"
+              value={formValues.artistName}
               onChange={handleChange}
               required
             />
-            국외
-          </label>
-        </div>
-        <div>
-          <label>부문:</label>
-          <label>
+          </div>
+          <div>
+            <label>저작자명:</label>
             <input
-              type="radio"
-              name="sector"
-              value="대중"
-              checked={formValues.sector === "대중"}
+              type="text"
+              name="authorName"
+              value={formValues.authorName}
               onChange={handleChange}
               required
             />
-            대중
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="sector"
-              value="클래식"
-              checked={formValues.sector === "클래식"}
-              onChange={handleChange}
-              required
-            />
-            클래식
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="sector"
-              value="순수"
-              checked={formValues.sector === "순수"}
-              onChange={handleChange}
-              required
-            />
-            순수
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="sector"
-              value="국악"
-              checked={formValues.sector === "국악"}
-              onChange={handleChange}
-              required
-            />
-            국악
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="sector"
-              value="동요"
-              checked={formValues.sector === "동요"}
-              onChange={handleChange}
-              required
-            />
-            동요
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="sector"
-              value="종교"
-              checked={formValues.sector === "종교"}
-              onChange={handleChange}
-              required
-            />
-            종교
-          </label>
-        </div>
-        <div>
-          <label>저작물명:</label>
-          <input
-            type="text"
-            name="copyrightName"
-            value={formValues.copyrightName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>앨범명:</label>
-          <input
-            type="text"
-            name="albumName"
-            value={formValues.albumName}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>가수명:</label>
-          <input
-            type="text"
-            name="artistName"
-            value={formValues.artistName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>저작자명:</label>
-          <input
-            type="text"
-            name="authorName"
-            value={formValues.authorName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">수정하기</button>
-      </form>
+          </div>
+          <button type="submit">수정하기</button>
+        </form>
+      </div>
     </div>
   );
 };
