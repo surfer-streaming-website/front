@@ -21,6 +21,8 @@ import AlbumList from './pages/admin/album/AlbumList';
 import AdminHome from './pages/admin/home/AdminHome';
 
 export const LogingedContext = createContext();
+export const PlayerContext = createContext(); //음악 재생 상태 관리할 전역 변수
+export const AudioContext = createContext(); //오디오 전역 변수
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,10 +39,20 @@ function App() {
     setIsLoggedIn(isLoggedIn);
   };
 
+  const [playing, setPlaying] = useState(false);
+  const [audio] = useState(new Audio());
+  const [songInfo, setSongInfo] = useState();
+
   return (
     <LogingedContext.Provider
       value={{ isLoggedIn: isLoggedIn, onLoggedChange: handleLoggedChange }}
     >
+    <PlayerContext.Provider
+      value={{ playing: playing, setPlaying: setPlaying }}
+    >
+    <AudioContext.Provider
+      value={{audio: audio, songInfo: songInfo, setSongInfo: setSongInfo
+      }}>
       <div className="main-container">
         {/* <Header /> */}
         <Navigtion className="navigator" />
@@ -97,7 +109,10 @@ function App() {
           </Routes>
         </div>
       </div>
+      <AudioPlayer/>
       <Footer />
+    </AudioContext.Provider>
+    </PlayerContext.Provider>
     </LogingedContext.Provider>
   );
 }

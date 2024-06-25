@@ -7,7 +7,7 @@
    /* Song Title */
  
    position: absolute;
-   width: 187px;
+   width: 300px;
    height: 60px;
    left: 364px;
    top: 19px;
@@ -42,7 +42,7 @@
    /* singer */
  
    position: absolute;
-   width: 91px;
+   width: 200px;
    height: 48px;
    left: 364px;
    top: 79px;
@@ -58,6 +58,7 @@
    /* identical to box height, or 48px */
    display: flex;
    align-items: center;
+   gap: 5px;
  
    color: #FFFFFF;
  

@@ -83,25 +83,33 @@ const AlbumInfo = (props) => {
                     <div className="albumInfo">
                         <img className="albumImage" src={albumImage} referrerPolicy="no-referrer" />
 
-                        <p className="albumTitle">{albumBoardInfo.albumTitle}</p>
-                        <p className="albumSinger">singer</p>
-                        <p className="text1">발매일</p>
-                        <p className="releaseDate">{albumBoardInfo.releaseDate}</p>
-                        <p className="text2">댓글</p>
-                        <p className="replyCount">{replies ? replies.totalElements : 0}</p>
-                        <p className="text3">기획사</p>
-                        <p className="agency">{albumBoardInfo.agency}</p>
-                        <p className="albumLike">🤍 {albumLikeCount}</p>
-                        <p className="albumPlayCount">💿 {totalPlayedCount}</p>
-                        <button className="button1">
-                            <p className="playAlbum">전체 재생</p>
-                        </button>
-                        <button className="button2">
-                            <p className="download">앨범 다운</p>
-                        </button>
-                        <button className="button3" onClick={() => handleCopyClipBoard(`http://localhost:5173${location.pathname}`)}>
-                            <p className="share">공유</p>
-                        </button>
+                <p className="albumTitle">{albumBoardInfo.albumTitle}</p>
+                <p className="albumSinger">
+                    {albumBoardInfo.singers && 
+                    albumBoardInfo.singers.map((singer, index)=>(
+                      <p className="singer" key={singer.albumSingerSeq}>
+                        {singer.albumSingerName}
+                        {index !== albumBoardInfo.singers.length -1 && ', '}
+                      </p>
+                    ))}
+                </p>
+                <p className="text1">발매일</p>
+                <p className="releaseDate">{albumBoardInfo.releaseDate}</p>
+                <p className="text2">댓글</p>
+                <p className="replyCount">{replies ? replies.totalElements : 0}</p>
+                <p className="text3">기획사</p>
+                <p className="agency">{albumBoardInfo.agency}</p>
+                <p className="albumLike">🤍 {albumLikeCount}</p>
+                <p className="albumPlayCount">💿 {totalPlayedCount}</p>
+                <button className="button1">
+                    <p className="playAlbum">전체 재생</p>
+                </button>
+                <button className="button2">
+                    <p className="download">앨범 다운</p>
+                </button>
+                <button className="button3" onClick={()=>handleCopyClipBoard(`http://localhost:5173${location.pathname}`)}>
+                    <p className="share">공유</p>
+                </button>
 
                     </div>
 
