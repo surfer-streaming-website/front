@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { LogingedContext } from "../../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Login.css";
 
 const Login = () => {
   let logingedCon = useContext(LogingedContext);
@@ -40,12 +39,10 @@ const Login = () => {
         const [, payloadBase64] = res.data.data.accessToken.split(".");
         const decodedPayload = JSON.parse(atob(payloadBase64));
         //인증된 사용자의 정보를 저장
-        localStorage.setItem(
-          "accessToken",
-          "Bearer " + res.data.data.accessToken
-        );
+        localStorage.setItem("accessToken", "Bearer " + res.data.data.accessToken);
         localStorage.setItem("refreshToken", res.data.data.refreshToken);
         localStorage.setItem("nickname", decodedPayload.nickname);
+        localStorage.setItem("memberId", res.data.data.memberId); // memberId 저장
 
         //App.js에 있는 isLoggedIn 변수를 true 변경한다.
         logingedCon.onLoggedChange(true);
@@ -62,35 +59,29 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <div className="body">
-        <div className="explanation">
-          <h3>로그인하기</h3>
-        </div>
-        <form onSubmit={submitLogin} className="log-in-form">
-          <div className="email">
-            <label htmlFor="email">이메일</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              onChange={changeValue}
-              value={member.email}
-            />
-          </div>
-          <div className="password">
-            <label htmlFor="password">비밀번호</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              onChange={changeValue}
-              value={member.password}
-            />
-          </div>
-          <button type="submit">로그인</button>
-        </form>
-      </div>
+    <div>
+      <h3 style={{ padding: "10px" }}>로그인하기</h3>
+      <form onSubmit={submitLogin}>
+        <label htmlFor="email">아이디</label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          onChange={changeValue}
+          value={member.email}
+        />
+        <label htmlFor="password">비밀번호</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          onChange={changeValue}
+          value={member.password}
+        />
+        <p />
+        <button type="submit">로그인</button>
+        <p />
+      </form>
     </div>
   );
 };
