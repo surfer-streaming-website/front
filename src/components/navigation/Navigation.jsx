@@ -45,8 +45,7 @@ const Navigtion = () => {
               click ? 
             <div className="memberButton">
               <button className="myPage" onClick={myPageClick}>마이페이지</button>
-              <button>내 이용권</button>
-              <button>계정설정</button>
+              <button>플레이리스트</button>
               <button>로그아웃</button>
             </div>
             :
