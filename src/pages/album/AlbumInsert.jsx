@@ -10,9 +10,9 @@ const AlbumInsert = () => {
     albumTitle: "",
     agency: "",
     albumContent: "",
-    albumImage: null,
+    albumImage: "",
     releaseDate: "",
-    memberId: "",
+    memberId: "2",
     songEntities: [
       {
         songTitle: "",
@@ -20,7 +20,7 @@ const AlbumInsert = () => {
         lyrics: "",
         genre: "",
         songState: "",
-        soundSourceName: null,
+        soundSourceName: "",
         producer: "",
         songSingerEntities: [
           {
@@ -76,10 +76,10 @@ const AlbumInsert = () => {
     });
   };
 
-  // const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState();
   // const [soundSourceFiles, setSoundSourceFiles] = useState([]);
-  // const [multipartfiles, setMutipartFiles] = useState([]);
-  const [multipartfiles, setMutipartFiles] = useState();
+  const [multipartfiles, setMultipartFiles] = useState([]);
+  // const [multipartfiles, setMultipartFiles] = useState();
 
   const changeValue = (e) => {
     const { name, value } = e.target;
@@ -106,24 +106,73 @@ const AlbumInsert = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setAlbumReq({ ...albumReq, albumImage: file });
+    setAlbumReq({ ...albumReq, albumImage: file.name });
+    
+    
+    const newImage = [...multipartfiles];
+    newImage[0] = file;
+    setMultipartFiles(newImage);    
 
     if (file) {
+      const newImage = [file];
+      setMultipartFiles(newImage);
+
       const reader = new FileReader();
       reader.onloadend = () => {
-        setMutipartFiles(reader.result);
+          setImagePreview(reader.result);  // Ensure file is stored in array
       };
       reader.readAsDataURL(file);
-    } else {
-      setMutipartFiles(null);
-    }
-  };
+  } else {
+      setImagePreview([]);
+  }
+};
 
+const handleSoundSourceChange = (e) => {
+  const file = e.target.files[0]; // 첫 번째 파일만 선택
+  if (!file) {
+      return; // 파일이 선택되지 않았으면 함수 종료
+  }
+
+  // albumReq 업데이트
+  setAlbumReq({
+      ...albumReq,
+      songEntities: [
+          {
+              ...albumReq.songEntities[0], // 기존 요소 복사
+              soundSourceName: file.name // soundSourceName 속성 업데이트
+          }
+      ]
+  });
+
+  // multipartfiles 업데이트
+  const newSoundSourceFiles = [...multipartfiles, file];
+  setMultipartFiles(newSoundSourceFiles);
+};
+
+
+  // const handleSoundSourceChange = (e) => {
+  //   const file = e.target.files[1];
+  //   setAlbumReq({
+  //     ...albumReq,
+  //     albumReq.songEntities.soundSourceName: file
+  // });
+
+  //   const newSoundSourceFiles = [...multipartfiles];
+  //   newSoundSourceFiles[1] = file;
+  //   setMultipartFiles(newSoundSourceFiles);
+  // };
+  
   // const handleSoundSourceChange = (e, index) => {
   //   const file = e.target.files[1];
+  //   setAlbumReq({
+  //     ...albumReq,
+  //     songEntities: albumReq.songEntities.map((song, i) => 
+  //         i === 0 ? { ...song, soundSourceName: file } : song
+  //     )
+  // });
   //   const newSoundSourceFiles = [...multipartfiles];
   //   newSoundSourceFiles[index] = file;
-  //   setMutipartFiles(newSoundSourceFiles);
+  //   setMultipartFiles(newSoundSourceFiles);
   // };
 
   const navigator = useNavigate();
@@ -132,11 +181,21 @@ const AlbumInsert = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("albumImage", albumReq.albumImage);
+    // formData.append("albumImage", albumReq.albumImage);
 
     // multipartfiles.forEach((file, index) => {
     //   formData.append(`songEntities[${index}].soundSourceName`, file);
     // });
+    multipartfiles.forEach((file,index) => {
+      formData.append("multipartfiles", file);
+      
+      console.log("이름: " + file.name);
+      console.log("크기: " + file.size + " bytes");
+      console.log("타입: " + file.type);
+    });
+
+  
+
 
     const albumData = {
       ...albumReq,
@@ -154,23 +213,29 @@ const AlbumInsert = () => {
     // formData.append("album", JSON.stringify(albumData));
 
     //formData.append("albumImage",   multipartfiles);
-    // formData.append("album", new Blob([JSON.stringify(albumData)], { type: "application/json" }));
+    formData.append("album", new Blob([JSON.stringify(albumData)], { type: "application/json" }));
 
-    // axios
-    //   .post("http://localhost:8080/api/album/save", formData)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     let errMessage = err.response.data.type + "\n";
-    //     errMessage += err.response.data.title + "\n";
-    //     errMessage += err.response.data.detail + "\n";
-    //     errMessage += err.response.data.status + "\n";
-    //     errMessage += err.response.data.instance + "\n";
-    //     errMessage += err.response.data.timestamp;
-    //     alert(errMessage);
-    //   });
-  };
+    axios
+      .post("http://localhost:8080/api/album/save", formData  , {
+        headers: {
+            "Contest-Type": "multipart/form-data"
+        }
+    }
+)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        let errMessage = err.response.data.type + "\n";
+        errMessage += err.response.data.title + "\n";
+        errMessage += err.response.data.detail + "\n";
+        errMessage += err.response.data.status + "\n";
+        errMessage += err.response.data.instance + "\n";
+        errMessage += err.response.data.timestamp;
+        alert(errMessage);
+      });
+  
+    };
 
   return (
     <div className="album-insert-form">
@@ -187,10 +252,10 @@ const AlbumInsert = () => {
         </InputGroup>
 
         <h4>앨범 이미지</h4>
-        {multipartfiles && (
+        {imagePreview && (
           <div>
             <img
-              src={multipartfiles}
+              src={imagePreview}
               alt="Album Preview"
               style={{ maxWidth: "300px", maxHeight: "300px" }}
             />
@@ -251,7 +316,6 @@ const AlbumInsert = () => {
 
         <h3>수록곡</h3>
         <h4>곡제목</h4>
-
         <Form.Label htmlFor="songTitle">1</Form.Label>
         <Form.Control
           type="text"
@@ -261,14 +325,14 @@ const AlbumInsert = () => {
         />
         <br />
 
-        {/* <h4>음원 파일</h4>
+        <h4>음원 파일</h4>
         <Form.Label htmlFor="soundSourceName"></Form.Label>
         <Form.Control
           type="file"
           id="soundSourceName"
           name="soundSourceName"
           onChange={(e) => handleSoundSourceChange(e, 1)}
-        /> */}
+        />
         <br />
 
         {/*  */}
