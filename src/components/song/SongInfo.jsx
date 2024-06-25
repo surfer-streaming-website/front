@@ -193,6 +193,7 @@ const SongInfo = (props) => {
               </button>
   
               <p className="text-14" onClick={handleLike}>{liked ? "❤️" : "🤍"} {likeCount}</p>
+              <p className="text-15">💿 {songBoardInfo.totalPlayedCount}</p>
               <button className="button4" onClick={()=>handleCopyClipBoard(`http://localhost:5173${location.pathname}`)}>
                   <p className="text-18">공유</p>
               </button>
