@@ -144,7 +144,6 @@ const AlbumInfo = (props) => {
                 <p className="text3">기획사</p>
                 <p className="agency">{albumBoardInfo.agency}</p>
                 <p className="albumLike">🤍 {albumLikeCount}</p>
-                <p className="albumPlayCount">💿 {totalPlayedCount}</p>
                 <button className="button1" onClick={playAlbum}>
                     <p className="playAlbum">전체 재생</p>
                 </button>
