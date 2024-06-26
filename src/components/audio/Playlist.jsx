@@ -97,3 +97,5 @@ const Playlist = ()=>{
         </div>
     )
 }
+
+export default Playlist;

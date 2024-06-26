@@ -20,6 +20,7 @@ import AudioPlayer from "./components/audio/AudioPlayer";
 import AlbumList from "./pages/admin/album/AlbumList";
 import AdminHome from "./pages/admin/home/AdminHome";
 import MyPage from "./pages/user/mypage/MyPage";
+import Playlist from "./components/audio/Playlist";
 
 export const LogingedContext = createContext();
 export const PlayerContext = createContext(); //음악 재생, 오디오 상태 관리
@@ -147,6 +148,7 @@ function App() {
               </Routes>
             </div>
           </div>
+          <Playlist/>
           <AudioPlayer />
           {shouldHideNavigation() ? null : <Footer />}
         </PlaylistContext.Provider>
