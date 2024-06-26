@@ -42,7 +42,6 @@ const Login = () => {
         localStorage.setItem("accessToken", "Bearer " + res.data.data.accessToken);
         localStorage.setItem("refreshToken", res.data.data.refreshToken);
         localStorage.setItem("nickname", decodedPayload.nickname);
-        localStorage.setItem("memberId", res.data.data.memberId); // memberId 저장
 
         //App.js에 있는 isLoggedIn 변수를 true 변경한다.
         logingedCon.onLoggedChange(true);

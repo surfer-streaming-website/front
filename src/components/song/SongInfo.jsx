@@ -39,6 +39,9 @@ const SongInfo = (props) => {
         fetchData();
     }, [page, sort]); //page 또는 sort가 변경될 때마다 데이터 다시 불러오기.
 
+
+
+
     const fetchData = () => {
         if (songBoardInfo && songBoardInfo.songSeq) {
             axios.get(`http://localhost:8080/api/song/detail/${songBoardInfo.songSeq}?nowPage=${page}&sort=${sort}`)
@@ -83,14 +86,9 @@ const SongInfo = (props) => {
 
     const handleLike = () => {
         const token = localStorage.getItem('accessToken');
-        const memberId = localStorage.getItem('memberId');
-        if (!memberId) {
-            alert("로그인이 필요합니다.");
-            return;
-        }
 
         const method = liked ? 'DELETE' : 'POST';
-        const url = `http://localhost:8080/api/song/${songBoardInfo.songSeq}/like/${memberId}`;
+        const url = `http://localhost:8080/api/song/${songBoardInfo.songSeq}/like`;
 
 
         axios({
