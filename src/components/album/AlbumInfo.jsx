@@ -20,7 +20,7 @@ const AlbumInfo = (props) => {
     const [albumLikeCount, setAlbumLikeCount] = useState(0);
     const {isLoggedIn} = useContext(LogingedContext);
     const {audio, setPlaying, setSongInfo} = useContext(PlayerContext);
-    const {setMusicList, musicList} = useContext(PlaylistContext);
+    const {setMusicList, musicList, currentSongIndex, setCurrentSongIndex} = useContext(PlaylistContext);
 
     const location = useLocation();
 
@@ -102,6 +102,8 @@ const AlbumInfo = (props) => {
                 audio.play();
                 setPlaying(true);
                 setSongInfo(songstoAdd[0]);
+                console.log(currentSongIndex);
+                setCurrentSongIndex(musicList.length);
     
                 songstoAdd.forEach(song=>{
                     const newSong ={
@@ -111,10 +113,10 @@ const AlbumInfo = (props) => {
                         singers: song.singers,
                         soundSourceUrl: song.soundSourceUrl
                     };
-                    //중복 체크 후 추가
-                     if(!musicList.some(existingSong=>existingSong.soundSourceUrl === newSong.soundSourceUrl)){
+                    
+                    //플레이리스트에 추가
                     setMusicList(prevMusicList => [...prevMusicList, newSong]);
-                    }
+                    
                 })
             }
         }

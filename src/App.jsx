@@ -60,6 +60,7 @@ function App() {
       JSON.parse(localStorage.getItem("surfer_player")) || [];
     return storedMusicList;
   });
+  const [currentSongIndex, setCurrentSongIndex] = useState(-1); //현재 재생 중인 곡 인덱스
   const shouldHideNavigation = () => {
     return location.pathname === "/login" || location.pathname === "/register";
   };
@@ -87,6 +88,8 @@ function App() {
             setMusicList: setMusicList,
             isVisible: isVisible,
             setIsVisible: setIsVisible,
+            currentSongIndex: currentSongIndex,
+            setCurrentSongIndex: setCurrentSongIndex
           }}
         >
           <div className="main-container">

@@ -29,41 +29,87 @@
     width: 500px;
     top: 0;
     left: 1200px;
+    overflow: auto;
+    overflow-x: hidden;
 }
 .playlistSection .musicListUl{
+    /* 재생 목록 */
     position: relative;
     display: flex;
     flex-direction: column;
     height: 850px;
     top: 50px;
 }
+
+/* 스크롤 바 기능은 유지하되 없애기 */
+.playlistSection{
+    -ms-overflow-style: none;
+}
+.playlistSection::-webkit-scrollbar{
+    display: none;
+}
+
 .playlistSection li{
     position: relative;
     height: 80px;
 }
 .playlistSection li img{
+    /* 앨범 이미지 */
     position: relative;
     height: 50px;
     top: 10px;
+    left: 15px;
 }
 .playlistSection li strong{
+    /* 곡 제목 */
     position: relative;
     color: white;
     top: -20px;
-    left: 15px;
+    left: 30px;
 }
 .playlistSection li em{
+    /* 가수 */
     position: relative;
     display: flex;
     color: #999999;
     width: 300px;
-    left: 75px;
+    left: 90px;
     top: -30px;
     font-style: normal;
 }
-.playlistSection li div{
+.playlistSection li span div{
+    /* 재생 시간 */
     color: #999999;
     position: relative;
-    left: 300px;
-    top: -85px;
+    left: 350px;
+    top: -75px;
+}
+.playlistSection li div div{
+    color: #999999;
+    position: relative;
+    left: 350px;
+    top: -75px;
+}
+.playlistSection li div{
+    /* 플레이 목록에 있는 곡 */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+}
+.playlistSection li span{
+    /* 현재 재생 중인 곡 */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    background-color: rgb(153, 153, 153, 0.3);
+}
+.playlistSection .text{
+    position: relative;
+    top: 25px;
+    left: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #999999;
 }

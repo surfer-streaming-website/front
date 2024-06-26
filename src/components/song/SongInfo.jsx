@@ -23,8 +23,7 @@ const SongInfo = (props) => {
     const [liked, setLiked] = useState(false); // 좋아요 상태
     const [likeCount, setLikeCount] = useState(0); // 좋아요 수
     const {setPlaying, audio, setSongInfo} = useContext(PlayerContext); //음악 재생 상태 전역 변수
-    const {musicList, setMusicList} = useContext(PlaylistContext);
-    const [addedToList, setAddedToList] = useState(false);
+    const {musicList, setMusicList, currentSongIndex, setCurrentSongIndex} = useContext(PlaylistContext);
     const {isLoggedIn} = useContext(LogingedContext);
 
     useEffect(() => {
@@ -76,25 +75,21 @@ const SongInfo = (props) => {
         audio.play(); //음악 재생
 
         setPlaying(true);
-
         setSongInfo(songBoardInfo);
 
-        if(!addedToList){
-          const newSong = {
-            songSeq: songBoardInfo.songSeq,
-            albumImage: songBoardInfo.albumImage,
-            songTitle: songBoardInfo.songTitle,
-            singers: songBoardInfo.singers,
-            soundSourceUrl: songBoardInfo.soundSourceUrl
-          }
-          
-          // 중복 체크 후 추가
-          if (!musicList.some(song => song.soundSourceUrl === newSong.soundSourceUrl)) {
-            setMusicList(prevMusicList => [...prevMusicList, newSong]);
-          }
+        const newSong = {
+          songSeq: songBoardInfo.songSeq,
+          albumImage: songBoardInfo.albumImage,
+          songTitle: songBoardInfo.songTitle,
+          singers: songBoardInfo.singers,
+          soundSourceUrl: songBoardInfo.soundSourceUrl
         }
+          
+        //플레이리스트에 추가
+        setMusicList(prevMusicList => [...prevMusicList, newSong]);
 
-        setAddedToList(true);
+        const newIndex = musicList.length;
+        setCurrentSongIndex(newIndex);
       }else{
         alert('로그인하고 이용해주세요!');
       }
