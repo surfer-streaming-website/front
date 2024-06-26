@@ -11,6 +11,7 @@ const AlbumItem = (props) => {
       <Link to={`/album/detail/${albumSeq}`}>
         <img className="album-image" src={albumImage} alt={albumTitle} />
       </Link>
+
       <div className="album-info">
         <Link className="song-title" to={`/album/detail/${albumSeq}`}>
           {albumTitle}
@@ -18,6 +19,7 @@ const AlbumItem = (props) => {
 
         <span className="album-singer">{albumSingerName}</span>
       </div>
+      
     </div>
   );
 };

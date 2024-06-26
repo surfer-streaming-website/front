@@ -234,10 +234,10 @@
   }
 
 
-  .search-text {
-    color: #ffffff;
+  .search-keyword-text {
+    color: #FFFFFF;
     background: rgba(153, 153, 153, 0.36);
-    width: 210px;
+    width: 200px;
     height: 25px;
     margin-bottom: 1px;
 }

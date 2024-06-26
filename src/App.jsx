@@ -16,7 +16,7 @@ import ArtistApplicationPage from "./pages/auth/artist-application-page/ArtistAp
 import CreateArtistApplication from "./pages/auth/create-artist-application/CreateArtistApplication";
 import UpdateArtistApplication from "./pages/auth/update-artist-application/UpdateArtistApplication";
 import Search from "./pages/search/Search";
-import Album from "./pages/user/Album";
+import MyAlbum from "./pages/user/MyAlbum";
 import AlbumInsert from "./pages/album/AlbumInsert";
 import AudioPlayer from "./components/audio/AudioPlayer";
 import AlbumList from "./pages/admin/album/AlbumList";
@@ -131,7 +131,7 @@ function App() {
                 />
                 {/* user */}
                 <Route path="/user/mypage" element={<MyPage />} />
-                <Route path="/myalbum" element={<Album />} />
+                <Route path="/myalbum" element={<MyAlbum />} />
                 {/* song */}
                 <Route path="/song/detail/:id" element={<SongBoard />} />
                 {/* album */}
