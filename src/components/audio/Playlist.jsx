@@ -20,7 +20,7 @@ const Playlist = ()=>{
             let li = `
                 <li data-index="${i+1}" className='songListContainer'>
                 ${i === currentSongIndex ? 
-                    `<span>
+                    `<span class="songList">
                         <img className="img" src="${musicList[i].albumImage}" referrerPolicy="no-referrer"></img>
                         <strong className="songTitle">${musicList[i].songTitle}</strong>
                         <em className="songSingers">
@@ -32,9 +32,10 @@ const Playlist = ()=>{
                         </em>
                         <audio src="${musicList[i].soundSourceUrl}" class="audio${i}"></audio>
                         <div className="audioDuration" id="audio${i}">0:00</div>
-                    </span>`
+                    </span>
+                    <button class="deleteButton" data-song-index="${i}">X</button>`
                     :
-                    `<div>
+                    `<div class="songList">
                         <img className="img" src="${musicList[i].albumImage}" referrerPolicy="no-referrer"></img>
                         <strong className="songTitle">${musicList[i].songTitle}</strong>
                         <em className="songSingers">
@@ -46,7 +47,8 @@ const Playlist = ()=>{
                         </em>
                         <audio src="${musicList[i].soundSourceUrl}" class="audio${i}"></audio>
                         <div className="audioDuration" id="audio${i}">0:00</div>
-                    </div>`
+                    </div>
+                    <button class="deleteButton" data-song-index="${i}">X</button>`
                 }
                     
                 </li>
@@ -91,19 +93,72 @@ const Playlist = ()=>{
     }
 
     //클릭 이벤트 추가
-    const liElements = musicListUlRef.current.querySelectorAll('li');
+    const liElements = musicListUlRef.current.querySelectorAll('.songList');
     liElements.forEach((li, index)=>{
         li.addEventListener('click', ()=>handleMusicClick(index))
     });
+
+    //삭제 버튼 클릭 이벤트 추가
+    const deleteButtons = musicListUlRef.current.querySelectorAll('.deleteButton');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', 
+            (event)=>{
+                const songIndex = event.target.getAttribute('data-song-index');
+                const updatedList = [...musicList];
+                updatedList.splice(songIndex, 1);
+                setMusicList(updatedList);
+
+                if(songIndex<currentSongIndex){
+                    setCurrentSongIndex(currentSongIndex-1);
+                }else if(songIndex==currentSongIndex){
+                    // 현재 재생 중인 곡이 삭제된 경우 다음 곡을 재생
+                    if(currentSongIndex<updatedList.length){
+                        const nextSong = updatedList[currentSongIndex];
+                        setSongInfo(nextSong);
+                        audio.src = nextSong.soundSourceUrl;
+                        audio.play();
+                        setPlaying(true);
+                        setCurrentSongIndex(currentSongIndex);
+                    }else{
+                        setCurrentSongIndex(currentSongIndex);
+                    }
+                }
+            }
+        )
+    })
 
     //이벤트 제거
     return ()=>{
         liElements.forEach((li,index)=>{
             li.removeEventListener('click',()=>handleMusicClick(index));
         });
+        deleteButtons.forEach(button=>{
+            button.removeEventListener('click',()=>{
+                const songIndex = button.getAttribute('data-song-index');
+                const updatedList = [...musicList];
+                updatedList.splice(songIndex, 1);
+                setMusicList(updatedList);
+
+                if(songIndex<currentSongIndex){
+                    setCurrentSongIndex(currentSongIndex-1);
+                }else if(songIndex==currentSongIndex){
+                    // 현재 재생 중인 곡이 삭제된 경우 다음 곡을 재생
+                    if(currentSongIndex<updatedList.length){
+                        const nextSong = updatedList[currentSongIndex];
+                        setSongInfo(nextSong);
+                        audio.src = nextSong.soundSourceUrl;
+                        audio.play();
+                        setPlaying(true);
+                        setCurrentSongIndex(currentSongIndex);
+                    }else{
+                        setCurrentSongIndex(currentSongIndex);
+                    }
+                }
+            })
+        })
     }
 
-    },[songInfo]); //songInfo가 바뀔 때에만 렌더링 되도록 한다!!!
+    },[songInfo, currentSongIndex, musicList]); //렌더링
 
 
     return(

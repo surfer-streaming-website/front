@@ -85,22 +85,32 @@
     top: -75px;
 }
 .playlistSection li div div{
+    /* 재생 시간 */
     color: #999999;
     position: relative;
     left: 350px;
     top: -75px;
 }
+.playlistSection li button{
+    /* 삭제 버튼 */
+    position: relative;
+    top: 25px;
+    left: 460px;
+    background-color: transparent;
+    border-style: none;
+    color: #999999;
+}
 .playlistSection li div{
     /* 플레이 목록에 있는 곡 */
     position: absolute;
-    width: 100%;
+    width: 85%;
     height: 100%;
     top: 0px;
 }
 .playlistSection li span{
     /* 현재 재생 중인 곡 */
     position: absolute;
-    width: 100%;
+    width: 85%;
     height: 100%;
     top: 0px;
     background-color: rgb(153, 153, 153, 0.3);

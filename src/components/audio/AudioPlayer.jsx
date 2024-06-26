@@ -52,6 +52,7 @@ const AudioPlayer = ()=>{
             setCurrentSongIndex(currentSongIndex+1);
         }else{
             alert('다음 곡이 없습니다.');
+            setPlaying(false);
         }
     }
     
