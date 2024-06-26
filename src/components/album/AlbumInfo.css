@@ -303,7 +303,7 @@
     position: absolute;
     width: 111px;
     height: 44px;
-    left: 840px;
+    left: 720px;
     top: 259px;
     
     background: linear-gradient(99deg, #00F8F8 6.84%, #009292 83.28%);
@@ -351,7 +351,6 @@
     align-items: center;
     
     color: #FFFFFF;
-    
     
     /* Inside auto layout */
     flex: none;

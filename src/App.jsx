@@ -20,6 +20,7 @@ import AudioPlayer from "./components/audio/AudioPlayer";
 import AlbumList from "./pages/admin/album/AlbumList";
 import AdminHome from "./pages/admin/home/AdminHome";
 import MyPage from "./pages/user/mypage/MyPage";
+import Playlist from "./components/audio/Playlist";
 
 export const LogingedContext = createContext();
 export const PlayerContext = createContext(); //음악 재생, 오디오 상태 관리
@@ -59,6 +60,7 @@ function App() {
       JSON.parse(localStorage.getItem("surfer_player")) || [];
     return storedMusicList;
   });
+  const [currentSongIndex, setCurrentSongIndex] = useState(-1); //현재 재생 중인 곡 인덱스
   const shouldHideNavigation = () => {
     return location.pathname === "/login" || location.pathname === "/register";
   };
@@ -86,6 +88,8 @@ function App() {
             setMusicList: setMusicList,
             isVisible: isVisible,
             setIsVisible: setIsVisible,
+            currentSongIndex: currentSongIndex,
+            setCurrentSongIndex: setCurrentSongIndex
           }}
         >
           <div className="main-container">
@@ -147,6 +151,7 @@ function App() {
               </Routes>
             </div>
           </div>
+          <Playlist/>
           <AudioPlayer />
           {shouldHideNavigation() ? null : <Footer />}
         </PlaylistContext.Provider>
