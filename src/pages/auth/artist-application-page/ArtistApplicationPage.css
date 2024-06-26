@@ -1,44 +1,62 @@
-ul {
+.artist-application-ul {
   list-style: none;
   padding-left: 0px;
 }
-.info {
+.artist-application-info {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  cursor : pointer;
+  cursor: pointer;
 }
-.info > div {
+.artist-application-info > div {
   width: 300px;
 }
-/* }
-
-.pagination {
+.artist-application-buttonContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin: 10px -10px -5px -10px;
+}
+
+.artist-application-button {
+  background-color: #2a2a2a;
+  border: 1px solid #2a2a2a;
+  color: #fff;
+  height: 30px;
+  margin: 10px; /* 버튼 간격을 위해 마진 적용 */
+}
+/* 페이지 네이션 */
+.artist-application-pagination {
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
 }
 
-.pagination .page-numbers,
-.pagination .prev,
-.pagination .next {
-  display: inline-block;
-  padding: 8px 16px;
+.artist-application-pagination > .pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.artist-application-pagination > .pagination li {
+  margin: 0 5px;
+}
+
+.artist-application-pagination > .pagination li a {
+  display: block;
+  padding: 5px 10px;
   text-decoration: none;
-  margin: 0 4px;
+  color: white;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.artist-application-pagination > .pagination li.active a {
   background-color: #333;
   color: #fff;
-  border-radius: 4px;
+  border-color: #333;
 }
 
-.pagination .page-numbers.current {
-  background-color: #007bff;
-  color: #fff;
+.artist-application-pagination > .pagination li a:hover {
+  background-color: #5D5D5D;
 }
-
-.pagination .page-numbers:hover,
-.pagination .prev:hover,
-.pagination .next:hover {
-  background-color: #555;
-} */
