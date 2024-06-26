@@ -4,10 +4,9 @@ import Pagination from "react-js-pagination";
 import { Link, useLocation } from "react-router-dom";
 import SongReplyItem from "./SongReplyItem.jsx";
 import InsertSongreply from "./InsertSongReply";
-import AudioPlayer from "../audio/AudioPlayer.jsx";
 import './SongInfoBox.css';
 import './Lyrics.css';
-import { PlayerContext, AudioContext } from "../../App.jsx";
+import { LogingedContext, PlayerContext, PlaylistContext } from "../../App.jsx";
 
 const SongInfo = (props) => {
 
@@ -23,9 +22,10 @@ const SongInfo = (props) => {
     // const [playing, setPlaying] = useState(false); //현재 음악 진행 여부
     const [liked, setLiked] = useState(false); // 좋아요 상태
     const [likeCount, setLikeCount] = useState(0); // 좋아요 수
-    const {playing, setPlaying} = useContext(PlayerContext); //음악 재생 상태 전역 변수
-    const {audio} = useContext(AudioContext);
-    const {songInfo, setSongInfo} = useContext(AudioContext);
+    const {setPlaying, audio, setSongInfo} = useContext(PlayerContext); //음악 재생 상태 전역 변수
+    const {musicList, setMusicList} = useContext(PlaylistContext);
+    const [addedToList, setAddedToList] = useState(false);
+    const {isLoggedIn} = useContext(LogingedContext);
 
     useEffect(() => {
         if (props.songInfo) {
@@ -72,16 +72,35 @@ const SongInfo = (props) => {
     };
 
     const playMusic = () => {
+      if(isLoggedIn){
         console.log(songBoardInfo.soundSourceUrl);
         audio.src = songBoardInfo.soundSourceUrl;
         console.log(audio.src);
         audio.play(); //음악 재생
 
-        const isPlaying = !playing;
-        setPlaying(isPlaying);
-        console.log("isPlaying="+isPlaying);
+        setPlaying(true);
 
         setSongInfo(songBoardInfo);
+
+        if(!addedToList){
+          const newSong = {
+            songSeq: songBoardInfo.songSeq,
+            albumImage: songBoardInfo.albumImage,
+            songTitle: songBoardInfo.songTitle,
+            singers: songBoardInfo.singers,
+            soundSourceUrl: songBoardInfo.soundSourceUrl
+          }
+          
+          // 중복 체크 후 추가
+          if (!musicList.some(song => song.soundSourceUrl === newSong.soundSourceUrl)) {
+            setMusicList(prevMusicList => [...prevMusicList, newSong]);
+          }
+        }
+
+        setAddedToList(true);
+      }else{
+        alert('로그인하고 이용해주세요!');
+      }
     }
 
     const handleLike = () => {
