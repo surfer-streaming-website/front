@@ -11,15 +11,15 @@ import {
 import { LogingedContext } from "../../App";
 
 const AlbumInsert = () => {
-  const [singerStatus , setSingerStatus] = useState();
-  const [isSinger , setIsSinger] = useState(false);
+  const [singerStatus, setSingerStatus] = useState();
+  const [isSinger, setIsSinger] = useState(false);
 
   const logingedCon = useContext(LogingedContext);
 
   useEffect(() => {
     console.log("insert form start");
     fetchData();
-    userAuthorityCheck();
+    // userAuthorityCheck();
   }, []);
 
   const fetchData = () => {
@@ -30,29 +30,6 @@ const AlbumInsert = () => {
     ) {
       logInByRefreshToken();
     }
-  };
-
-  const userAuthorityCheck = () => {
-    axios
-      .get("http://localhost:8080/api/album/userAuthority", {
-        headers: {
-          Authorization: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((res) => {
-        setSingerStatus(res.data);
-        console.log(res.data);
-        if(singerStatus ==="ROLE_SINGER")setIsSinger(true);
-        console.log("환영합니다");
-        console.log(isSinger);
-      })
-      .catch((err) => {
-        if (err.response.status == 401 || err.response.status == 403) {
-          authExceptionHandler(err, fetchData);
-        } else {
-          console.log(err);
-        }
-      });
   };
 
   const [albumReq, setAlbumReq] = useState({
@@ -307,13 +284,13 @@ const AlbumInsert = () => {
           <h4>앨범 제목</h4>
           <Form.Label htmlFor="albumTitle"></Form.Label>
           {/* <InputGroup> */}
-            <Form.Control
+          <Form.Control
             // className="album-insert-form-songtitle"
-              type="text"
-              id="albumTitle"
-              name="albumTitle"
-              onChange={changeValue}
-            />
+            type="text"
+            id="albumTitle"
+            name="albumTitle"
+            onChange={changeValue}
+          />
           {/* </InputGroup> */}
 
           <h4>가수</h4>

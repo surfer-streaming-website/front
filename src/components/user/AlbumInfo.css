@@ -1,13 +1,11 @@
-
-.myalbum-menus{
-    margin-bottom: 50px;
+.myalbum-menus {
+  margin-bottom: 40px;
 }
 
-
-.myalbum-menus1{
-    font-weight: bold;
-    padding-bottom : 100px;
-    color:white;
-    text-decoration: none;
-    font-size: 20px;
+.myalbum-menus1 {
+  font-weight: bold;
+  padding-bottom: 100px;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
 }

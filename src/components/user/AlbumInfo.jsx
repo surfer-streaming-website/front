@@ -35,9 +35,10 @@ const AlbumInfo = () => {
       })
       .then((res) => {
         setSingerStatus(res.data);
-        console.log(res.data);
-        if (singerStatus === "ROLE_SINGER") setIsSinger(true);
-        console.log("환영합니다");
+        console.log("console.log = " + res.data);
+        console.log("singerStatus.log = " + singerStatus);
+
+        if (res.data === "ROLE_SINGER") setIsSinger(true);
         console.log(isSinger);
       })
       .catch((err) => {
@@ -49,7 +50,6 @@ const AlbumInfo = () => {
       });
   };
 
-
   const handleLinkClick = (event) => {
     if (!isSinger) {
       event.preventDefault();
@@ -57,23 +57,27 @@ const AlbumInfo = () => {
     }
   };
 
-
   return (
     <div>
-
-
-      <div>
-        <Link className="myalbum-menus1" to="/myalbum" onClick={handleLinkClick}>
+      <div className="myalbum-menus">
+        <Link
+          className="myalbum-menus1"
+          to="/myalbum"
+          onClick={handleLinkClick}
+        >
           앨범 신청 내역
         </Link>
       </div>
 
       <div>
-        <Link className="myalbum-menus1" to="/album/insert" onClick={handleLinkClick}>
+        <Link
+          className="myalbum-menus1"
+          to="/album/insert"
+          onClick={handleLinkClick}
+        >
           앨범 등록 신청
         </Link>
       </div>
-
     </div>
   );
 };
