@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { LogingedContext } from '../../App';
-import { authExceptionHandler, logInByRefreshToken } from "../auth/AuthUtil";
+import { authExceptionHandler, logInByRefreshToken } from "../../auth/AuthUtil";
+import { LogingedContext } from "../../../App";
 
 const AlbumReplyItem = (props)=>{
 

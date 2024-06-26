@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import Pagination from 'react-js-pagination'
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import AlbumReplyItem from "./AlbumReplyItem";
-import InsertAlbumReply from './InsertAlbumReply';
+import AlbumReplyItem from './reply/AlbumReplyItem';
+import InsertAlbumReply from './reply/InsertAlbumReply';
 import SongItem from "../song/SongItem";
 import './AlbumInfo.css';
 import './SongList.css';
-import './AlbumReplyItem.css';
+import './reply/AlbumReplyItem.css';
 import { LogingedContext, PlayerContext, PlaylistContext } from "../../App";
 
 const AlbumInfo = (props) => {
@@ -144,12 +144,8 @@ const AlbumInfo = (props) => {
                 <p className="text3">기획사</p>
                 <p className="agency">{albumBoardInfo.agency}</p>
                 <p className="albumLike">🤍 {albumLikeCount}</p>
-                <p className="albumPlayCount">💿 {totalPlayedCount}</p>
                 <button className="button1" onClick={playAlbum}>
                     <p className="playAlbum">전체 재생</p>
-                </button>
-                <button className="button2">
-                    <p className="download">앨범 다운</p>
                 </button>
                 <button className="button3" onClick={()=>handleCopyClipBoard(`http://localhost:5173${location.pathname}`)}>
                     <p className="share">공유</p>
