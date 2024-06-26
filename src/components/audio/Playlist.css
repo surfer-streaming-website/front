@@ -96,12 +96,12 @@
 }
 .playlistSection li button{
     /* 삭제 버튼 */
+    background-color: transparent;
+    color: white;
+    border: none;
     position: relative;
     top: 25px;
-    left: 460px;
-    background-color: transparent;
-    border-style: none;
-    color: #999999;
+    left: 430px;
 }
 .playlistSection li div{
     /* 플레이 목록에 있는 곡 */
