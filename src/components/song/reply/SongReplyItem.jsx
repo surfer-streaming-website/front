@@ -16,7 +16,7 @@ const SongReplyItem = (props)=>{
     useEffect(()=>{
         likeData();
         fetchData();
-        //console.log(reply);
+        console.log(reply);
     },[])
 
     const fetchData = ()=>{
@@ -53,36 +53,42 @@ const SongReplyItem = (props)=>{
     const onChange = e => setInput(e.target.value);
 
     const deleteReply = (e)=>{
-        if(confirm("댓글을 정말 삭제하시겠습니까?")){
-            axios({
-                method:"DELETE",
-                url: "http://localhost:8080/api/song/"+songSeq+"/reply/"+e.target.value,
-                headers: {
-                    Authorization: localStorage.getItem("accessToken")
-                }
-            })
-            .then((res)=>{
-                props.fetchData();
-            })
-            .catch((err)=>{
-                if (err.response.status === 401 || err.response.status === 403) {
-                    authExceptionHandler(err, fetchData);
-                  } else {
-                    console.log(err);
-                  }
-            })
+        if(reply.nickname === localStorage.getItem('nickname')){
+            if(confirm("댓글을 정말 삭제하시겠습니까?")){
+                axios({
+                    method:"DELETE",
+                    url: "http://localhost:8080/api/song/"+songSeq+"/reply/"+e.target.value,
+                    headers: {
+                        Authorization: localStorage.getItem("accessToken")
+                    }
+                })
+                .then((res)=>{
+                    props.fetchData();
+                })
+                .catch((err)=>{
+                    if (err.response.status === 401 || err.response.status === 403) {
+                        authExceptionHandler(err, fetchData);
+                      } else {
+                        console.log(err);
+                      }
+                })
+            }
+        }else{
+            alert('댓글의 작성자만 삭제할 수 있습니다.');
         }
     }
 
     const updateReply = (e)=>{
-        console.log(e.target.value)
-        setInput(e.target.value);
+        if(reply.nickname === localStorage.getItem('nickname')){
+            console.log(e.target.value)
+            setInput(e.target.value);
+        }else{
+            alert('댓글의 작성자만 수정할 수 있습니다.');
+        }
     }
 
     const submitReply = (e)=>{
         e.preventDefault();
-
-        //console.log("여기까지");
 
         axios({
             method:"PUT",
