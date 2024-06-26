@@ -1,43 +1,27 @@
-import { Link ,useNavigate } from "react-router-dom";
-import "./Navigation.css"
 import { useContext, useState } from "react";
 import { LogingedContext } from "../../App";
+import { Link, useNavigate } from "react-router-dom";
+import "./Navigation.css"
 
 const Navigtion = () => {
 
+  const navigate = useNavigate();
 
   let logingedCon = useContext(LogingedContext);
   const [click, setClick] = useState(false);
-
+  
+  const myPageClick = () => {
+    navigate('/user/mypage');
+  }
   const onClick = ()=>{
     setClick(!click);
   }
 
-  const [keyword, setKeyword] = useState('');
-  const navigate = useNavigate();
-
-  const handleInputChange = (e) => {
-    setKeyword(e.target.value);
-  };
-
-
-  const handleButtonClick = () => {
-    if (keyword) {
-      navigate(`/search/${encodeURIComponent(keyword)}`);
-    }
-
-  };
     return (
       <div className="Navigtion">
         <Link className="text-1" to={"/"}>SURFER</Link>
         
-        <input
-        className="search-text"
-        type="text"
-        value={keyword}
-        onChange={handleInputChange}
-      />
-        <button className="button" onClick={handleButtonClick}>
+        <button className="button">
           <p className="text-2">🔎 검색</p>
         </button>
 
@@ -60,18 +44,17 @@ const Navigtion = () => {
             logingedCon.isLoggedIn ? (
               click ? 
             <div className="memberButton">
-              <button className="myPage">마이페이지</button>
-              <button>내 이용권</button>
-              <button>계정설정</button>
+              <button className="myPage" onClick={myPageClick}>마이페이지</button>
+              <button>플레이리스트</button>
               <button>로그아웃</button>
             </div>
             :
             null
             )
             :
-            <div className="navButton1">
-              <p className="text-4">비밀번호 찾기/회원가입/이용권 구매</p>
-            </div>
+            <button className="navButton1">
+            <Link to={'/register'} className="text-4">회원가입</Link>
+            </button>
           }
         </div>
 

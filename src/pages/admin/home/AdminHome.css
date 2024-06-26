@@ -1,0 +1,14 @@
+/* src/pages/admin/home/AdminHome.css */
+.admin-home-container {
+  display: flex;
+}
+
+.admin-home-content {
+  margin-left: 240px; /* 네비게이션 바의 너비만큼 왼쪽 여백 추가 */
+  padding: 20px;
+  color: white;
+}
+
+.admin-home-text {
+  color: white;
+}

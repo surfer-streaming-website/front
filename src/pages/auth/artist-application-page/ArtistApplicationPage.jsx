@@ -1,9 +1,12 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Pagination from "react-js-pagination";
-import {logInByRefreshToken, authExceptionHandler} from "../../../components/auth/AuthUtil";
+import {
+  logInByRefreshToken,
+  authExceptionHandler,
+} from "../../../components/auth/AuthUtil";
 import { useNavigate } from "react-router-dom";
-
+import "./ArtistApplicationPage.css";
 const ArtistApplicationPage = () => {
   const [artistApplications, setArtistApplications] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -13,7 +16,7 @@ const ArtistApplicationPage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage]); 
+  }, [currentPage]);
   const navigate = useNavigate();
   const fetchData = async () => {
     if (
@@ -46,7 +49,7 @@ const ArtistApplicationPage = () => {
   };
 
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber - 1); 
+    setCurrentPage(pageNumber - 1);
   };
 
   const handleClick = (id) => {
@@ -58,24 +61,31 @@ const ArtistApplicationPage = () => {
       <h1>Artist Applications</h1>
       <ul>
         {artistApplications.map((application) => (
-          <li key={application.artistApplicationId} onClick={() => handleClick(application.artistApplicationId)}>
-            <div>Application ID: {application.artistApplicationId}</div>
-            <div>
-              Created At: {new Date(application.createAt).toLocaleString()}
+          <li
+            key={application.artistApplicationId}
+            onClick={() => handleClick(application.artistApplicationId)}
+          >
+            {/* <div>Application ID: {application.artistApplicationId}</div> */}
+            <div className="info">
+              <div>
+                작성일: {new Date(application.createAt).toLocaleString()}
+              </div>
+              <div>진행 상태: {application.status}</div>
             </div>
-            <div>Status: {application.status}</div>
           </li>
         ))}
       </ul>
-      <Pagination
-        activePage={currentPage + 1} // 페이지 번호는 1부터 시작하므로 +1 처리
-        itemsCountPerPage={pageSize}
-        totalItemsCount={totalItemsCount}
-        pageRangeDisplayed={5}
-        onChange={handlePageChange}
-        prevPageText={"‹"}
-        nextPageText={"›"}
-      />
+      <div>
+        <Pagination
+          activePage={currentPage + 1} // 페이지 번호는 1부터 시작하므로 +1 처리
+          itemsCountPerPage={pageSize}
+          totalItemsCount={totalItemsCount}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+          prevPageText={"‹"}
+          nextPageText={"›"}
+        />
+      </div>
     </div>
   );
 };

@@ -1,0 +1,45 @@
+/* src/components/navigation/AdminNavigation.css */
+.admin-navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 800px;
+  width: 210px;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 12px;
+}
+
+.logo {
+  margin-bottom: 40px;
+}
+
+.logo-text {
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nav-link {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
