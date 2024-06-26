@@ -59,19 +59,11 @@ const Navigtion = () => {
         </div>
 
         <button className="navButton1">
-          <p className="text-5">차트</p>
-        </button>
-
-        <button className="navButton1">
           <p className="text-5">최신앨범</p>
         </button>
 
         <button className="navButton1">
           <p className="text-5">장르</p>
-        </button>
-
-        <button className="navButton1">
-          <p className="text-5">DJ</p>
         </button>
 
         <button className="navButton1">
