@@ -57,16 +57,17 @@ const ArtistApplicationPage = () => {
   };
 
   return (
-    <div>
-      <h1>Artist Applications</h1>
-      <ul>
+    <div className="artist-application-container">
+      <h1>가수 신청 내역</h1>
+      <ul className="artist-application-ul">
         {artistApplications.map((application) => (
           <li
             key={application.artistApplicationId}
             onClick={() => handleClick(application.artistApplicationId)}
+            className="artist-application-li"
           >
             {/* <div>Application ID: {application.artistApplicationId}</div> */}
-            <div className="info">
+            <div className="artist-application-info">
               <div>
                 작성일: {new Date(application.createAt).toLocaleString()}
               </div>
@@ -75,7 +76,17 @@ const ArtistApplicationPage = () => {
           </li>
         ))}
       </ul>
-      <div>
+      <div className="artist-application-buttonContainer">
+        <button
+          className="artist-application-button"
+          onClick={() => {
+            navigate("/auth/artist-application/create");
+          }}
+        >
+          가수 신청하기
+        </button>
+      </div>
+      <div className="artist-application-pagination">
         <Pagination
           activePage={currentPage + 1} // 페이지 번호는 1부터 시작하므로 +1 처리
           itemsCountPerPage={pageSize}

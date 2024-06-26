@@ -65,7 +65,8 @@ const CreateArtistApplication = () => {
   };
 
   return (
-    <div>
+    <div className="artist-application-update-container">
+      <div className="artist-application-update-body">
       <h1>아티스트 응모 신청</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -201,8 +202,9 @@ const CreateArtistApplication = () => {
             required
           />
         </div>
-        <button type="submit">신청 제출</button>
+        <button className="artist-application-button" type="submit">신청 제출</button>
       </form>
+      </div>
     </div>
   );
 };

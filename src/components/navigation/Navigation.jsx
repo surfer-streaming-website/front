@@ -17,6 +17,11 @@ const Navigtion = () => {
     setClick(!click);
   }
 
+  const logOutClick = () =>{
+    localStorage.clear();
+    navigate('/');
+  }
+
     return (
       <div className="Navigtion">
         <Link className="text-1" to={"/"}>SURFER</Link>
@@ -46,7 +51,7 @@ const Navigtion = () => {
             <div className="memberButton">
               <button className="myPage" onClick={myPageClick}>마이페이지</button>
               <button>플레이리스트</button>
-              <button>로그아웃</button>
+              <button onClick={logOutClick}>로그아웃</button>
             </div>
             :
             null
