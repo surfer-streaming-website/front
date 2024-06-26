@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import './AudioPlayer.css';
-import { PlayerContext, PlaylistContext } from '../../App';
+import { LogingedContext, PlayerContext, PlaylistContext } from '../../App';
 import { Link } from 'react-router-dom';
 
 const AudioPlayer = ()=>{
@@ -11,6 +11,7 @@ const AudioPlayer = ()=>{
     const progressContainerRef = useRef(null);
     const [totalTime, setTotalTime] = useState('0:00');
     const [currentTime, setCurrentTime] = useState('0:00');
+    let logingedCon = useContext(LogingedContext);
 
     //음악 재생
     const handlePlayPause = () =>{
@@ -126,7 +127,7 @@ const AudioPlayer = ()=>{
             <div className='progress-container' id='progress-container' ref={progressContainerRef}>
                 <div className='progress' id='progress' ref={progressRef}></div>
             </div>
-            {songInfo && <img className='playerImage' referrerPolicy='no-referrer' src={songInfo.albumImage}></img>}
+            {songInfo && logingedCon.isLoggedIn && <img className='playerImage' referrerPolicy='no-referrer' src={songInfo.albumImage}></img>}
             <Link className='songTitle' to={songInfo && "/song/detail/"+songInfo.songSeq}>{songInfo && songInfo.songTitle}</Link>
             <div className='singers'>
                 {songInfo && songInfo.singers && songInfo.singers.map((singer, index)=>(<p className='singer' key={singer.songSingerSeq}>
