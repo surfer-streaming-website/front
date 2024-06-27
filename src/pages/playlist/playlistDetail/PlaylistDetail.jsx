@@ -36,7 +36,6 @@ const PlaylistDetail = () => {
 
     return (
         <div className='playlist-detail'>
-            <h1>playlist detail</h1>
             <div className='detail-playlist-item'>
                 <img src={ playlistImage } referrerPolicy="no-referrer"/>
                 <p>{ playlistName }</p>
