@@ -39,7 +39,6 @@ const SongItem = (props)=>{
         <div className="songItem">
             <p className="songNumber">{props.song.songNumber}</p>
             <Link className="songTitle" to={"/song/detail/"+props.song.songSeq}>{props.song.songTitle}</Link>
-            <p className="songLike">🤍 10</p>
             <button className="listen" onClick={playSong}>
                 <p>듣기</p>
             </button>

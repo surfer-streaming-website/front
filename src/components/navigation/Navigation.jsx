@@ -10,7 +10,7 @@ const Navigtion = () => {
   const [click, setClick] = useState(false);
 
   const{setMusicList} = useContext(PlaylistContext);
-  const{setSongInfo} = useContext(PlayerContext);
+  const{setSongInfo, audio} = useContext(PlayerContext);
   
   const myPageClick = () => {
     navigate('/user/mypage');
@@ -37,6 +37,7 @@ const Navigtion = () => {
     localStorage.clear();
     setMusicList([]);
     setSongInfo([]);
+    audio.src= '';
     navigate('/');
   }
 
