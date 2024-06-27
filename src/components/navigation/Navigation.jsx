@@ -10,7 +10,7 @@ const Navigtion = () => {
   const [click, setClick] = useState(false);
 
   const{setMusicList} = useContext(PlaylistContext);
-  const{setSongInfo} = useContext(PlayerContext);
+  const{setSongInfo, audio} = useContext(PlayerContext);
   
   const myPageClick = () => {
     navigate('/user/mypage');
@@ -37,6 +37,7 @@ const Navigtion = () => {
     localStorage.clear();
     setMusicList([]);
     setSongInfo([]);
+    audio.src= '';
     navigate('/');
   }
 
@@ -88,11 +89,15 @@ const Navigtion = () => {
         </div>
 
         <button className="navButton1">
-          <p className="text-5">최신앨범</p>
+          <p className="text-5">차트</p>
         </button>
 
         <button className="navButton1">
-          <p className="text-5">장르</p>
+          <Link to={'/latest'} className="text-5">최신 앨범</Link>
+        </button>
+
+        <button className="navButton1">
+        <Link to={'/genre'} className="text-5">장르</Link>
         </button>
 
         <button className="navButton1">

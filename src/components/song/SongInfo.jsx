@@ -32,7 +32,8 @@ const SongInfo = (props) => {
         if (props.songInfo) {
             setSongBoardInfo(props.songInfo);
             setLikeCount(props.songInfo.likeCount || 0);
-            setLiked(props.songInfo.isLiked || false);
+            setLiked(props.songInfo.isLike);
+            console.log(props.songInfo.isLike , "?ASDF?ASD");
         }
     }, [props.songInfo])
 
@@ -40,13 +41,16 @@ const SongInfo = (props) => {
         fetchData();
     }, [page, sort]); //page 또는 sort가 변경될 때마다 데이터 다시 불러오기.
 
+
+
+
     const fetchData = () => {
         if (songBoardInfo && songBoardInfo.songSeq) {
             axios.get(`http://localhost:8080/api/song/detail/${songBoardInfo.songSeq}?nowPage=${page}&sort=${sort}`)
                 .then((res) => {
                     setSongBoardInfo(res.data.data);
                     setLikeCount(res.data.data.likeCount || 0);
-                    setLiked(res.data.data.isLiked || false);
+                    setLiked(res.data.data.isLike || false);
                 })
         }
     };
@@ -99,14 +103,9 @@ const SongInfo = (props) => {
 
     const handleLike = () => {
         const token = localStorage.getItem('accessToken');
-        const memberId = localStorage.getItem('memberId');
-        if (!memberId) {
-            alert("로그인이 필요합니다.");
-            return;
-        }
 
         const method = liked ? 'DELETE' : 'POST';
-        const url = `http://localhost:8080/api/song/${songBoardInfo.songSeq}/like/${memberId}`;
+        const url = `http://localhost:8080/api/song/${songBoardInfo.songSeq}/like`;
 
 
         axios({
