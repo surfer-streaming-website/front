@@ -195,9 +195,7 @@ const SongInfo = (props) => {
 
 
               {/*  */}
-              <button className="button3">
-                <p className="text-17">담기</p>
-              </button>
+              <Link to="/playlist" className="button3" state={{songSeq: songBoardInfo.songSeq}}><p>담기</p></Link>
   
               <p className="text-14" onClick={handleLike}>{liked ? "❤️" : "🤍"} {likeCount}</p>
               <button className="button4" onClick={()=>handleCopyClipBoard(`http://localhost:5173${location.pathname}`)}>

@@ -391,14 +391,14 @@
    flex-grow: 0;
   }
   .songInfoBox .button3{
-   /* Button */
- 
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
    /* Auto layout */
    display: flex;
    flex-direction: row;
    justify-content: center;
    align-items: center;
-   padding: 14px 24px;
    gap: 8px;
  
    position: absolute;
