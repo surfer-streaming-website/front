@@ -20,10 +20,8 @@ const Genre = () => {
 
     axios.get(url, { headers })
       .then(response => {
-        setSongs(response.data.data.songs);
-        console.log("songs   ", response.data.data.songs);
-        console.log("songs singer   ", response.data.data.songs[0].singer);
-
+        setSongs(response.data.data);
+        console.log("sdaf : ", response.data.data)   
         
       })
       .catch(error => {
@@ -49,14 +47,14 @@ const Genre = () => {
       </div>
       <div className="songs-grid">
         {songs.map((song, index) => (
-          <div key={index} className="song-item" onClick={() => songItemClick(song.song.songSeq)}>
+          <div key={index} className="song-item" onClick={() => songItemClick(song.songSeq)}>
             <img 
               src={song.url || 'https://i.ibb.co/cJpPZMq/b.jpg'} // 기본 이미지 URL 사용
-              alt={song.song.songTitle} 
+              alt={song.songTitle} 
               className="song-cover" 
             />
-            <p className="song-title">{song.song.songTitle}</p>
-            <p className="song-artist">{song.singer.split(", ")[0]}</p>
+            <p className="song-title">{song.songTitle}</p>
+            <p className="song-artist">{song.singer}</p>
           </div>
         ))}
       </div>
