@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { LogingedContext } from "../../App";
+import { LogingedContext, PlayerContext, PlaylistContext } from "../../App";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navigation.css"
 
@@ -9,6 +9,9 @@ const Navigtion = () => {
 
   let logingedCon = useContext(LogingedContext);
   const [click, setClick] = useState(false);
+
+  const{setMusicList} = useContext(PlaylistContext);
+  const{setSongInfo} = useContext(PlayerContext);
   
   const myPageClick = () => {
     navigate('/user/mypage');
@@ -19,6 +22,8 @@ const Navigtion = () => {
 
   const logOutClick = () =>{
     localStorage.clear();
+    setMusicList([]);
+    setSongInfo([]);
     navigate('/');
   }
 

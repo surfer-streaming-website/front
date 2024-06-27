@@ -52,6 +52,7 @@
 .playlistSection li{
     position: relative;
     height: 80px;
+    list-style-type: none;
 }
 .playlistSection li img{
     /* 앨범 이미지 */
@@ -83,6 +84,7 @@
     position: relative;
     left: 350px;
     top: -75px;
+    width: 50px;
 }
 .playlistSection li div div{
     /* 재생 시간 */
@@ -90,15 +92,16 @@
     position: relative;
     left: 350px;
     top: -75px;
+    width: 50px;
 }
 .playlistSection li button{
     /* 삭제 버튼 */
+    background-color: transparent;
+    color: white;
+    border: none;
     position: relative;
     top: 25px;
-    left: 460px;
-    background-color: transparent;
-    border-style: none;
-    color: #999999;
+    left: 430px;
 }
 .playlistSection li div{
     /* 플레이 목록에 있는 곡 */
