@@ -98,11 +98,6 @@ const Navigtion = () => {
         <button className="navButton1">
         <Link to={'/song/rank'} className="text-5">음악랭킹</Link>
         </button> 
-
-        <button className="navButton1">
-          <p className="text-5">차트</p>
-        </button>
-
         <button className="navButton1">
           <Link to={'/latest'} className="text-5">최신 앨범</Link>
         </button>
@@ -110,10 +105,6 @@ const Navigtion = () => {
         <button className="navButton1">
         <Link to={'/genre'} className="text-5">장르</Link>
         </button>
-
-        <button className="navButton1">
-          <p className="text-5">아티스트</p>
-        </button> 
 
       </div>
     )
