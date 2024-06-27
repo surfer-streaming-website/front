@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import Pagination from 'react-js-pagination'
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import AlbumReplyItem from "./AlbumReplyItem";
-import InsertAlbumReply from './InsertAlbumReply';
+import AlbumReplyItem from './reply/AlbumReplyItem';
+import InsertAlbumReply from './reply/InsertAlbumReply';
 import SongItem from "../song/SongItem";
 import './AlbumInfo.css';
 import './SongList.css';
-import './AlbumReplyItem.css';
+import './reply/AlbumReplyItem.css';
 import { LogingedContext, PlayerContext, PlaylistContext } from "../../App";
 
 const AlbumInfo = (props) => {
@@ -20,7 +20,7 @@ const AlbumInfo = (props) => {
     const [albumLikeCount, setAlbumLikeCount] = useState(0);
     const {isLoggedIn} = useContext(LogingedContext);
     const {audio, setPlaying, setSongInfo} = useContext(PlayerContext);
-    const {setMusicList, musicList} = useContext(PlaylistContext);
+    const {setMusicList, musicList, currentSongIndex, setCurrentSongIndex} = useContext(PlaylistContext);
 
     const location = useLocation();
 
@@ -102,6 +102,8 @@ const AlbumInfo = (props) => {
                 audio.play();
                 setPlaying(true);
                 setSongInfo(songstoAdd[0]);
+                console.log(currentSongIndex);
+                setCurrentSongIndex(musicList.length);
     
                 songstoAdd.forEach(song=>{
                     const newSong ={
@@ -111,10 +113,10 @@ const AlbumInfo = (props) => {
                         singers: song.singers,
                         soundSourceUrl: song.soundSourceUrl
                     };
-                    //중복 체크 후 추가
-                     if(!musicList.some(existingSong=>existingSong.soundSourceUrl === newSong.soundSourceUrl)){
+                    
+                    //플레이리스트에 추가
                     setMusicList(prevMusicList => [...prevMusicList, newSong]);
-                    }
+                    
                 })
             }
         }
@@ -144,12 +146,8 @@ const AlbumInfo = (props) => {
                 <p className="text3">기획사</p>
                 <p className="agency">{albumBoardInfo.agency}</p>
                 <p className="albumLike">🤍 {albumLikeCount}</p>
-                <p className="albumPlayCount">💿 {totalPlayedCount}</p>
                 <button className="button1" onClick={playAlbum}>
                     <p className="playAlbum">전체 재생</p>
-                </button>
-                <button className="button2">
-                    <p className="download">앨범 다운</p>
                 </button>
                 <button className="button3" onClick={()=>handleCopyClipBoard(`http://localhost:5173${location.pathname}`)}>
                     <p className="share">공유</p>

@@ -133,10 +133,10 @@ const ArtistApplicationDetail = () => {
         </div>
       </div>
       <div className="contents">
-        <div className="buttons"></div>
-        <button onClick={handleFormUpdate}>수정하기</button>
-        <button onClick={handleFormDelete}>삭제하기</button>
-        <button onClick={handleNavigateList}>목록으로</button>
+        <div className="artist-application-buttonContainer"></div>
+        <button className="artist-application-button" onClick={handleFormUpdate}>수정하기</button>
+        <button className="artist-application-button" onClick={handleFormDelete}>삭제하기</button>
+        <button className="artist-application-button" onClick={handleNavigateList}>목록으로</button>
       </div>
     </div>
   );

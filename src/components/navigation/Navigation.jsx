@@ -1,14 +1,16 @@
 import { useContext, useState } from "react";
-import { LogingedContext } from "../../App";
+import { LogingedContext, PlayerContext, PlaylistContext } from "../../App";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navigation.css"
 
 const Navigtion = () => {
 
-  const navigate = useNavigate();
 
   let logingedCon = useContext(LogingedContext);
   const [click, setClick] = useState(false);
+
+  const{setMusicList} = useContext(PlaylistContext);
+  const{setSongInfo, audio} = useContext(PlayerContext);
   
   const myPageClick = () => {
     navigate('/user/mypage');
@@ -17,11 +19,39 @@ const Navigtion = () => {
     setClick(!click);
   }
 
+  const [keyword, setKeyword] = useState('');
+  const navigate = useNavigate();
+
+  const handleInputChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
+
+  const handleButtonClick = () => {
+    if (keyword) {
+      navigate(`/search/${encodeURIComponent(keyword)}`);
+    }
+
+  };
+  const logOutClick = () =>{
+    localStorage.clear();
+    setMusicList([]);
+    setSongInfo([]);
+    audio.src= '';
+    navigate('/');
+  }
+
     return (
       <div className="Navigtion">
         <Link className="text-1" to={"/"}>SURFER</Link>
         
-        <button className="button">
+        <input
+        className="search-keyword-text"
+        type="text"
+        value={keyword}
+        onChange={handleInputChange}
+      />
+        <button className="button" onClick={handleButtonClick}>
           <p className="text-2">🔎 검색</p>
         </button>
 
@@ -46,7 +76,7 @@ const Navigtion = () => {
             <div className="memberButton">
               <button className="myPage" onClick={myPageClick}>마이페이지</button>
               <button>플레이리스트</button>
-              <button>로그아웃</button>
+              <button onClick={logOutClick}>로그아웃</button>
             </div>
             :
             null
@@ -68,10 +98,6 @@ const Navigtion = () => {
 
         <button className="navButton1">
         <Link to={'/genre'} className="text-5">장르</Link>
-        </button>
-
-        <button className="navButton1">
-          <p className="text-5">DJ</p>
         </button>
 
         <button className="navButton1">

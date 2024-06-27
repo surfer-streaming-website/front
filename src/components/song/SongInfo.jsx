@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Pagination from "react-js-pagination";
 import { Link, useLocation } from "react-router-dom";
-import SongReplyItem from "./SongReplyItem.jsx";
-import InsertSongreply from "./InsertSongReply";
+import SongReplyItem from "./reply/SongReplyItem.jsx";
+import InsertSongreply from "./reply/InsertSongReply";
 import './SongInfoBox.css';
 import './Lyrics.css';
 import { LogingedContext, PlayerContext, PlaylistContext } from "../../App.jsx";
@@ -23,8 +23,7 @@ const SongInfo = (props) => {
     const [liked, setLiked] = useState(false); // 좋아요 상태
     const [likeCount, setLikeCount] = useState(0); // 좋아요 수
     const {setPlaying, audio, setSongInfo} = useContext(PlayerContext); //음악 재생 상태 전역 변수
-    const {musicList, setMusicList} = useContext(PlaylistContext);
-    const [addedToList, setAddedToList] = useState(false);
+    const {musicList, setMusicList, currentSongIndex, setCurrentSongIndex} = useContext(PlaylistContext);
     const {isLoggedIn} = useContext(LogingedContext);
 
     useEffect(() => {
@@ -80,25 +79,21 @@ const SongInfo = (props) => {
         audio.play(); //음악 재생
 
         setPlaying(true);
-
         setSongInfo(songBoardInfo);
 
-        if(!addedToList){
-          const newSong = {
-            songSeq: songBoardInfo.songSeq,
-            albumImage: songBoardInfo.albumImage,
-            songTitle: songBoardInfo.songTitle,
-            singers: songBoardInfo.singers,
-            soundSourceUrl: songBoardInfo.soundSourceUrl
-          }
-          
-          // 중복 체크 후 추가
-          if (!musicList.some(song => song.soundSourceUrl === newSong.soundSourceUrl)) {
-            setMusicList(prevMusicList => [...prevMusicList, newSong]);
-          }
+        const newSong = {
+          songSeq: songBoardInfo.songSeq,
+          albumImage: songBoardInfo.albumImage,
+          songTitle: songBoardInfo.songTitle,
+          singers: songBoardInfo.singers,
+          soundSourceUrl: songBoardInfo.soundSourceUrl
         }
+          
+        //플레이리스트에 추가
+        setMusicList(prevMusicList => [...prevMusicList, newSong]);
 
-        setAddedToList(true);
+        const newIndex = musicList.length;
+        setCurrentSongIndex(newIndex);
       }else{
         alert('로그인하고 이용해주세요!');
       }
@@ -129,6 +124,10 @@ const SongInfo = (props) => {
     };
 
       
+      const songDownload = () => {
+        const downloadUrl = `http://localhost:8080/api/song/download/${songBoardInfo.songSeq}`;
+        window.location.href = downloadUrl;
+      };
 
       return(
       <div className="songBoard">
@@ -184,15 +183,21 @@ const SongInfo = (props) => {
               <button className="button1" onClick={playMusic}>
                 <p className="text-13">재생</p>
               </button>
-              <button className="button2">
+
+              {/*  */}
+              
+              
+              <button className="button2" onClick={songDownload}>
                 <p className="text-16">곡 다운</p>
               </button>
+
+
+              {/*  */}
               <button className="button3">
                 <p className="text-17">담기</p>
               </button>
   
               <p className="text-14" onClick={handleLike}>{liked ? "❤️" : "🤍"} {likeCount}</p>
-              <p className="text-15">💿 {songBoardInfo.totalPlayedCount}</p>
               <button className="button4" onClick={()=>handleCopyClipBoard(`http://localhost:5173${location.pathname}`)}>
                   <p className="text-18">공유</p>
               </button>

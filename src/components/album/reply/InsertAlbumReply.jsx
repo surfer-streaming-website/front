@@ -1,16 +1,19 @@
-import { useContext, useState } from "react";
-import { LogingedContext } from '../../App';
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { authExceptionHandler, logInByRefreshToken } from "../auth/AuthUtil";
-import './InsertSongReply.css';
-
-const InsertSongreply = (props) =>{
+import { useContext, useEffect, useState } from "react";
+import { Form, Link } from "react-router-dom";
+import { LogingedContext } from "../../../App";
+import { authExceptionHandler, logInByRefreshToken } from "../../auth/AuthUtil";
+import './InsertAlbumReply.css';
+const InsertAlbumReply = (props)=>{
 
     let logingedCon = useContext(LogingedContext);
     const [comment, setComment] = useState('');
     const onChange = event => setComment(event.target.value);
     const id = props.id ? props.id : null ;
+
+    useEffect(()=>{
+        fetchData();
+    },[]);
 
     const fetchData = ()=>{
         if (
@@ -23,11 +26,12 @@ const InsertSongreply = (props) =>{
 
     const submitReply = (e)=>{
         e.preventDefault();
+        console.log("여기까지");
 
         axios({
             method:"POST",
-            url: "http://localhost:8080/api/song/"+id+"/reply",
-            data: {songReplyContent: comment},
+            url: "http://localhost:8080/api/album/"+id+"/reply",
+            data: {albumReplyContent: comment},
             headers: {
                 Authorization: localStorage.getItem("accessToken")
             }
@@ -38,11 +42,12 @@ const InsertSongreply = (props) =>{
         }
         )
         .catch((err)=>{
-            if (err.response.status === 401 || err.response.status === 403) {
+            // alert(err.response);
+            if(err.response.status == 401 || err.response.status == 403){
                 authExceptionHandler(err, fetchData);
-              } else {
+            }else{
                 console.log(err);
-              }
+            }
         })
     }
 
@@ -66,6 +71,7 @@ const InsertSongreply = (props) =>{
         </div>
         
     )
+
 }
 
-export default InsertSongreply;
+export default InsertAlbumReply;

@@ -2,7 +2,7 @@ import { useState, createContext, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Footer from "./components/footer/Footer";
 import Login from "./pages/auth/login/Login";
 import Home from "./pages/Home/Home";
 import Register from "./pages/auth/register/Register";
@@ -16,12 +16,15 @@ import ArtistApplicationPage from "./pages/auth/artist-application-page/ArtistAp
 import CreateArtistApplication from "./pages/auth/create-artist-application/CreateArtistApplication";
 import UpdateArtistApplication from "./pages/auth/update-artist-application/UpdateArtistApplication";
 import Search from "./pages/search/Search";
+import MyAlbum from "./pages/user/MyAlbum";
+import AlbumInsert from "./pages/album/AlbumInsert";
 import AudioPlayer from "./components/audio/AudioPlayer";
 import AlbumList from "./pages/admin/album/AlbumList";
 import AdminHome from "./pages/admin/home/AdminHome";
 import MyPage from "./pages/user/mypage/MyPage";
 import Genre from "./pages/Home/Genre";
 import LatestAlbum from "./pages/Home/LatestAlbum";
+import Playlist from "./components/audio/Playlist";
 
 export const LogingedContext = createContext();
 export const PlayerContext = createContext(); //음악 재생, 오디오 상태 관리
@@ -61,6 +64,7 @@ function App() {
       JSON.parse(localStorage.getItem("surfer_player")) || [];
     return storedMusicList;
   });
+  const [currentSongIndex, setCurrentSongIndex] = useState(-1); //현재 재생 중인 곡 인덱스
   const shouldHideNavigation = () => {
     return location.pathname === "/login" || location.pathname === "/register";
   };
@@ -88,6 +92,8 @@ function App() {
             setMusicList: setMusicList,
             isVisible: isVisible,
             setIsVisible: setIsVisible,
+            currentSongIndex: currentSongIndex,
+            setCurrentSongIndex: setCurrentSongIndex
           }}
         >
           <div className="main-container">
@@ -133,10 +139,14 @@ function App() {
                 />
                 {/* user */}
                 <Route path="/user/mypage" element={<MyPage />} />
+                <Route path="/myalbum" element={<MyAlbum />} />
                 {/* song */}
                 <Route path="/song/detail/:id" element={<SongBoard />} />
                 {/* album */}
                 <Route path="/album/detail/:id" element={<AlbumBoard />} />
+                <Route path="/album/insert" element={<AlbumInsert />} />
+
+                {/* search */} 
                 <Route path="/search/:keyword" element={<Search />} />
 
                 {/* error */}
@@ -151,6 +161,7 @@ function App() {
               </Routes>
             </div>
           </div>
+          <Playlist/>
           <AudioPlayer />
           {shouldHideNavigation() ? null : <Footer />}
         </PlaylistContext.Provider>
