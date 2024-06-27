@@ -10,7 +10,7 @@ const LatestAlbum = () => {
     // 로그인, 비로그인 둘 다 사용 가능하도록 설정
     const token = localStorage.getItem('accessToken');
     const headers = token ? { 'Authorization': token } : {};
-
+    
     axios.get('http://localhost:8080/api/album/latest', { headers })
       .then(response => {
         console.log("??", response.data.data.data[0]);

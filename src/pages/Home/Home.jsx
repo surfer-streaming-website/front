@@ -16,7 +16,10 @@ const Home = () => {
         <h1>...</h1>
         <h1>떠오르는 싱어송라이터 최유리</h1>
         <img src={newsImage1} alt="Latest News" className="news-image1" />
-        <p>관련 내용</p>
+        <p>
+          제29회 유재하 음악 경연 대회에서 대상을 수상하며 리스너들에게 이름을 알린 최유리!<br>
+          2020년 첫 EP 동그라미를 시작으로 둘이, 우리만은 등의 앨범으로 활발한 활동을 펼쳐나갔다.</br>
+          </p>
         <hr></hr>
       </div>
     </div>

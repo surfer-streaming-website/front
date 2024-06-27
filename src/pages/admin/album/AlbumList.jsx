@@ -9,36 +9,56 @@ const AlbumList = () => {
 
   useEffect(() => {
     fetchAlbums();
-  }, []);
+  }, [setAlbums]);
 
   const fetchAlbums = async () => {
     try {
       const response = await axios.get(
-        'http://localhost:8080/api/album/status/2'
+        'http://localhost:8080/api/album/status/all'
       );
-      setAlbums(response.data);
+      console.log(response.data);
+      setAlbums(response.data)
+      console.log("성공!!!!!!!!!!!!!!")
     } catch (error) {
+      console.log("실패!!!!!!!!!!!!!!")
       console.error('Failed to fetch albums:', error);
     }
   };
 
-  const handleStatusChange = async (albumSeq, newStatus) => {
-    try {
-      const token = localStorage.getItem('accessToken');
-      if (!token) {
-        throw new Error('Token not found');
-      }
+  // const handleStatusChange = async (albumSeq, newStatus) => {
+  //   try {
+  //     const token = localStorage.getItem('accessToken');
+  //     if (!token) {
+  //       throw new Error('Token not found');
+  //     }
 
-      await axios.put(
-        `http://localhost:8080/api/album/updateStatus/${albumSeq}`, 
-        { albumState: newStatus },
-        {
-          headers: {
-            'Authorization': `${token}`
+  //     await axios.put(
+  //       `http://localhost:8080/api/album/updateStatus/${albumSeq}`, 
+  //       { albumState: newStatus }
+  //       // ,
+  //       // {
+  //       //   headers: {
+  //       //     'Authorization': `${token}`
+  //       //   }
+  //       // }
+  //     );
+      const handleStatusChange =  (albumSeq, newStatus) => {
+        try {
+          const token = localStorage.getItem('accessToken');
+          if (!token) {
+            throw new Error('Token not found');
           }
-        }
-      );
-
+    
+           axios.put(
+            `http://localhost:8080/api/album/updateStatus/${albumSeq}`, 
+            { albumState: newStatus }
+            // ,
+            // {
+            //   headers: {
+            //     'Authorization': `${token}`
+            //   }
+            // }
+          );
       setAlbums((prevAlbums) =>
         prevAlbums.map((album) =>
           album.albumSeq === albumSeq
@@ -77,8 +97,8 @@ const AlbumList = () => {
               <tr key={album.albumSeq}>
                 <td>{album.albumSeq}</td>
                 <td>{album.albumTitle}</td>
-                <td>{album.artistName}</td>
-                <td>{album.releaseDate}</td>
+                <td>{album.albumSinger}</td>
+                <td>{album.albumRegDate}</td>
                 <td>{album.albumState}</td>
                 <td>
                   <select
