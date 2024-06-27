@@ -2,7 +2,7 @@ import { useState, createContext, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Footer from "./components/footer/Footer";
 import Login from "./pages/auth/login/Login";
 import Home from "./pages/Home/Home";
 import Register from "./pages/auth/register/Register";
@@ -16,6 +16,8 @@ import ArtistApplicationPage from "./pages/auth/artist-application-page/ArtistAp
 import CreateArtistApplication from "./pages/auth/create-artist-application/CreateArtistApplication";
 import UpdateArtistApplication from "./pages/auth/update-artist-application/UpdateArtistApplication";
 import Search from "./pages/search/Search";
+import MyAlbum from "./pages/user/MyAlbum";
+import AlbumInsert from "./pages/album/AlbumInsert";
 import AudioPlayer from "./components/audio/AudioPlayer";
 import AlbumList from "./pages/admin/album/AlbumList";
 import AdminHome from "./pages/admin/home/AdminHome";
@@ -133,10 +135,14 @@ function App() {
                 />
                 {/* user */}
                 <Route path="/user/mypage" element={<MyPage />} />
+                <Route path="/myalbum" element={<MyAlbum />} />
                 {/* song */}
                 <Route path="/song/detail/:id" element={<SongBoard />} />
                 {/* album */}
                 <Route path="/album/detail/:id" element={<AlbumBoard />} />
+                <Route path="/album/insert" element={<AlbumInsert />} />
+
+                {/* search */} 
                 <Route path="/search/:keyword" element={<Search />} />
 
                 {/* error */}
