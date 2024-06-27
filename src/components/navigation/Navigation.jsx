@@ -26,10 +26,16 @@ const Navigtion = () => {
     setKeyword(e.target.value);
   };
 
-
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleButtonClick();
+    }
+  };
+  
   const handleButtonClick = () => {
     if (keyword) {
       navigate(`/search/${encodeURIComponent(keyword)}`);
+      setKeyword('');
     }
 
   };
@@ -50,6 +56,7 @@ const Navigtion = () => {
         type="text"
         value={keyword}
         onChange={handleInputChange}
+        onKeyUp={handleKeyPress}
       />
         <button className="button" onClick={handleButtonClick}>
           <p className="text-2">🔎 검색</p>

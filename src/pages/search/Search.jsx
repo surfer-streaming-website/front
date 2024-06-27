@@ -31,28 +31,18 @@ const Search = () => {
         <h3>노래</h3>
         <div className="song-results">
           <div className="song-result-section">
-            {SearchRes.song.slice(0, 8).filter((_, index) => index % 2 === 0)
+            {SearchRes.song
+              .slice(0, 8)
+              .filter((song, index) => index % 2 === 0 && song.albumState === 1)
               .length > 0 ? (
               SearchRes.song
                 .slice(0, 8)
-                .filter((_, index) => index % 2 === 0)
+                .filter((song, index) => index % 2 === 0 && song.albumState === 1)
                 .map((song, index) => (
                   <SongItem key={index} searchkeyword={song} />
                 ))
             ) : (
               <p>검색 결과가 없습니다</p>
-            )}
-          </div>
-          <div className="song-result-section">
-            {SearchRes.song.filter((_, index) => index % 2 !== 0).length > 0 ? (
-              SearchRes.song
-                .slice(0, 8)
-                .filter((_, index) => index % 2 !== 0)
-                .map((song, index) => (
-                  <SongItem key={index} searchkeyword={song} />
-                ))
-            ) : (
-              <p></p>
             )}
           </div>
         </div>
@@ -67,6 +57,7 @@ const Search = () => {
           {SearchRes.album.length > 0 ? (
             SearchRes.album
               .slice(0, 8)
+              .filter((album) => album.albumState === 1)
               .map((album, index) => (
                 <AlbumItem key={index} searchkeyword={album} />
               ))
@@ -84,6 +75,7 @@ const Search = () => {
           {SearchRes.playlist.length > 0 ? (
             SearchRes.playlist
               .slice(0, 8)
+              .filter((playlist) => playlist.albumState === 1)
               .map((playlist, index) => (
                 <PlaylistItem key={index} searchkeyword={playlist} />
               ))
@@ -101,6 +93,7 @@ const Search = () => {
           {SearchRes.lyrics.length > 0 ? (
             SearchRes.lyrics
               .slice(0, 6)
+              .filter((lyrics) => lyrics.albumState === 1)
               .map((lyrics, index) => (
                 <LyricsItem key={index} searchkeyword={lyrics} />
               ))

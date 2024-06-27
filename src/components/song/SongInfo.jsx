@@ -125,8 +125,10 @@ const SongInfo = (props) => {
 
       
       const songDownload = () => {
+        if(!isLoggedIn){alert("로그인 후 이용해주세요!")}else{
         const downloadUrl = `http://localhost:8080/api/song/download/${songBoardInfo.songSeq}`;
         window.location.href = downloadUrl;
+      }
       };
 
       return(
