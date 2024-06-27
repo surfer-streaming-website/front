@@ -7,7 +7,7 @@
    /* Song Title */
  
    position: absolute;
-   width: 300px;
+   width: 500px;
    height: 60px;
    left: 364px;
    top: 19px;
@@ -88,7 +88,7 @@
    /* Album Title */
  
    position: absolute;
-   width: 120px;
+   width: 150px;
    height: 30px;
    left: 442px;
    top: 120px;
@@ -135,7 +135,7 @@
    /* 장르 들어가는 자리 */
  
    position: absolute;
-   width: 80px;
+   width: 100px;
    height: 30px;
    left: 780px;
    top: 120px;
@@ -263,7 +263,7 @@
    /* 편곡자 */
  
    position: absolute;
-   width: 100px;
+   width: 150px;
    height: 30px;
    left: 780px;
    top: 160px;
@@ -276,8 +276,6 @@
    /* identical to box height, or 30px */
    display: flex;
    align-items: center;
- 
-   /* color: #FFFFFF; */
    color: #999999;
   }
   .songInfoBox .text-14{
@@ -299,28 +297,6 @@
    align-items: center;
  
    color: #FFFFFF;
-  }
-  .songInfoBox .text-15{
-   /* 💿 94 */
- 
-   position: absolute;
-   width: 100px;
-   height: 36px;
-   left: 474px;
-   top: 240px;
- 
-   font-family: 'Inter';
-   font-style: normal;
-   font-weight: 500;
-   font-size: 24px;
-   line-height: 150%;
-   /* identical to box height, or 36px */
-   display: flex;
-   align-items: center;
- 
-   color: #FFFFFF;
- 
- 
   }
   .songInfoBox .button1{
    /* Button */

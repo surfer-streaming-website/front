@@ -124,9 +124,9 @@ const AudioPlayer = ()=>{
 
     return(
         <div className="AudioPlayer">
-            <div className='progress-container' id='progress-container' ref={progressContainerRef}>
+            {logingedCon.isLoggedIn && <div className='progress-container' id='progress-container' ref={progressContainerRef}>
                 <div className='progress' id='progress' ref={progressRef}></div>
-            </div>
+            </div>}
             {songInfo && logingedCon.isLoggedIn && <img className='playerImage' referrerPolicy='no-referrer' src={songInfo.albumImage}></img>}
             <Link className='songTitle' to={songInfo && "/song/detail/"+songInfo.songSeq}>{songInfo && songInfo.songTitle}</Link>
             <div className='singers'>
@@ -146,11 +146,11 @@ const AudioPlayer = ()=>{
                 </button>
             )}
             <button className='nextButton' onClick={nextMusic}>⏩</button>
-            <div className='time'>
+            {logingedCon.isLoggedIn && <div className='time'>
                 <p className='currentTime'>{currentTime}</p>
                 <p className='slash'>/</p>
                 <p className='totalTime'>{totalTime}</p>
-            </div>
+            </div>}
 
             <button className='musicListButton' onClick={toggleMusicList}>playlist</button>
         </div>
