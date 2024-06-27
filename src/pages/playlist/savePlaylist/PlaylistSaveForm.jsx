@@ -70,8 +70,8 @@ const PlaylistSaveForm = () => {
         navigator("/myPlaylists");
       })
       .catch((err) => {
-        // alert("플레이리스트를 생성할 수 없습니다.");
-        console.log(err);
+        alert("플레이리스트를 생성할 수 없습니다.");
+        // console.log(err);
       });
   };
 

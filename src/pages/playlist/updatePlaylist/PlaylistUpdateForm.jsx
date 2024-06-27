@@ -82,8 +82,8 @@ const PlaylistUpdateForm = () => {
             navigate("/myPlaylists" + playlistSeq);
         })
         .catch((err) => {
-            // alert("플레이리스트를 수정할 수 없습니다.");
-            console.log(err);
+            alert("플레이리스트를 수정할 수 없습니다.");
+            // console.log(err);
         });
       };
 
