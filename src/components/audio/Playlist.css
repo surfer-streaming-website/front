@@ -75,23 +75,23 @@
     color: #999999;
     width: 300px;
     left: 90px;
-    top: -30px;
+    top: -15px;
     font-style: normal;
 }
 .playlistSection li span div{
     /* 재생 시간 */
     color: #999999;
     position: relative;
-    left: 350px;
-    top: -75px;
+    left: 320px;
+    top: -50px;
     width: 50px;
 }
 .playlistSection li div div{
     /* 재생 시간 */
     color: #999999;
     position: relative;
-    left: 350px;
-    top: -75px;
+    left: 320px;
+    top: -55px;
     width: 50px;
 }
 .playlistSection li button{

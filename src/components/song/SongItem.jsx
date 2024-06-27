@@ -8,6 +8,8 @@ const SongItem = (props)=>{
     const {audio, setPlaying, setSongInfo} = useContext(PlayerContext);
     const {setMusicList, musicList, currentSongIndex, setCurrentSongIndex} = useContext(PlaylistContext);
 
+    console.log(props.song);
+
     const playSong = ()=>{
         //console.log("song"+props.song.albumImage);
         if(isLoggedIn){
@@ -21,7 +23,7 @@ const SongItem = (props)=>{
                 songSeq: props.song.songSeq,
                 albumImage: props.albumImage,
                 songTitle: props.song.songTitle,
-                singers: props.song.singers,
+                singerList: props.song.singerList,
                 soundSourceUrl: props.song.soundSourceUrl
             }
             setSongInfo(newSong);
@@ -48,7 +50,7 @@ const SongItem = (props)=>{
             <button className="listen" onClick={playSong}>
                 <p>듣기</p>
             </button>
-            <Link className="playlist" to="/playlist" state={{songSeq: props.song.songSeq}}>담기</Link>
+            <p className="playlist">담기</p>
             <p className="download" onClick={songDownload}>다운로드</p>
         </div>
     )
