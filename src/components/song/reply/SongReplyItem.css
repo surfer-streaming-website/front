@@ -129,3 +129,13 @@
     color: #ffffff;
     font: normal;
   }
+  .songReplyLikeCount{
+    position: relative;
+    background-color: transparent;
+    border-color: transparent;
+    left: 950px;
+    top: 100px;
+    font-size: 20px;
+    color: #ffffff;
+    font: normal;
+  }

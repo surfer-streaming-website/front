@@ -5,7 +5,7 @@ import {
   authExceptionHandler,
 } from "../../../components/auth/AuthUtil";
 import { useNavigate, useParams } from "react-router-dom";
-import './UpdateArtistApplication.css'
+import "./UpdateArtistApplication.css";
 
 const UpdateArtistApplication = () => {
   const { id } = useParams();
@@ -106,8 +106,9 @@ const UpdateArtistApplication = () => {
   };
 
   return (
-    <div className="container">
-      <div>
+    <div className="artist-application-update-container">
+      <div className="artist-application-update-body">
+        <h1>가수 신청 수정</h1>
         <form onSubmit={handleSubmit}>
           <div>
             <label>국내외 구분:</label>
@@ -242,7 +243,9 @@ const UpdateArtistApplication = () => {
               required
             />
           </div>
-          <button type="submit">수정하기</button>
+          <button className="artist-application-button" type="submit">
+            수정하기
+          </button>
         </form>
       </div>
     </div>

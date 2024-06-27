@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { LogingedContext } from "../../App";
+import { LogingedContext, PlayerContext, PlaylistContext } from "../../App";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navigation.css"
 
@@ -8,6 +8,9 @@ const Navigtion = () => {
 
   let logingedCon = useContext(LogingedContext);
   const [click, setClick] = useState(false);
+
+  const{setMusicList} = useContext(PlaylistContext);
+  const{setSongInfo} = useContext(PlayerContext);
   
   const myPageClick = () => {
     navigate('/user/mypage');
@@ -30,6 +33,13 @@ const Navigtion = () => {
     }
 
   };
+  const logOutClick = () =>{
+    localStorage.clear();
+    setMusicList([]);
+    setSongInfo([]);
+    navigate('/');
+  }
+
     return (
       <div className="Navigtion">
         <Link className="text-1" to={"/"}>SURFER</Link>
@@ -65,7 +75,7 @@ const Navigtion = () => {
             <div className="memberButton">
               <button className="myPage" onClick={myPageClick}>마이페이지</button>
               <button>플레이리스트</button>
-              <button>로그아웃</button>
+              <button onClick={logOutClick}>로그아웃</button>
             </div>
             :
             null
@@ -78,19 +88,11 @@ const Navigtion = () => {
         </div>
 
         <button className="navButton1">
-          <p className="text-5">차트</p>
-        </button>
-
-        <button className="navButton1">
           <p className="text-5">최신앨범</p>
         </button>
 
         <button className="navButton1">
           <p className="text-5">장르</p>
-        </button>
-
-        <button className="navButton1">
-          <p className="text-5">DJ</p>
         </button>
 
         <button className="navButton1">
