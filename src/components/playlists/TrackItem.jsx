@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import ArtistItem from './ArtistItem';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import './css/TrackItem.css';
+import { PlayerContext, PlaylistContext } from '../../App.jsx';
 
 const TrackItem = (props) => {
     const {song} = props.track; //playlist track 에서 가져오기
-    const {albumImage, songName, artist, songId} = song;
-
-    const navigate = useNavigate();
+    const {albumImage, songName, artist, songId, soundSource} = song;
+    const {audio, setPlaying, setSongInfo} = useContext(PlayerContext);
+    const {musicList, setMusicList, setCurrentSongIndex} = useContext(PlaylistContext);
 
     const deleteSong = ()=>{
         axios ({
@@ -22,19 +21,36 @@ const TrackItem = (props) => {
             props.fetchData();
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             alert("삭제 실패");
         })
     }
 
-    console.log(albumImage);
+    const downloadSong = ()=>{
+        const downloadUrl = `http://localhost:8080/api/song/download/${songId}`;
+        window.location.href = downloadUrl;
+    }
+
+    const onPlay = ()=>{
+        audio.src = soundSource;
+        audio.play();
+
+        setPlaying(true);
+        setSongInfo(song);
+
+        setMusicList(prevMusicList => [...prevMusicList, song]);
+
+        const newIndex = musicList.length;
+        setCurrentSongIndex(newIndex);
+    }
+
     return (
         <div className='track-item'>
             <img src={ albumImage } referrerPolicy="no-referrer"/>
             <p>{ songName }</p>
-            <p>{ artist.map((singer) => <ArtistItem key = {songId} singer = {singer}/>) }</p>
-            <button className='track-btn'>재생</button>
-            <button className='track-btn'>다운로드</button>
+            <p>{ artist.filter((singer) => singer) }</p>
+            <button className='track-btn' onClick={onPlay}>재생</button>
+            <button className='track-btn' onClick={downloadSong}>다운로드</button>
             <button onClick={ deleteSong } className='track-btn'>삭제</button>
         </div>
     );
