@@ -20,6 +20,8 @@ import AudioPlayer from "./components/audio/AudioPlayer";
 import AlbumList from "./pages/admin/album/AlbumList";
 import AdminHome from "./pages/admin/home/AdminHome";
 import MyPage from "./pages/user/mypage/MyPage";
+import Genre from "./pages/Home/Genre";
+import LatestAlbum from "./pages/Home/LatestAlbum";
 
 export const LogingedContext = createContext();
 export const PlayerContext = createContext(); //음악 재생, 오디오 상태 관리
@@ -99,6 +101,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/latest" element={<LatestAlbum />} />
+                <Route path="/genre" element={<Genre />} />
                 {/* admin */}
                 <Route
                   path="/admin/artist-application"

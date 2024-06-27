@@ -31,7 +31,8 @@ const SongInfo = (props) => {
         if (props.songInfo) {
             setSongBoardInfo(props.songInfo);
             setLikeCount(props.songInfo.likeCount || 0);
-            setLiked(props.songInfo.isLiked || false);
+            setLiked(props.songInfo.isLike);
+            console.log(props.songInfo.isLike , "?ASDF?ASD");
         }
     }, [props.songInfo])
 
@@ -48,7 +49,7 @@ const SongInfo = (props) => {
                 .then((res) => {
                     setSongBoardInfo(res.data.data);
                     setLikeCount(res.data.data.likeCount || 0);
-                    setLiked(res.data.data.isLiked || false);
+                    setLiked(res.data.data.isLike || false);
                 })
         }
     };
