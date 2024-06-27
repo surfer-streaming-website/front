@@ -55,20 +55,13 @@ const PlaylistUpdateForm = () => {
                     }
 
                     updatedTags = [...prevPlaylist.tagList, value];  // 새로운 태그 추가
-
                 } else {
                     updatedTags = prevPlaylist.tagList.filter(tag => tag !== value);  // 태그 제거
                 }
 
                 setSelectedTagsCount(updatedTags.length);  // 선택된 태그 수 업데이트
                 setCheckedTags(prevCheckedTags => ({ ...prevCheckedTags, [value]: checked })); // 체크박스 상태 업데이트
-                
-                console.log("tags = " , tags);
-                console.log("setCheckedTags = " , checkedTags)
-
-
                 return { ...prevPlaylist, [name]: updatedTags };  // 변경된 태그 목록으로 상태 업데이트
-
             } else {
                 return { ...prevPlaylist, [name]: type === 'checkbox' ? (checked ? 1 : 0) : value };
             }
