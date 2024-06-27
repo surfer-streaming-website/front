@@ -25,6 +25,7 @@ import MyPage from "./pages/user/mypage/MyPage";
 import Genre from "./pages/Home/Genre";
 import LatestAlbum from "./pages/Home/LatestAlbum";
 import Playlist from "./components/audio/Playlist";
+import RankByView from "./pages/rank/by-view/RankByView";
 import Exist from './pages/playlist/exsit/Exist';
 import MyPlaylist from './pages/playlist/myPlaylists/MyPlaylist';
 import PlaylistDetail from './pages/playlist/playlistDetail/PlaylistDetail';
@@ -147,6 +148,7 @@ function App() {
                 <Route path="/myalbum" element={<MyAlbum />} />
                 {/* song */}
                 <Route path="/song/detail/:id" element={<SongBoard />} />
+                <Route path="/song/rank" element={<RankByView />}/>
                 {/* album */}
                 <Route path="/album/detail/:id" element={<AlbumBoard />} />
                 <Route path="/album/insert" element={<AlbumInsert />} />

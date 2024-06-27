@@ -67,7 +67,7 @@ const CreateArtistApplication = () => {
   return (
     <div className="artist-application-update-container">
       <div className="artist-application-update-body">
-      <h1>아티스트 응모 신청</h1>
+      <h1>가수 신청</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>국내외 구분:</label>

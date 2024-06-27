@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Register.css";
+
+
 const Register = () => {
   //
   const [member, setMember] = useState({
@@ -46,9 +49,9 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h2>회원가입</h2>
-      <form onSubmit={submitJoin}>
+      <form onSubmit={submitJoin} className="register-form">
         <label htmlFor="email">이메일</label>
         <input
           type="text"
