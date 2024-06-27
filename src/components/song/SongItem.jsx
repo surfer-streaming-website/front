@@ -6,7 +6,7 @@ const SongItem = (props)=>{
 
     const {isLoggedIn} = useContext(LogingedContext);
     const {audio, setPlaying, setSongInfo} = useContext(PlayerContext);
-    const {setMusicList, musicList} = useContext(PlaylistContext);
+    const {setMusicList, musicList, currentSongIndex, setCurrentSongIndex} = useContext(PlaylistContext);
 
     const playSong = ()=>{
         //console.log("song"+props.song.albumImage);
@@ -25,10 +25,10 @@ const SongItem = (props)=>{
                 soundSourceUrl: props.song.soundSourceUrl
             }
             setSongInfo(newSong);
-            //중복 체크 후 추가
-            if(!musicList.some(existingSong=>existingSong.soundSourceUrl === newSong.soundSourceUrl)){
-                setMusicList(prevMusicList => [...prevMusicList, newSong]);
-            }
+            
+            setMusicList(prevMusicList => [...prevMusicList, newSong]);
+            setCurrentSongIndex(musicList.length);
+            
           }else{
             alert('로그인하고 이용해주세요!');
           }

@@ -1,16 +1,17 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import './AudioPlayer.css';
-import { PlayerContext, PlaylistContext } from '../../App';
+import { LogingedContext, PlayerContext, PlaylistContext } from '../../App';
 import { Link } from 'react-router-dom';
 
 const AudioPlayer = ()=>{
     const {playing, setPlaying, audio, songInfo, setSongInfo} = useContext(PlayerContext); //음악 재생 상태 전역 변수
-    const {isVisible, setIsVisible, musicList} = useContext(PlaylistContext);
+    const {isVisible, setIsVisible, musicList, currentSongIndex, setCurrentSongIndex} = useContext(PlaylistContext);
 
     const progressRef = useRef(null);
     const progressContainerRef = useRef(null);
     const [totalTime, setTotalTime] = useState('0:00');
     const [currentTime, setCurrentTime] = useState('0:00');
+    let logingedCon = useContext(LogingedContext);
 
     //음악 재생
     const handlePlayPause = () =>{
@@ -26,36 +27,44 @@ const AudioPlayer = ()=>{
         }
     }
 
-        //이전 곡 듣기
-        const prevMusic = ()=>{
-            console.log("prevMusic");
-            const currentIndex = musicList.findIndex(item => item.songSeq === songInfo.songSeq);
-            console.log(currentIndex);
-            if(currentIndex>0){
-                const prevSong = musicList[currentIndex-1];
-                setSongInfo(prevSong);
-                audio.src=prevSong.soundSourceUrl;
-                audio.play();
-                setPlaying(true);
-            }else{
-                alert('이전 곡이 없습니다.');
-            }
+    //이전 곡 듣기
+    const prevMusic = ()=>{
+        console.log("prevMusic");
+        if(currentSongIndex>0){
+            const prevSong = musicList[currentSongIndex-1];
+            setSongInfo(prevSong);
+            audio.src=prevSong.soundSourceUrl;
+            audio.play();
+            setPlaying(true);
+            setCurrentSongIndex(currentSongIndex-1);
+        }else{
+            alert('이전 곡이 없습니다.');
         }
+    }
     
-        //다음 곡 듣기
-        const nextMusic = ()=>{
-            const currentIndex = musicList.findIndex(item => item.songSeq === songInfo.songSeq);
-            if(currentIndex < musicList.length-1){
-                const nextSong = musicList[currentIndex+1];
-                setSongInfo(nextSong);
-                audio.src=nextSong.soundSourceUrl;
-                audio.play();
-                setPlaying(true);
-            }else{
-                alert('다음 곡이 없습니다.');
-            }
+    //다음 곡 듣기
+    const nextMusic = ()=>{
+        if(currentSongIndex < musicList.length-1){
+            const nextSong = musicList[currentSongIndex+1];
+            setSongInfo(nextSong);
+            audio.src = nextSong.soundSourceUrl;
+            audio.play();
+            setPlaying(true);
+            setCurrentSongIndex(currentSongIndex+1);
+        }else{
+            alert('다음 곡이 없습니다.');
+            setPlaying(false);
         }
+    }
     
+    //한 곡 재생이 끝나면 자동으로 다음 곡 재생
+    useEffect(()=>{
+        const handleEnded = ()=> {nextMusic();}
+        audio.addEventListener('ended', handleEnded);
+        return ()=>{
+            audio.removeEventListener('ended', handleEnded);
+        }
+    }, [audio, nextMusic]);
 
     //뮤직 진행 바
     useEffect(()=>{
@@ -118,7 +127,7 @@ const AudioPlayer = ()=>{
             <div className='progress-container' id='progress-container' ref={progressContainerRef}>
                 <div className='progress' id='progress' ref={progressRef}></div>
             </div>
-            {songInfo && <img className='playerImage' referrerPolicy='no-referrer' src={songInfo.albumImage}></img>}
+            {songInfo && logingedCon.isLoggedIn && <img className='playerImage' referrerPolicy='no-referrer' src={songInfo.albumImage}></img>}
             <Link className='songTitle' to={songInfo && "/song/detail/"+songInfo.songSeq}>{songInfo && songInfo.songTitle}</Link>
             <div className='singers'>
                 {songInfo && songInfo.singers && songInfo.singers.map((singer, index)=>(<p className='singer' key={singer.songSingerSeq}>

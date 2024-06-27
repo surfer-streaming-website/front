@@ -62,33 +62,35 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <div className="body">
-        <div className="explanation">
+    <div className="login-container">
+      <div className="login-body">
+        <div className="login-explanation">
           <h3>로그인하기</h3>
         </div>
         <form onSubmit={submitLogin} className="log-in-form">
-          <div className="email">
-            <label htmlFor="email">이메일</label>
+          <div className="login-email">
+            <label htmlFor="email" className="login-email">이메일</label>
             <input
               type="text"
               id="email"
               name="email"
+              className="login-email"
               onChange={changeValue}
               value={member.email}
             />
           </div>
-          <div className="password">
-            <label htmlFor="password">비밀번호</label>
+          <div className="login-password">
+            <label htmlFor="password" className="login-password">비밀번호</label>
             <input
               type="password"
               id="password"
+              className="login-password"
               name="password"
               onChange={changeValue}
               value={member.password}
             />
           </div>
-          <button type="submit">로그인</button>
+          <button type="submit" className="login-button">로그인</button>
         </form>
       </div>
     </div>
