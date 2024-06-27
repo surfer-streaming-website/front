@@ -13,6 +13,7 @@ const LyricsItem = (props) => {
         <Link to={`/song/detail/${songSeq}`}>
           <img className="album-image" src={albumImage} alt={albumImage} />
         </Link>
+        
         <div className="album-info">
           <Link className="song-title" to={`/song/detail/${songSeq}`}>
             {songTitle}

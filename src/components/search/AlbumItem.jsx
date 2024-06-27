@@ -7,6 +7,7 @@ const AlbumItem = (props) => {
   const album = searchkeyword || {}; // album 객체가 없을 경우 빈 객체로 설정
   const { albumImage, albumTitle, albumSingerName, albumSeq } = album;
   return (
+
     <div>
       <Link to={`/album/detail/${albumSeq}`}>
         <img className="album-image" src={albumImage} alt={albumTitle} />
@@ -19,8 +20,7 @@ const AlbumItem = (props) => {
 
         <span className="album-singer">{albumSingerName}</span>
       </div>
-      
-    </div>
+      </div>
   );
 };
 

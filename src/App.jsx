@@ -22,6 +22,8 @@ import AudioPlayer from "./components/audio/AudioPlayer";
 import AlbumList from "./pages/admin/album/AlbumList";
 import AdminHome from "./pages/admin/home/AdminHome";
 import MyPage from "./pages/user/mypage/MyPage";
+import Genre from "./pages/Home/Genre";
+import LatestAlbum from "./pages/Home/LatestAlbum";
 import Playlist from "./components/audio/Playlist";
 
 export const LogingedContext = createContext();
@@ -105,6 +107,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/latest" element={<LatestAlbum />} />
+                <Route path="/genre" element={<Genre />} />
                 {/* admin */}
                 <Route
                   path="/admin/artist-application"
