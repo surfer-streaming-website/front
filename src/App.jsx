@@ -151,10 +151,10 @@ function App() {
                 <Route path="/search/:keyword" element={<Search />} />
                 {/* playlsit */}
                 <Route path="/myPlaylists" element={<MyPlaylist/>}/>
-                <Route path="/myPlaylists/:id" element={<PlaylistDetail/>}/>
+                <Route path="/myPlaylists/:playlistSeq" element={<PlaylistDetail/>}/>
                 <Route path="/playlist" element={<Exist/>}/>
-                <Route path="/playlist/save" element={<PlaylistSaveForm/>}/>
-                <Route path="/playlist/update" element={<PlaylistUpdateForm/>}/>
+                <Route path="/playlist/:songSeq/save" element={<PlaylistSaveForm/>}/>
+                <Route path="/playlist/:playlistSeq/update" element={<PlaylistUpdateForm/>}/>
                 {/* error */}
                 <Route
                   path="/*"

@@ -43,7 +43,7 @@ const SongItem = (props)=>{
             <button className="listen" onClick={playSong}>
                 <p>듣기</p>
             </button>
-            <Link className="playlist" to="/save" state={{songSeq: props.song.songSeq}}>담기</Link>
+            <Link className="playlist" to="/playlist" state={{songSeq: props.song.songSeq}}>담기</Link>
             <p className="download">다운로드</p>
         </div>
     )

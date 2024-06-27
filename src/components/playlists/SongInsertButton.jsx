@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './css/SongInsertButton.css';
 
 const SongInsertButton = (props) => {
     const navigate = useNavigate();
@@ -15,7 +16,6 @@ const SongInsertButton = (props) => {
             }
         })
         .then(()=>{
-            // window.location.replace("/myPlaylists/"+playlistId);
             alert("플레이리스트에 노래를 담았습니다");
             navigate("/myPlaylists/"+props.playlistId);
         })
@@ -26,7 +26,7 @@ const SongInsertButton = (props) => {
 
     return (
         <div>
-            <button onClick={insertSong}>담기</button>
+            <button onClick={insertSong} className='song-in'>담기</button>
         </div>
     );
 };

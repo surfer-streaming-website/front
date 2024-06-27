@@ -193,7 +193,7 @@ const SongInfo = (props) => {
               <button className="button2" onClick={songDownload}>
                 <p className="text-16">곡 다운</p>
               </button>
-              <button className="button3" onClick={()=>{navigate("/playlist")}}>
+              <button className="button3" onClick={navigate("/playlist")}>
                 <p className="text-17">담기</p>
               </button>
   

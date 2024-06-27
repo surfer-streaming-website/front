@@ -74,7 +74,7 @@ const Navigtion = () => {
               click ? 
             <div className="memberButton">
               <button className="myPage" onClick={myPageClick}>마이페이지</button>
-              <button>플레이리스트</button>
+              <button onClick={()=>{navigate("/myPlaylists")}}>플레이리스트</button>
               <button onClick={logOutClick}>로그아웃</button>
             </div>
             :

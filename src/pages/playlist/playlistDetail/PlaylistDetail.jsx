@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import TrackItem from '../../../components/playlists/TrackItem';
-import TagItem from '../../../components/playlists/TagItem';
 import './PlaylistDetail.css';
 
 const PlaylistDetail = () => {
-    const { id } = useParams();
+    const { playlistSeq } = useParams();
     const [playlist , setPlaylist] = useState([]);
     const { playlistId, playlistImage, playlistName, track, tagList, nickname } = playlist;
 
@@ -18,7 +17,7 @@ const PlaylistDetail = () => {
 
     const fetchData = ()=>{
       axios
-        .get("http://localhost:8080/api/v1/playlist/myPlaylists/" + id, {
+        .get("http://localhost:8080/api/v1/playlist/myPlaylists/" + playlistSeq, {
           headers: {
               Authorization: localStorage.getItem("accessToken")
           }
@@ -32,7 +31,7 @@ const PlaylistDetail = () => {
     }
 
     const update = () => {
-      navigate("/" + playlistId + "/updatePlaylist");
+      navigate("/playlist/"+playlistId+"/update");
     }
 
     return (
@@ -43,9 +42,9 @@ const PlaylistDetail = () => {
                 <p>{ playlistName }</p>
                 <p>{ nickname }</p>
                 <p>{ tagList && tagList.filter((tag)=>tag) }</p>
+                <button onClick={ update } className='update-btn'>수정</button>
             </div>
-            <button onClick={ update }>수정</button>
-            <p>{ track && track.map((track) => <TrackItem key={track.trackId} track={track} playlistId={playlistId} fetchData={fetchData}/>) }</p>
+            <p className='track-detail'>{ track && track.map((track) => <TrackItem key={track.trackId} track={track} playlistId={playlistId} fetchData={fetchData}/>) }</p>
         </div>
     );
 };

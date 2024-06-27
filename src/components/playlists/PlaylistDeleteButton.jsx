@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './css/PlaylistDeleteButton.css';
 
 const PlaylistDeleteButton = (props) => {
     const deletePlaylist = () => {
@@ -21,7 +22,7 @@ const PlaylistDeleteButton = (props) => {
 
     return (
         <div>
-            <button onClick={deletePlaylist}>삭제</button>
+            <button onClick={deletePlaylist} className='playlist-del'>삭제</button>
         </div>
     );
 };

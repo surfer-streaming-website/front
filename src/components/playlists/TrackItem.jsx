@@ -27,14 +27,15 @@ const TrackItem = (props) => {
         })
     }
 
+    console.log(albumImage);
     return (
         <div className='track-item'>
             <img src={ albumImage } referrerPolicy="no-referrer"/>
             <p>{ songName }</p>
             <p>{ artist.map((singer) => <ArtistItem key = {songId} singer = {singer}/>) }</p>
-            <button >재생</button>
-            <button >다운로드</button>
-            <button onClick={ deleteSong }>삭제</button>
+            <button className='track-btn'>재생</button>
+            <button className='track-btn'>다운로드</button>
+            <button onClick={ deleteSong } className='track-btn'>삭제</button>
         </div>
     );
 };

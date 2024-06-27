@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import './PlaylistUpdateForm.css';
 
 const PlaylistUpdateForm = () => {
-    const {id} = useParams();
+    const {playlistSeq} = useParams();
 
     const [playlist, setPlaylist] = useState({
         playlistName: "",
@@ -23,7 +24,7 @@ const PlaylistUpdateForm = () => {
 
     useEffect(()=>{
         axios
-        .get("http://localhost:8080/api/v1/playlist/myPlaylists/" + id, {
+        .get("http://localhost:8080/api/v1/playlist/myPlaylists/" + playlistSeq, {
           headers: {
               Authorization: localStorage.getItem("accessToken")
           }
@@ -71,25 +72,26 @@ const PlaylistUpdateForm = () => {
     const submitUpdate = (e) => {
         axios({
             method: "put",
-            url: "http://localhost:8080/api/v1/playlist/myPlaylists/" + id,
+            url: "http://localhost:8080/api/v1/playlist/myPlaylists/" + playlistSeq,
             data: playlist,
             headers: {
                 Authorization: localStorage.getItem("accessToken"),
             }
         })
         .then((res) => {
-            navigate("/myPlaylists");
+            navigate("/myPlaylists" + playlistSeq);
         })
         .catch((err) => {
-            alert("플레이리스트를 수정할 수 없습니다.");
+            // alert("플레이리스트를 수정할 수 없습니다.");
+            console.log(err);
         });
       };
 
     return (
         <div>
-            <div>
+            <div className='update-playlist'>
                 <label htmlFor="name">플레이리스트 이름:</label>
-                <input
+                <input  className='playlist-title'
                     type="text"
                     id="playlistName"
                     name="playlistName"
@@ -97,9 +99,9 @@ const PlaylistUpdateForm = () => {
                     value={playlist.playlistName}
                 />
             </div>
-            <div>
+            <div className='tags'>
             {tags.map((tagName) => (
-                    <label key={tagName}>
+                    <label key={tagName} className='tag-label'>
                         <input
                             type="checkbox"
                             name="tagList"
@@ -112,7 +114,7 @@ const PlaylistUpdateForm = () => {
                 ))}
             </div>
             <div>
-                <label>
+                <label className='tag-label'>
                 <input
                     type="checkbox"
                     name="isOpen"
@@ -122,7 +124,7 @@ const PlaylistUpdateForm = () => {
                 공개
                 </label>
             </div>
-            <button onClick={submitUpdate}>플레이리스트 저장</button>
+            <button onClick={submitUpdate} className='update-submit-btn'>플레이리스트 저장</button>
         </div>
     );
 };

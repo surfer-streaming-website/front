@@ -1,0 +1,12 @@
+.is-exist {
+    margin-top: 30px;
+}
+
+.is-exist .create {
+    color: white;
+}
+
+.is-exist .playlist .playlist-img img {
+    height: 100px;
+    width: 100px;
+}

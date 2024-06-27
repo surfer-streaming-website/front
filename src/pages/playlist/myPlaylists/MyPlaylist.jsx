@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PlaylistItem from '../../../components/playlists/PlaylistItem';
 import PlaylistDeleteButton from '../../../components/playlists/PlaylistDeleteButton';
+import './MyPlaylist.css';
 
 const MyPlaylist = () => {
     const [playlists , setPlaylists] = useState([]);
@@ -23,20 +24,22 @@ const MyPlaylist = () => {
         setPlaylists(res.data.data);
       })
       .catch((err)=>{
-        // alert("플레이리스트가 없습니다.");
-        // navigate("/"); // -> Home 화면이나 차트 화면으로 이동시키기
+        alert("플레이리스트가 없습니다.");
+        navigate("/"); // -> Home 화면이나 차트 화면으로 이동시키기
       });
     }
 
     return (
         <div>
-            <h1 className='myPlaylist'>My playlist</h1>
+            <h1>My playlist</h1>
+            <div className='myPlaylist'>
             {playlists.map((playlist) => (
                 <React.Fragment key={ playlist.playlistId }>
-                    <PlaylistItem playlist={ playlist } />
-                    <PlaylistDeleteButton playlistId={ playlist.playlistId } fetchData={ fetchData } />
+                    <PlaylistItem playlist={ playlist } isSave={false}/>
+                    <PlaylistDeleteButton playlistId={ playlist.playlistId } fetchData={ fetchData } className='playlistDel' />
                 </React.Fragment>
             ))}
+            </div>
         </div>
     );
 };
