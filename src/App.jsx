@@ -25,6 +25,11 @@ import MyPage from "./pages/user/mypage/MyPage";
 import Genre from "./pages/Home/Genre";
 import LatestAlbum from "./pages/Home/LatestAlbum";
 import Playlist from "./components/audio/Playlist";
+import Exist from './pages/playlist/exsit/Exist';
+import MyPlaylist from './pages/playlist/myPlaylists/MyPlaylist';
+import PlaylistDetail from './pages/playlist/playlistDetail/PlaylistDetail';
+import PlaylistSaveForm from './pages/playlist/savePlaylist/PlaylistSaveForm';
+import PlaylistUpdateForm from './pages/playlist/updatePlaylist/PlaylistUpdateForm';
 
 export const LogingedContext = createContext();
 export const PlayerContext = createContext(); //음악 재생, 오디오 상태 관리
@@ -148,7 +153,12 @@ function App() {
 
                 {/* search */} 
                 <Route path="/search/:keyword" element={<Search />} />
-
+                {/* playlsit */}
+                <Route path="/myPlaylists" element={<MyPlaylist/>}/>
+                <Route path="/myPlaylists/:playlistSeq" element={<PlaylistDetail/>}/>
+                <Route path="/playlist" element={<Exist/>}/>
+                <Route path="/playlist/:songSeq/save" element={<PlaylistSaveForm/>}/>
+                <Route path="/playlist/:playlistSeq/update" element={<PlaylistUpdateForm/>}/>
                 {/* error */}
                 <Route
                   path="/*"

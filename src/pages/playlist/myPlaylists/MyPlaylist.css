@@ -1,0 +1,8 @@
+.myPlaylist {
+    margin-left: 20px;
+}
+
+.myPlaylist .playlist-img img {
+    height: 100px;
+    width: 100px;
+}
