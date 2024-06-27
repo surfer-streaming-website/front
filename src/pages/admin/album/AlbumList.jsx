@@ -1,27 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './AlbumList.css';
-import AdminNavigation from '../../../components/navigation/AdminNavigation'; // AdminNavigation 임포트
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./AlbumList.css";
+import AdminNavigation from "../../../components/navigation/AdminNavigation"; // AdminNavigation 임포트
+import { useNavigate } from "react-router-dom";
 
 const AlbumList = () => {
   const [albums, setAlbums] = useState([]);
-  const [message, setMessage] = useState(''); // 메시지 상태 추가
+  const [message, setMessage] = useState(""); // 메시지 상태 추가
 
+  const navigate = useNavigate();
   useEffect(() => {
     fetchAlbums();
   }, [setAlbums]);
 
   const fetchAlbums = async () => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        navigate("/login");
+      }
       const response = await axios.get(
-        'http://localhost:8080/api/album/status/all'
+        "http://localhost:8080/api/album/status/all",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: accessToken,
+          },
+        }
       );
-      console.log(response.data);
-      setAlbums(response.data)
-      console.log("성공!!!!!!!!!!!!!!")
+      setAlbums(response.data.data);
     } catch (error) {
-      console.log("실패!!!!!!!!!!!!!!")
-      console.error('Failed to fetch albums:', error);
+      console.error("Failed to fetch albums:", error);
     }
   };
 
@@ -33,7 +42,7 @@ const AlbumList = () => {
   //     }
 
   //     await axios.put(
-  //       `http://localhost:8080/api/album/updateStatus/${albumSeq}`, 
+  //       `http://localhost:8080/api/album/updateStatus/${albumSeq}`,
   //       { albumState: newStatus }
   //       // ,
   //       // {
@@ -42,23 +51,21 @@ const AlbumList = () => {
   //       //   }
   //       // }
   //     );
-      const handleStatusChange =  (albumSeq, newStatus) => {
-        try {
-          const token = localStorage.getItem('accessToken');
-          if (!token) {
-            throw new Error('Token not found');
-          }
-    
-           axios.put(
-            `http://localhost:8080/api/album/updateStatus/${albumSeq}`, 
-            { albumState: newStatus }
-            // ,
-            // {
-            //   headers: {
-            //     'Authorization': `${token}`
-            //   }
-            // }
-          );
+  const handleStatusChange = (albumSeq, newStatus) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      console.log("albumlist       ", newStatus, albumSeq);
+      if (!accessToken) {
+        navigate("/login");
+      }
+      axios.put(`http://localhost:8080/api/album/updateStatus/${albumSeq}`, {
+        albumState: newStatus 
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken,
+        },
+      });
       setAlbums((prevAlbums) =>
         prevAlbums.map((album) =>
           album.albumSeq === albumSeq
@@ -66,12 +73,12 @@ const AlbumList = () => {
             : album
         )
       );
-      setMessage('앨범 상태가 성공적으로 변경되었습니다.'); // 성공 메시지 설정
-      setTimeout(() => setMessage(''), 3000); // 3초 후에 메시지 숨기기
+      setMessage("앨범 상태가 성공적으로 변경되었습니다."); // 성공 메시지 설정
+      setTimeout(() => setMessage(""), 3000); // 3초 후에 메시지 숨기기
     } catch (error) {
-      console.error('Failed to update album status:', error);
-      setMessage('앨범 상태 변경에 실패했습니다.'); // 실패 메시지 설정
-      setTimeout(() => setMessage(''), 3000); // 3초 후에 메시지 숨기기
+      console.error("Failed to update album status:", error);
+      setMessage("앨범 상태 변경에 실패했습니다."); // 실패 메시지 설정
+      setTimeout(() => setMessage(""), 3000); // 3초 후에 메시지 숨기기
     }
   };
 
@@ -80,7 +87,8 @@ const AlbumList = () => {
       <AdminNavigation /> {/* AdminNavigation 추가 */}
       <div className="album-list-content">
         <h1>Album List</h1>
-        {message && <div className="message">{message}</div>} {/* 메시지 표시 */}
+        {message && <div className="message">{message}</div>}{" "}
+        {/* 메시지 표시 */}
         <table className="album-table">
           <thead>
             <tr>
@@ -103,8 +111,10 @@ const AlbumList = () => {
                 <td>
                   <select
                     value={album.albumState}
-                    onChange={(e) =>
-                      handleStatusChange(album.albumSeq, parseInt(e.target.value))
+                    onChange={(e) => handleStatusChange(
+                      album.albumSeq,
+                      parseInt(e.target.value)
+                    )
                     }
                   >
                     <option value={0}>심사중</option>
