@@ -38,7 +38,15 @@ const TrackItem = (props) => {
         setPlaying(true);
         setSongInfo(song);
 
-        setMusicList(prevMusicList => [...prevMusicList, song]);
+        const newSong = {
+            songSeq: songId,
+            albumImage: albumImage,
+            songTitle: songName,
+            singerList: artist,
+            soundSourceUrl: soundSource
+        }
+
+        setMusicList(prevMusicList => [...prevMusicList, newSong]);
 
         const newIndex = musicList.length;
         setCurrentSongIndex(newIndex);
