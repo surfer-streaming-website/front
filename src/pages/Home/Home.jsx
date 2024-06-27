@@ -16,7 +16,7 @@ const Home = () => {
         <h1>...</h1>
         <h1>떠오르는 싱어송라이터 최유리</h1>
         <img src={newsImage1} alt="Latest News" className="news-image1" />
-        <p>관련 내용</p>
+        <p></p>
         <hr></hr>
       </div>
     </div>
