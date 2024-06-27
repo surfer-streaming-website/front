@@ -1,0 +1,54 @@
+.album-insert-main{
+/* width: 500px; */
+    color: white;
+    padding-top: 20px;
+    padding-left: 40px;
+
+}
+.album-insert-form {
+    /* width: 200px; */
+    color: white;
+    padding-left: 50px;
+
+  } 
+.album-insert-form-radio{
+    color:white;
+}
+.album-insert-form-songtitle{
+    color:white;
+}
+.album-insert-form-releaseDate{
+    width: 300px;
+}
+  
+/* .album-insert-form-agency{
+    padding-left: 150px;
+} */
+
+/* .album-insert-form-releaseDate-text{
+    width: 300px;
+
+} */
+
+/* .album-insert-form-agency-text{
+    margin-left: 30px; 
+} */
+
+.album-insert-form-albumContent{
+
+    width: 400px;
+
+}
+.album-insert-form-songList{
+    padding-left: 50px;
+
+}
+
+.album-insert-form-song-lyrics{
+    width: 350px;
+
+}
+
+.album-insert-form-button{
+    margin-left: 110px;
+}

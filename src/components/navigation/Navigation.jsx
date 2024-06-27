@@ -5,7 +5,6 @@ import "./Navigation.css"
 
 const Navigtion = () => {
 
-  const navigate = useNavigate();
 
   let logingedCon = useContext(LogingedContext);
   const [click, setClick] = useState(false);
@@ -20,6 +19,20 @@ const Navigtion = () => {
     setClick(!click);
   }
 
+  const [keyword, setKeyword] = useState('');
+  const navigate = useNavigate();
+
+  const handleInputChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
+
+  const handleButtonClick = () => {
+    if (keyword) {
+      navigate(`/search/${encodeURIComponent(keyword)}`);
+    }
+
+  };
   const logOutClick = () =>{
     localStorage.clear();
     setMusicList([]);
@@ -31,7 +44,13 @@ const Navigtion = () => {
       <div className="Navigtion">
         <Link className="text-1" to={"/"}>SURFER</Link>
         
-        <button className="button">
+        <input
+        className="search-keyword-text"
+        type="text"
+        value={keyword}
+        onChange={handleInputChange}
+      />
+        <button className="button" onClick={handleButtonClick}>
           <p className="text-2">🔎 검색</p>
         </button>
 

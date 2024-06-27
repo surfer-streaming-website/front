@@ -1,0 +1,39 @@
+.myAlbum{
+    color: white;
+    padding: 60px;
+}
+
+.albumTitle{
+    padding-right: 50px;
+}
+
+.albumRegDate{
+    padding-right: 50px;
+}
+
+.albumState{
+    padding-right: 50px;
+}
+.myalbum-table{
+
+   border: 1px solid white;
+   text-align: center;
+
+}
+.myalbum-table thead th {
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+   border: 1px solid white;
+
+  }
+  
+  .myalbum-table tbody td {
+    padding: 15px ;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+   border: 1px solid white;
+
+  }
+  

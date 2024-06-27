@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../Search.css";
+import "./Search.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import SongItem from "../../components/search/SongItem";
