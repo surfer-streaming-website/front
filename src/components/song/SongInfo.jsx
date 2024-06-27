@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Pagination from "react-js-pagination";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SongReplyItem from "./reply/SongReplyItem.jsx";
 import InsertSongreply from "./reply/InsertSongReply";
 import './SongInfoBox.css';
