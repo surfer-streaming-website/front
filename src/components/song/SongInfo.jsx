@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Pagination from "react-js-pagination";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SongReplyItem from "./reply/SongReplyItem.jsx";
 import InsertSongreply from "./reply/InsertSongReply";
 import './SongInfoBox.css';
@@ -26,8 +26,6 @@ const SongInfo = (props) => {
     const {musicList, setMusicList, currentSongIndex, setCurrentSongIndex} = useContext(PlaylistContext);
     const {isLoggedIn} = useContext(LogingedContext);
 
-    const navigate = useNavigate();
-    
     useEffect(() => {
         if (props.songInfo) {
             setSongBoardInfo(props.songInfo);
@@ -87,7 +85,7 @@ const SongInfo = (props) => {
           songSeq: songBoardInfo.songSeq,
           albumImage: songBoardInfo.albumImage,
           songTitle: songBoardInfo.songTitle,
-          singers: songBoardInfo.singers,
+          singerList: songBoardInfo.singerList,
           soundSourceUrl: songBoardInfo.soundSourceUrl
         }
           
@@ -96,6 +94,7 @@ const SongInfo = (props) => {
 
         const newIndex = musicList.length;
         setCurrentSongIndex(newIndex);
+        console.log(newSong.singerList);
       }else{
         alert('로그인하고 이용해주세요!');
       }
@@ -144,11 +143,10 @@ const SongInfo = (props) => {
               
               <p className="text-1">{songBoardInfo.songTitle}</p>
               <p className="text-2">
-                  {songBoardInfo.singers && 
-                    songBoardInfo.singers.map((singer, index)=>(
-                      <p className="singer" key={singer.songSingerSeq}>
-                        {singer.songSingerName}
-                        {index !== songBoardInfo.singers.length -1 && ', '}
+                  {songBoardInfo.singerList && 
+                    songBoardInfo.singerList.filter((singer, index)=>(
+                      <p className="singer" key={index}>
+                        {singer}
                       </p>
                     ))}
               </p>
@@ -194,9 +192,10 @@ const SongInfo = (props) => {
               <button className="button2" onClick={songDownload}>
                 <p className="text-16">곡 다운</p>
               </button>
-              <button className="button3" onClick={navigate("/playlist")}>
-                <p className="text-17">담기</p>
-              </button>
+
+
+              {/*  */}
+              <Link to="/playlist" className="button3" state={{songSeq: songBoardInfo.songSeq}}><p>담기</p></Link>
   
               <p className="text-14" onClick={handleLike}>{liked ? "❤️" : "🤍"} {likeCount}</p>
               <button className="button4" onClick={()=>handleCopyClipBoard(`http://localhost:5173${location.pathname}`)}>
