@@ -35,10 +35,12 @@ const PlaylistSaveForm = () => {
 
       } else if (type === 'checkbox') {
         let updatedTags;
+
         if (checked) {
           if (selectedTagsCount >= 3) {
             return prevPlaylist;
           }
+          
           updatedTags = [ ...prevPlaylist.tagList, value ];
         } else {
           updatedTags = prevPlaylist.tagList.filter(tag => tag !== value);
@@ -46,7 +48,7 @@ const PlaylistSaveForm = () => {
   
         setSelectedTagsCount(updatedTags.length);
 
-        return { ...prevPlaylist, updatedTags };
+        return { ...prevPlaylist, [name]: updatedTags };
         
       } else {
         return { ...prevPlaylist, [name]: value };
@@ -64,7 +66,6 @@ const PlaylistSaveForm = () => {
       }
     })
       .then((res) => {
-        console.log(res);
         navigator("/myPlaylists");
       })
       .catch((err) => {
@@ -88,6 +89,7 @@ const PlaylistSaveForm = () => {
             <label key={ tagName } className='savePlaylist'>
               <input
                 type="checkbox"
+                name="tagList"
                 value={ tagName }
                 checked={ playlist.tagList.includes(tagName) }
                 onChange={ handleChange }

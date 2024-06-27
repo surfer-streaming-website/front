@@ -4,7 +4,7 @@ import TagItem from './TagItem';
 import './css/PlaylistItem.css';
 
 const PlaylistItem = (props) => {
-    const {playlistId, playlistImage, playlistName, isOpen, tag, nickname} = props.playlist //playlsit group에서 가져오기
+    const {playlistId, playlistImage, playlistName, isOpen, tagList, nickname} = props.playlist //playlsit group에서 가져오기
 
     const navigator = useNavigate();
     
@@ -22,7 +22,7 @@ const PlaylistItem = (props) => {
                     <p>{ nickname }</p>
                     { isOpen === 1 ? <p>공개</p> : <p>비공개</p>}
                 </div>
-                <div>{tag.map((tag) => <TagItem key={tag.tagName} tag={tag}/>)}</div>
+                <div>{ tagList.filter((tag)=>{tag}) }</div>
           </div>
     );
 };
