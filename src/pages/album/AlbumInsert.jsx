@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import Form from "react-bootstrap/Form";
 import "./AlbumInsert.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Button, InputGroup } from "react-bootstrap";
+import {useNavigate } from "react-router-dom";
+import { Button, Form } from "react-bootstrap";
 import {
   authExceptionHandler,
   logInByRefreshToken,
@@ -13,25 +12,10 @@ import { LogingedContext } from "../../App";
 const AlbumInsert = () => {
   const [singerStatus, setSingerStatus] = useState();
   const [isSinger, setIsSinger] = useState(false);
-
-  const logingedCon = useContext(LogingedContext);
-
-  useEffect(() => {
-    console.log("insert form start");
-    fetchData();
-    // userAuthorityCheck();
-  }, []);
-
-  const fetchData = () => {
-    console.log("insert form");
-    if (
-      !localStorage.getItem("accessToken") &&
-      localStorage.getItem("refreshToken")
-    ) {
-      logInByRefreshToken();
-    }
-  };
-
+  const [songwriters, setSongwriters] = useState(["", ""]);
+  const [lyricist, setLyricist] = useState("");
+  const [arranger, setArranger] = useState("");
+  const {isLoggedIn} = useContext(LogingedContext);
   const [albumReq, setAlbumReq] = useState({
     albumTitle: "",
     agency: "",
@@ -51,9 +35,7 @@ const AlbumInsert = () => {
           {
             songSingerName: "",
           },
-          {
-            songSingerName: "",
-          },
+         
         ],
       },
     ],
@@ -61,15 +43,61 @@ const AlbumInsert = () => {
       {
         albumSingerName: "",
       },
-      {
-        albumSingerName: "",
-      },
+      
     ],
   });
 
-  const [songwriters, setSongwriters] = useState(["", ""]);
-  const [lyricist, setLyricist] = useState("");
-  const [arranger, setArranger] = useState("");
+
+  useEffect(() => {
+    fetchData();
+    userAuthorityCheck();
+    // loginCheck()
+  }, []);
+
+  const loginCheck = () =>{
+    if(!isSinger){
+      navigator('/');
+      alert("가수만 이용가능합니다!!!");
+  }
+}
+  const fetchData = () => {
+    console.log("insert form");
+    if (
+      !localStorage.getItem("accessToken") &&
+      localStorage.getItem("refreshToken")
+    ) {
+      logInByRefreshToken();
+    }
+  };
+
+ 
+
+// /////////////////
+const userAuthorityCheck = () => {
+  axios
+    .get("http://localhost:8080/api/album/userAuthority", {
+      headers: {
+        Authorization: localStorage.getItem("accessToken"),
+      },
+    })
+    .then((res) => {
+      console.log("console.log = " + res.data);
+      if (res.data === "ROLE_SINGER") {
+        setIsSinger(true);
+      console.log(isSinger);
+      }
+    })
+    .catch((err) => {
+      if (err.response.status == 401 || err.response.status == 403) {
+        authExceptionHandler(err, fetchData);
+      } else {
+        console.log(err);
+      }
+    });
+};
+
+/////////////////////
+
 
   const handleSongwriterChange = (e, index) => {
     const newSongwriters = [...songwriters];

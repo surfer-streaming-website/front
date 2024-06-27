@@ -34,6 +34,12 @@ const SongItem = (props)=>{
           }
     }
 
+    const songDownload = () => {
+        if(!isLoggedIn){alert("로그인후 이용해주세요!")}else{
+        const downloadUrl = `http://localhost:8080/api/song/download/${props.song.songSeq}`;
+        window.location.href = downloadUrl;
+    }
+      };
 
     return(
         <div className="songItem">
@@ -43,7 +49,7 @@ const SongItem = (props)=>{
                 <p>듣기</p>
             </button>
             <Link className="playlist" to="/playlist" state={{songSeq: props.song.songSeq}}>담기</Link>
-            <p className="download">다운로드</p>
+            <p className="download" onClick={songDownload}>다운로드</p>
         </div>
     )
 
