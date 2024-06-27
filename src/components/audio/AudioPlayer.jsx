@@ -1,12 +1,12 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import './AudioPlayer.css';
-import { PlayerContext, AudioContext } from '../../App';
+import { PlayerContext, PlaylistContext } from '../../App';
 import { Link } from 'react-router-dom';
 
 const AudioPlayer = ()=>{
-    const {playing, setPlaying} = useContext(PlayerContext); //음악 재생 상태 전역 변수
-    const {audio} = useContext(AudioContext);
-    const {songInfo, setSongInfo} = useContext(AudioContext);
+    const {playing, setPlaying, audio, songInfo, setSongInfo} = useContext(PlayerContext); //음악 재생 상태 전역 변수
+    const {isVisible, setIsVisible, musicList} = useContext(PlaylistContext);
+
     const progressRef = useRef(null);
     const progressContainerRef = useRef(null);
     const [totalTime, setTotalTime] = useState('0:00');
@@ -25,6 +25,37 @@ const AudioPlayer = ()=>{
             audio.play(); //음악 다시 재생
         }
     }
+
+        //이전 곡 듣기
+        const prevMusic = ()=>{
+            console.log("prevMusic");
+            const currentIndex = musicList.findIndex(item => item.songSeq === songInfo.songSeq);
+            console.log(currentIndex);
+            if(currentIndex>0){
+                const prevSong = musicList[currentIndex-1];
+                setSongInfo(prevSong);
+                audio.src=prevSong.soundSourceUrl;
+                audio.play();
+                setPlaying(true);
+            }else{
+                alert('이전 곡이 없습니다.');
+            }
+        }
+    
+        //다음 곡 듣기
+        const nextMusic = ()=>{
+            const currentIndex = musicList.findIndex(item => item.songSeq === songInfo.songSeq);
+            if(currentIndex < musicList.length-1){
+                const nextSong = musicList[currentIndex+1];
+                setSongInfo(nextSong);
+                audio.src=nextSong.soundSourceUrl;
+                audio.play();
+                setPlaying(true);
+            }else{
+                alert('다음 곡이 없습니다.');
+            }
+        }
+    
 
     //뮤직 진행 바
     useEffect(()=>{
@@ -76,7 +107,11 @@ const AudioPlayer = ()=>{
                 audio.removeEventListener('loadeddata', loadedData);
             }
         };
-    },[audio]);
+    },[audio, songInfo]);
+
+    const toggleMusicList = ()=>{
+        setIsVisible(!isVisible);
+    }
 
     return(
         <div className="AudioPlayer">
@@ -86,11 +121,12 @@ const AudioPlayer = ()=>{
             {songInfo && <img className='playerImage' referrerPolicy='no-referrer' src={songInfo.albumImage}></img>}
             <Link className='songTitle' to={songInfo && "/song/detail/"+songInfo.songSeq}>{songInfo && songInfo.songTitle}</Link>
             <div className='singers'>
-                {songInfo && songInfo.singers.map((singer, index)=>(<p className='singer' key={singer.songSingerSeq}>
+                {songInfo && songInfo.singers && songInfo.singers.map((singer, index)=>(<p className='singer' key={singer.songSingerSeq}>
                     {singer.songSingerName}
                     {index !== songInfo.singers.length-1 && ', '}
                     </p>))}
             </div>
+            <button className='prevButton' onClick={prevMusic}>⏪</button>
             {playing ? (
                 <button className="pauseButton" onClick={handlePlayPause}>
                     <p className="pause">■</p>
@@ -100,12 +136,14 @@ const AudioPlayer = ()=>{
                     <p className="play">▶</p>
                 </button>
             )}
+            <button className='nextButton' onClick={nextMusic}>⏩</button>
             <div className='time'>
                 <p className='currentTime'>{currentTime}</p>
                 <p className='slash'>/</p>
                 <p className='totalTime'>{totalTime}</p>
             </div>
 
+            <button className='musicListButton' onClick={toggleMusicList}>playlist</button>
         </div>
     )
 }
