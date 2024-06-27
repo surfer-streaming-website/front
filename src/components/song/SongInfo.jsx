@@ -30,8 +30,7 @@ const SongInfo = (props) => {
         if (props.songInfo) {
             setSongBoardInfo(props.songInfo);
             setLikeCount(props.songInfo.likeCount || 0);
-            setLiked(props.songInfo.isLike);
-            console.log(props.songInfo.isLike , "?ASDF?ASD");
+            setLiked(props.songInfo.isLiked);
         }
     }, [props.songInfo])
 
@@ -48,7 +47,7 @@ const SongInfo = (props) => {
                 .then((res) => {
                     setSongBoardInfo(res.data.data);
                     setLikeCount(res.data.data.likeCount || 0);
-                    setLiked(res.data.data.isLike || false);
+                    setLiked(res.data.data.isLiked || false);
                 })
         }
     };
@@ -111,7 +110,7 @@ const SongInfo = (props) => {
             method: method,
             url: url,
             headers: {
-                'Authorization': `${token}`
+                'Authorization': token
             }
         })
             .then(() => {
