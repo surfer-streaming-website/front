@@ -1,39 +1,76 @@
 .home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #000;
-    color: #fff;
-  }
-  
-  .logo img {
-    width: 100px;
-    height: auto;
-    margin-bottom: 20px;
-  }
-  
-  .latest-news {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .latest-news h1 {
-    font-family: 'Inter', sans-serif;
-    font-size: 40px;
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
-  
-  .news-image1 {
-    width: 500px;
-    height: auto;
-    margin-bottom: 20px;
-  }
-  
-  .latest-news p {
-    font-family: 'Inter', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #000;
+  color: #fff;
+}
+
+.logo-and-title {
+  display: flex; /* 로고와 텍스트를 수평으로 배치 */
+  align-items: center; /* 수직 가운데 정렬 */
+  margin-bottom: 20px;
+}
+
+.logo-image {
+  width: 100px;
+  height: auto;
+  margin-right: 20px; /* 로고와 텍스트 사이의 간격 */
+}
+
+.title-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.latest-news {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.title-text h1,
+.title-text h4 {
+  margin: 0; /* 기본 마진 제거 */
+}
+
+.title-text h1 {
+  margin-bottom: 5px; /* h1과 h4 사이의 간격 */
+}
+
+.latest-news h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.news-image1 {
+  width: 500px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.news-image2 {
+  width: 500px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.news-image3 {
+  width: 500px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.latest-news p {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  white-space: pre-wrap; /* 줄바꿈을 위한 설정 */
+  word-break: break-word; /* 긴 단어를 줄바꿈하기 위한 설정 */
+  text-align: center; /* 텍스트를 왼쪽 정렬 */
+  margin: 0 auto; /* 중앙 정렬 */
+  margin-bottom: 20px; /* 두 p 태그 사이의 간격을 설정 */
+}

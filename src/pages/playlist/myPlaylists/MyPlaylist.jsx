@@ -25,7 +25,7 @@ const MyPlaylist = () => {
       })
       .catch((err)=>{
         alert("플레이리스트가 없습니다.");
-        navigate("/"); // -> Home 화면이나 차트 화면으로 이동시키기
+        navigate("/latest"); // -> Home 화면이나 차트 화면으로 이동시키기
       });
     }
 

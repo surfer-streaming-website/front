@@ -12,3 +12,7 @@
 .admin-home-text {
   color: white;
 }
+
+.admin-home-content {
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
