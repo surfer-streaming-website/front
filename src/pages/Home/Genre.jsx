@@ -18,11 +18,19 @@ const Genre = () => {
     const token = localStorage.getItem("accessToken");
     const headers = token ? { Authorization: token } : {};
 
+<<<<<<< HEAD
     axios
       .get(url, { headers })
       .then((response) => {
         setSongs(response.data.data);
         console.log(response.data.data);
+=======
+    axios.get(url, { headers })
+      .then(response => {
+        setSongs(response.data.data);
+        console.log("sdaf : ", response.data.data)   
+        
+>>>>>>> 6d4c4053113edbaef609313213b372103b71efa7
       })
       .catch((error) => {
         console.error("There was an error fetching the songs!", error);
