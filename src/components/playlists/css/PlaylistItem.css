@@ -1,5 +1,6 @@
 .playlist-item {
     color: white;
+    cursor: pointer;
 }
 
 .playlist-img {
