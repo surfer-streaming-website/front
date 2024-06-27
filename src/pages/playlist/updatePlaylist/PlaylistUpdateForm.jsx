@@ -79,7 +79,7 @@ const PlaylistUpdateForm = () => {
             }
         })
         .then((res) => {
-            navigate("/myPlaylists" + playlistSeq);
+            navigate("/myPlaylists/" + playlistSeq);
         })
         .catch((err) => {
             alert("플레이리스트를 수정할 수 없습니다.");
