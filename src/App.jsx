@@ -25,6 +25,7 @@ import MyPage from "./pages/user/mypage/MyPage";
 import Genre from "./pages/Home/Genre";
 import LatestAlbum from "./pages/Home/LatestAlbum";
 import Playlist from "./components/audio/Playlist";
+import RankByView from "./pages/rank/by-view/RankByView";
 
 export const LogingedContext = createContext();
 export const PlayerContext = createContext(); //음악 재생, 오디오 상태 관리
@@ -142,6 +143,7 @@ function App() {
                 <Route path="/myalbum" element={<MyAlbum />} />
                 {/* song */}
                 <Route path="/song/detail/:id" element={<SongBoard />} />
+                <Route path="/song/rank" element={<RankByView />}/>
                 {/* album */}
                 <Route path="/album/detail/:id" element={<AlbumBoard />} />
                 <Route path="/album/insert" element={<AlbumInsert />} />

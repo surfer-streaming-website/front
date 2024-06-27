@@ -94,6 +94,10 @@ const Navigtion = () => {
             </button>
           }
         </div>
+        
+        <button className="navButton1">
+        <Link to={'/song/rank'} className="text-5">음악랭킹</Link>
+        </button> 
 
         <button className="navButton1">
           <p className="text-5">차트</p>
