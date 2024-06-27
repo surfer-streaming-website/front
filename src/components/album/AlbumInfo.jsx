@@ -1,218 +1,250 @@
 import React, { useContext, useEffect, useState } from "react";
-import Pagination from 'react-js-pagination'
+import Pagination from "react-js-pagination";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import AlbumReplyItem from './reply/AlbumReplyItem';
-import InsertAlbumReply from './reply/InsertAlbumReply';
+import AlbumReplyItem from "./reply/AlbumReplyItem";
+import InsertAlbumReply from "./reply/InsertAlbumReply";
 import SongItem from "../song/SongItem";
-import './AlbumInfo.css';
-import './SongList.css';
-import './reply/AlbumReplyItem.css';
+import "./AlbumInfo.css";
+import "./SongList.css";
+import "./reply/AlbumReplyItem.css";
 import { LogingedContext, PlayerContext, PlaylistContext } from "../../App";
 
 const AlbumInfo = (props) => {
-    const [albumBoardInfo, setAlbumBoardInfo] = useState(props.albumInfo || {});
-    const replies = albumBoardInfo ? albumBoardInfo.replies : null;
-    const songList = albumBoardInfo ? albumBoardInfo.songDtoList : null;
-    const [page, setPage] = useState(1); //현재 페이지 번호
-    const [sort, setSort] = useState('regDate'); //현재 댓글 정렬 기준
-    const albumImage = albumBoardInfo ? albumBoardInfo.albumImage : null;
-    const [albumLikeCount, setAlbumLikeCount] = useState(0);
-    const {isLoggedIn} = useContext(LogingedContext);
-    const {audio, setPlaying, setSongInfo} = useContext(PlayerContext);
-    const {setMusicList, musicList, currentSongIndex, setCurrentSongIndex} = useContext(PlaylistContext);
+  const [albumBoardInfo, setAlbumBoardInfo] = useState(props.albumInfo || {});
+  const replies = albumBoardInfo ? albumBoardInfo.replies : null;
+  const songList = albumBoardInfo ? albumBoardInfo.songDtoList : null;
+  const [page, setPage] = useState(1); //현재 페이지 번호
+  const [sort, setSort] = useState("regDate"); //현재 댓글 정렬 기준
+  const albumImage = albumBoardInfo ? albumBoardInfo.albumImage : null;
+  const [albumLikeCount, setAlbumLikeCount] = useState(0);
+  const { isLoggedIn } = useContext(LogingedContext);
+  const { audio, setPlaying, setSongInfo } = useContext(PlayerContext);
+  const { setMusicList, musicList, currentSongIndex, setCurrentSongIndex } =
+    useContext(PlaylistContext);
 
-    const location = useLocation();
-    console.log(albumBoardInfo);
+  const location = useLocation();
+  console.log(albumBoardInfo);
 
-    let totalPlayedCount = 0; //각 곡 재생횟수의 합
-    if (songList) {
-        songList.forEach(song => {
-            totalPlayedCount += song.totalPlayedCount;
+  let totalPlayedCount = 0; //각 곡 재생횟수의 합
+  if (songList) {
+    songList.forEach((song) => {
+      totalPlayedCount += song.totalPlayedCount;
+    });
+  }
+
+  useEffect(() => {
+    if (props.albumInfo) {
+      setAlbumBoardInfo(props.albumInfo);
+      console.log(props.albumInfo.albumSeq);
+      fetchAlbumLikeCount(props.albumInfo.albumSeq);
+    }
+  }, [props.albumInfo]);
+
+  useEffect(() => {
+    fetchData();
+  }, [page, sort]); //page또는 sort가 변경될 때마다 데이터 다시 불러오기.
+
+  const handlePageChange = (pageNumber) => {
+    setPage(pageNumber);
+  };
+
+  const handlePageSort = (e) => {
+    const selectedSort = e.target.value;
+    setSort(selectedSort);
+  };
+
+  const fetchData = () => {
+    if (albumBoardInfo && albumBoardInfo.albumSeq) {
+      axios
+        .get(
+          `http://localhost:8080/api/album/detail/${albumBoardInfo.albumSeq}?nowPage=${page}&sort=${sort}`
+        )
+        .then((res) => {
+          setAlbumBoardInfo(res.data.data);
+          fetchAlbumLikeCount(res.data.data.albumSeq);
         });
     }
+  };
 
-    useEffect(() => {
-        if (props.albumInfo) {
-            setAlbumBoardInfo(props.albumInfo);
-            console.log(props.albumInfo.albumSeq);
-            fetchAlbumLikeCount(props.albumInfo.albumSeq);
-        }
-    }, [props.albumInfo])
-
-    useEffect(() => {
-        fetchData();
-    }, [page, sort]); //page또는 sort가 변경될 때마다 데이터 다시 불러오기.
-
-    const handlePageChange = (pageNumber) => {
-        setPage(pageNumber);
-    };
-
-    const handlePageSort = (e) => {
-        const selectedSort = e.target.value;
-        setSort(selectedSort);
-    };
-
-    const fetchData = () => {
-        if (albumBoardInfo && albumBoardInfo.albumSeq) {
-            axios.get(`http://localhost:8080/api/album/detail/${albumBoardInfo.albumSeq}?nowPage=${page}&sort=${sort}`)
-                .then((res) => {
-                    setAlbumBoardInfo(res.data.data);
-                    fetchAlbumLikeCount(res.data.data.albumSeq);
-                })
-        }
-    };
-
-    const fetchAlbumLikeCount = async (albumSeq) => {
-        try {
-            const response = await axios.get(`http://localhost:8080/api/album/${albumSeq}/like-count`);
-            setAlbumLikeCount(response.data.data);
-        } catch (error) {
-            console.error('Failed to fetch album like count:', error);
-        }
-    };
-
-    const handleCopyClipBoard = async (text) => {
-        try {
-            await navigator.clipboard.writeText(text);
-            alert("클립보드에 링크가 복사되었어요.");
-        } catch (err) {
-            console.log(err);
-        }
+  const fetchAlbumLikeCount = async (albumSeq) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/album/${albumSeq}/like-count`
+      );
+      setAlbumLikeCount(response.data.data);
+    } catch (error) {
+      console.error("Failed to fetch album like count:", error);
     }
+  };
 
-        //앨범 전체 재생
-        const playAlbum = ()=>{
-            if(!isLoggedIn){
-                alert('로그인하고 이용해주세요!');
-            }else{
-                console.log(albumBoardInfo);
-                const songstoAdd = []; 
-                for(let i=0; i<albumBoardInfo.songDtoList.length; i++){
-                    const newSong = {
-                        songSeq: albumBoardInfo.songDtoList[i].songSeq,
-                        albumImage: albumBoardInfo.albumImage,
-                        songTitle: albumBoardInfo.songDtoList[i].songTitle,
-                        singerList: albumBoardInfo.songDtoList[i].singerList,
-                        soundSourceUrl: albumBoardInfo.songDtoList[i].soundSourceUrl
-                    }
-                    songstoAdd.push(newSong); //배열에 곡 객체 추가
-                }
-    
-                audio.src = songstoAdd[0].soundSourceUrl;
-                audio.play();
-                setPlaying(true);
-                setSongInfo(songstoAdd[0]);
-                console.log(currentSongIndex);
-                setCurrentSongIndex(musicList.length);
-    
-                songstoAdd.forEach(song=>{
-                    const newSong ={
-                        songSeq: song.songSeq,
-                        albumImage: song.albumImage,
-                        songTitle: song.songTitle,
-                        singerList: song.singerList,
-                        soundSourceUrl: song.soundSourceUrl
-                    };
-                    
-                    //플레이리스트에 추가
-                    setMusicList(prevMusicList => [...prevMusicList, newSong]);
-                    
-                })
-            }
-        }
-    
+  const handleCopyClipBoard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("클립보드에 링크가 복사되었어요.");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-    return (
-        <div className="albumBoard">
-            {albumBoardInfo && (
-                <div className="albumInfoBox">
-                    <div className="albumInfo">
-                        <img className="albumImage" src={albumImage} referrerPolicy="no-referrer" />
+  //앨범 전체 재생
+  const playAlbum = () => {
+    if (!isLoggedIn) {
+      alert("로그인하고 이용해주세요!");
+    } else {
+      console.log(albumBoardInfo);
+      const songstoAdd = [];
+      for (let i = 0; i < albumBoardInfo.songDtoList.length; i++) {
+        const newSong = {
+          songSeq: albumBoardInfo.songDtoList[i].songSeq,
+          albumImage: albumBoardInfo.albumImage,
+          songTitle: albumBoardInfo.songDtoList[i].songTitle,
+          singerList: albumBoardInfo.songDtoList[i].singerList,
+          soundSourceUrl: albumBoardInfo.songDtoList[i].soundSourceUrl,
+        };
+        songstoAdd.push(newSong); //배열에 곡 객체 추가
+      }
 
-                <p className="albumTitle">{albumBoardInfo.albumTitle}</p>
-                <p className="albumSinger">
-                    {albumBoardInfo.singerList && 
-                    albumBoardInfo.singerList.filter((singer, index)=>(
-                      <p className="singer" key={index}>
-                        {singer}
-                      </p>
-                    ))}
-                </p>
-                <p className="text1">발매일</p>
-                <p className="releaseDate">{albumBoardInfo.releaseDate}</p>
-                <p className="text2">댓글</p>
-                <p className="replyCount">{replies ? replies.totalElements : 0}</p>
-                <p className="text3">기획사</p>
-                <p className="agency">{albumBoardInfo.agency}</p>
-                <p className="albumLike">🤍 {albumLikeCount}</p>
-                <button className="button1" onClick={playAlbum}>
-                    <p className="playAlbum">전체 재생</p>
-                </button>
-                <button className="button3" onClick={()=>handleCopyClipBoard(`http://localhost:5173${location.pathname}`)}>
-                    <p className="share">공유</p>
-                </button>
+      audio.src = songstoAdd[0].soundSourceUrl;
+      audio.play();
+      setPlaying(true);
+      setSongInfo(songstoAdd[0]);
+      console.log(currentSongIndex);
+      setCurrentSongIndex(musicList.length);
 
-                    </div>
+      songstoAdd.forEach((song) => {
+        const newSong = {
+          songSeq: song.songSeq,
+          albumImage: song.albumImage,
+          songTitle: song.songTitle,
+          singerList: song.singerList,
+          soundSourceUrl: song.soundSourceUrl,
+        };
 
-                    <div className="albumContent">
-                        <p className="content">{albumBoardInfo.albumContent}</p>
-                    </div>
+        //플레이리스트에 추가
+        setMusicList((prevMusicList) => [...prevMusicList, newSong]);
+      });
+    }
+  };
 
+  return (
+    <div className="albumBoard">
+      {albumBoardInfo && (
+        <div className="albumInfoBox">
+          <div className="albumInfo">
+            <img
+              className="albumImage"
+              src={albumImage}
+              referrerPolicy="no-referrer"
+            />
 
-                    <div className="songList">
-                        <div className="songs-container">
-                            {songList && songList.map((song) => (<SongItem key={song.songSeq} song={song} albumImage={albumBoardInfo.albumImage} />))}
-                        </div>
-                    </div>
+            <p className="albumTitle">{albumBoardInfo.albumTitle}</p>
+            <p className="albumSinger">
+              {albumBoardInfo.singerList &&
+                albumBoardInfo.singerList.filter((singer, index) => (
+                  <p className="singer" key={index}>
+                    {singer}
+                  </p>
+                ))}
+            </p>
+            <p className="text1">발매일</p>
+            <p className="releaseDate">{albumBoardInfo.releaseDate}</p>
+            <p className="text2">댓글</p>
+            <p className="replyCount">{replies ? replies.totalElements : 0}</p>
+            <p className="text3">기획사</p>
+            <p className="agency">{albumBoardInfo.agency}</p>
+            <p className="albumLike">🤍 {albumLikeCount}</p>
+            <button className="button1" onClick={playAlbum}>
+              <p className="playAlbum">전체 재생</p>
+            </button>
+            <button
+              className="button3"
+              onClick={() =>
+                handleCopyClipBoard(`http://localhost:5173${location.pathname}`)
+              }
+            >
+              <p className="share">공유</p>
+            </button>
+          </div>
 
-                    <div className="replyCountNumber">
-                        <p className="text1">댓글</p>
-                        <p className="text2">{replies ? replies.totalElements : 0}</p>
-                    </div>
+          <div className="albumContent">
+            <p className="content">{albumBoardInfo.albumContent}</p>
+          </div>
 
-                    <InsertAlbumReply id={albumBoardInfo.albumSeq} fetchData={fetchData} />
+          <div className="songList">
+            <div className="songs-container">
+              {songList &&
+                songList.map((song) => (
+                  <SongItem
+                    key={song.songSeq}
+                    song={song}
+                    albumImage={albumBoardInfo.albumImage}
+                  />
+                ))}
+            </div>
+          </div>
 
-                    <div className="sort">
-                        <button className="sortRegDate" value={"regDate"} onClick={handlePageSort}>최신순</button>
-                        <p className="slash">/</p>
-                        <button className="sortLike" value={"Like"} onClick={handlePageSort}>추천순</button>
-                    </div>
+          <div className="replyCountNumber">
+            <p className="text1">댓글</p>
+            <p className="text2">{replies ? replies.totalElements : 0}</p>
+          </div>
 
-                    <div className="albumReplyList">
+          <InsertAlbumReply
+            id={albumBoardInfo.albumSeq}
+            fetchData={fetchData}
+          />
 
-                        {replies && (
-                            replies.content && replies.content.length > 0 ? (
-                                <div>
-                                    {replies.content.map((reply) => (
-                                        <AlbumReplyItem key={reply.albumReplySeq} reply={reply} albumSeq={albumBoardInfo.albumSeq} fetchData={fetchData} />
-                                    ))}
+          <div className="sort">
+            <button
+              className="sortRegDate"
+              value={"regDate"}
+              onClick={handlePageSort}
+            >
+              최신순
+            </button>
+            <p className="slash">/</p>
+            <button
+              className="sortLike"
+              value={"Like"}
+              onClick={handlePageSort}
+            >
+              추천순
+            </button>
+          </div>
 
-                                    <div className="paginationBox">
-                                        <Pagination
-                                            activePage={replies.pageable.pageNumber + 1}
-                                            itemsCountPerPage={5} //한 페이지에 출력할 댓글 수
-                                            totalItemsCount={replies.totalElements} //총 댓글 수
-                                            prevPageText={"<"}
-                                            nextPageText={">"}
-                                            pageRangeDisplayed={5} //한번에 표시할 페이지 인덱스 개수
-                                            onChange={handlePageChange}
-                                        >
-                                        </Pagination>
-                                    </div>
-                                </div>
+          <div className="albumReplyList">
+            {replies &&
+              (replies.content && replies.content.length > 0 ? (
+                <div>
+                  {replies.content.map((reply) => (
+                    <AlbumReplyItem
+                      key={reply.albumReplySeq}
+                      reply={reply}
+                      albumSeq={albumBoardInfo.albumSeq}
+                      fetchData={fetchData}
+                    />
+                  ))}
 
-                            ) : (
-                                <p className="noReply">아직 작성된 댓글이 없습니다.</p>
-                            )
-                        )}
-
-                    </div>
+                  <div className="paginationBox">
+                    <Pagination
+                      activePage={replies.pageable.pageNumber + 1}
+                      itemsCountPerPage={5} //한 페이지에 출력할 댓글 수
+                      totalItemsCount={replies.totalElements} //총 댓글 수
+                      prevPageText={"<"}
+                      nextPageText={">"}
+                      pageRangeDisplayed={5} //한번에 표시할 페이지 인덱스 개수
+                      onChange={handlePageChange}
+                    ></Pagination>
+                  </div>
                 </div>
-            )}
+              ) : (
+                <p className="noReply">아직 작성된 댓글이 없습니다.</p>
+              ))}
+          </div>
         </div>
-
-    )
-}
+      )}
+    </div>
+  );
+};
 
 export default AlbumInfo;

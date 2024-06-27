@@ -16,7 +16,6 @@ const AlbumBoard = ()=>{
         .get("http://localhost:8080/api/album/detail/"+id)
         .then((res)=>{
             setAlbumBoard(res.data.data);
-            console.log('sdafq     ', res.data)
         });
     },[]);
 

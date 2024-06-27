@@ -9,7 +9,6 @@ const RankByView = () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const response = await axios.get(`http://localhost:8080/api/song/rank`);
-      console.log("브베입니다   ", response.data.data);
       setSongs(response.data.data);
     } catch (error) {
       console.error("unknown");
@@ -22,7 +21,7 @@ const RankByView = () => {
 const navigate=  useNavigate();
 
 const liOnCLick = (e) =>{
-  navigate(``);
+  navigate(`/song/detail/${e}`);
 }
 
   return (
