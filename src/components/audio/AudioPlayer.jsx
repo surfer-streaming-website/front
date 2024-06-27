@@ -130,9 +130,9 @@ const AudioPlayer = ()=>{
             {songInfo && logingedCon.isLoggedIn && <img className='playerImage' referrerPolicy='no-referrer' src={songInfo.albumImage}></img>}
             <Link className='songTitle' to={songInfo && "/song/detail/"+songInfo.songSeq}>{songInfo && songInfo.songTitle}</Link>
             <div className='singers'>
-                {songInfo && songInfo.singers && songInfo.singers.map((singer, index)=>(<p className='singer' key={singer.songSingerSeq}>
-                    {singer.songSingerName}
-                    {index !== songInfo.singers.length-1 && ', '}
+                {songInfo && songInfo.singerList && songInfo.singerList.filter((singer, index)=>(<p className='singer' key={index}>
+                    {singer}
+                    {index !== songInfo.singerList.length-1 && ', '}
                     </p>))}
             </div>
             <button className='prevButton' onClick={prevMusic}>⏪</button>

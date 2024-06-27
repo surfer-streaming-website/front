@@ -23,6 +23,7 @@ const AlbumInfo = (props) => {
     const {setMusicList, musicList, currentSongIndex, setCurrentSongIndex} = useContext(PlaylistContext);
 
     const location = useLocation();
+    console.log(albumBoardInfo);
 
     let totalPlayedCount = 0; //각 곡 재생횟수의 합
     if (songList) {
@@ -92,7 +93,7 @@ const AlbumInfo = (props) => {
                         songSeq: albumBoardInfo.songDtoList[i].songSeq,
                         albumImage: albumBoardInfo.albumImage,
                         songTitle: albumBoardInfo.songDtoList[i].songTitle,
-                        singers: albumBoardInfo.songDtoList[i].singers,
+                        singerList: albumBoardInfo.songDtoList[i].singerList,
                         soundSourceUrl: albumBoardInfo.songDtoList[i].soundSourceUrl
                     }
                     songstoAdd.push(newSong); //배열에 곡 객체 추가
@@ -110,7 +111,7 @@ const AlbumInfo = (props) => {
                         songSeq: song.songSeq,
                         albumImage: song.albumImage,
                         songTitle: song.songTitle,
-                        singers: song.singers,
+                        singerList: song.singerList,
                         soundSourceUrl: song.soundSourceUrl
                     };
                     
@@ -131,11 +132,10 @@ const AlbumInfo = (props) => {
 
                 <p className="albumTitle">{albumBoardInfo.albumTitle}</p>
                 <p className="albumSinger">
-                    {albumBoardInfo.singers && 
-                    albumBoardInfo.singers.map((singer, index)=>(
-                      <p className="singer" key={singer.albumSingerSeq}>
-                        {singer.albumSingerName}
-                        {index !== albumBoardInfo.singers.length -1 && ', '}
+                    {albumBoardInfo.singerList && 
+                    albumBoardInfo.singerList.filter((singer, index)=>(
+                      <p className="singer" key={index}>
+                        {singer}
                       </p>
                     ))}
                 </p>

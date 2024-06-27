@@ -24,10 +24,10 @@ const Playlist = ()=>{
                         <img className="img" src="${musicList[i].albumImage}" referrerPolicy="no-referrer"></img>
                         <strong className="songTitle">${musicList[i].songTitle}</strong>
                         <em className="songSingers">
-                            ${musicList[i] && musicList[i].singers.map((singer, index)=>(
-                            `<p className='singer' key=${singer.songSingerSeq}>
-                                ${singer.songSingerName}
-                                ${index !== musicList[i].singers.length-1 ? ', ': ''}
+                            ${musicList[i] && musicList[i].singerList.filter((singer, index)=>(
+                            `<p className='singer' key=${index}>
+                                ${singer}
+                                ${index !== musicList[i].singerList.length-1 ? ', ': ''}
                             </p>`)).join(' ')}
                         </em>
                         <audio src="${musicList[i].soundSourceUrl}" class="audio${i}"></audio>
@@ -39,10 +39,10 @@ const Playlist = ()=>{
                         <img className="img" src="${musicList[i].albumImage}" referrerPolicy="no-referrer"></img>
                         <strong className="songTitle">${musicList[i].songTitle}</strong>
                         <em className="songSingers">
-                            ${musicList[i] && musicList[i].singers.map((singer, index)=>(
-                            `<p className='singer' key=${singer.songSingerSeq}>
-                                ${singer.songSingerName}
-                                ${index !== musicList[i].singers.length-1 ? ', ': ''}
+                            ${musicList[i] && musicList[i].singerList.filter((singer, index)=>(
+                            `<p className='singer' key=${index}>
+                                ${singer}
+                                ${index !== musicList[i].singerList.length-1 ? ', ': ''}
                             </p>`)).join(' ')}
                         </em>
                         <audio src="${musicList[i].soundSourceUrl}" class="audio${i}"></audio>
