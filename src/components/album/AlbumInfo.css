@@ -23,7 +23,7 @@
     /* Album Name */
     
     position: absolute;
-    width: 237px;
+    width: 500px;
     height: 60px;
     left: 364px;
     top: 19px;
@@ -46,7 +46,7 @@
     /* singer */
     
     position: absolute;
-    width: 300px;
+    width: 500px;
     height: 48px;
     left: 364px;
     top: 79px;
@@ -171,7 +171,7 @@
     /* Entertainment */
     
     position: absolute;
-    width: 131px;
+    width: 150px;
     height: 30px;
     left: 442px;
     top: 185px;
@@ -207,24 +207,6 @@
     align-items: center;
     
     color: #FFFFFF;
-    }
-    .albumInfo .albumPlayCount{
-      position: absolute;
-      width: 100px;
-      height: 36px;
-      left: 474px;
-      top: 235px;
-    
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 500;
-      font-size: 24px;
-      line-height: 150%;
-      /* identical to box height, or 36px */
-      display: flex;
-      align-items: center;
-    
-      color: #FFFFFF;
     }
     .albumInfo .button1{
     /* Button */
@@ -268,28 +250,6 @@
     
     text-align: center;
     }
-    .albumInfo .button2{
-    /* Button */
-    
-    /* Auto layout */
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    
-    position: absolute;
-    width: 111px;
-    height: 44px;
-    left: 710px;
-    top: 259px;
-    
-    background: linear-gradient(99deg, #00F8F8 6.84%, #009292 83.28%);
-    /* Button Shadow */
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
-    
-    }
     .albumInfo .button3{
     /* Button */
     
@@ -310,29 +270,6 @@
     /* Button Shadow */
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
-    }
-    .albumInfo .download{
-    /* 앨범 다운 */
-    
-    width: 88px;
-    height: 30px;
-    
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 150%;
-    /* identical to box height, or 30px */
-    display: flex;
-    align-items: center;
-    
-    color: #FFFFFF;
-    
-    
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
     }
     .albumInfo .share{
     /* 공유 */
@@ -373,7 +310,7 @@
       /* 앨범 소개글 들어가는 자리*/
       
       position: relative;
-      width: 619px;
+      width: 80%;
       height: 30px;
       left: 39px;
       top: calc(50%-2px);
