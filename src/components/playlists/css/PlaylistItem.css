@@ -1,0 +1,12 @@
+.playlist-item {
+    color: white;
+}
+
+.playlist-img {
+    display: flex;
+    align-items: center;
+}
+
+.track-text {
+    padding-left: 10px;
+}

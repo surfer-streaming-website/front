@@ -1,0 +1,7 @@
+.song-in {
+    background: linear-gradient(99deg, #00F8F8 6.84%, #009292 83.28%);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    color: white;
+    margin-left: 15px;
+}
