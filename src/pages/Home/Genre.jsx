@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './Genre.css';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./Genre.css";
+import { useNavigate } from "react-router-dom";
 
 const Genre = () => {
   const [songs, setSongs] = useState([]);
-  const [genre, setGenre] = useState('전체');
+  const [genre, setGenre] = useState("전체");
 
   const navigate = useNavigate();
 
   const fetchSongs = (selectedGenre) => {
-    const url = selectedGenre === '전체' 
-      ? 'http://localhost:8080/api/song/all' 
-      : `http://localhost:8080/api/song/genre/${selectedGenre}`;
+    const url =
+      selectedGenre === "전체"
+        ? "http://localhost:8080/api/song/all"
+        : `http://localhost:8080/api/song/genre/${selectedGenre}`;
 
-    
-    const token = localStorage.getItem('accessToken');
-    const headers = token ? { 'Authorization': token } : {};
+    const token = localStorage.getItem("accessToken");
+    const headers = token ? { Authorization: token } : {};
 
-    axios.get(url, { headers })
-      .then(response => {
+    axios
+      .get(url, { headers })
+      .then((response) => {
         setSongs(response.data.data);
-        console.log("sdaf : ", response.data.data)   
-        
+        console.log(response.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("There was an error fetching the songs!", error);
       });
   };
@@ -33,16 +33,27 @@ const Genre = () => {
     fetchSongs(genre);
   }, [genre]);
 
-  const songItemClick = (songSeq) =>{
+  const songItemClick = (songSeq) => {
     navigate(`/song/detail/${songSeq}`);
-  }
+  };
 
   return (
     <div className="genre-container">
       <h1 className="title">곡 리스트</h1>
       <div className="genre-buttons">
-        {['전체', '발라드', 'R&B/소울', '락', '랩/힙합', '일렉트로니카', '블루스', '포크'].map((g, index) => (
-          <button key={index} onClick={() => setGenre(g)}>{g}</button>
+        {[
+          "전체",
+          "발라드",
+          "R&B/소울",
+          "락",
+          "랩/힙합",
+          "일렉트로니카",
+          "블루스",
+          "포크",
+        ].map((g, index) => (
+          <button key={index} onClick={() => setGenre(g)}>
+            {g}
+          </button>
         ))}
       </div>
       <div className="songs-grid">
